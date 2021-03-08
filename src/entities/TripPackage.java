@@ -1,7 +1,5 @@
 package entities;
 
-import java.util.Date;
-
 public class TripPackage extends SearchResult{
     private String name;
     private double price;

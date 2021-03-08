@@ -13,8 +13,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Controller">
    <top>
       <AnchorPane prefHeight="68.0" prefWidth="1200.0" style="-fx-background-color: #FF8C00;" BorderPane.alignment="CENTER">
          <children>
@@ -28,7 +27,7 @@
                   <Image url="@logolangt.png" />
                </image>
             </ImageView>
-            <Label fx:id="loginLabel" layoutX="1044.0" layoutY="24.0" text="Log In">
+            <Label fx:id="loginLabel" layoutX="1044.0" layoutY="24.0" onMouseClicked="#openLogin" style="-fx-cursor: pointer;" text="Log In">
                <font>
                   <Font size="14.0" />
                </font>
@@ -52,7 +51,7 @@
                   <TextField fx:id="childrenInput" layoutX="399.0" layoutY="124.0" prefHeight="35.0" prefWidth="61.0" promptText="Children" />
                   <TextField fx:id="adultsInput" layoutX="399.0" layoutY="71.0" prefHeight="35.0" prefWidth="61.0" promptText="Adults" />
                   <DatePicker fx:id="departureInput" layoutX="281.0" layoutY="71.0" prefHeight="35.0" prefWidth="79.0" promptText="Depart" />
-                  <Button fx:id="searchTripsButton" layoutX="482.0" layoutY="125.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="104.0" style="-fx-background-color: #FF8C00;" text="Search">
+                  <Button fx:id="searchTripsButton" layoutX="482.0" layoutY="125.0" mnemonicParsing="false" onAction="#searchButtonClicked" prefHeight="34.0" prefWidth="104.0" style="-fx-background-color: #FF8C00;" text="Search">
                      <font>
                         <Font size="14.0" />
                      </font>

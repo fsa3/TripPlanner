@@ -64,4 +64,9 @@ public class User {
     public void setSsNum(String ssNum) {
         this.ssNum = ssNum;
     }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
+    }
 }

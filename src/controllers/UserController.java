@@ -1,6 +1,9 @@
 package controllers;
 
 import entities.User;
+import main.DataFactory;
+
+import java.util.ArrayList;
 
 public class UserController {
     private User user;
@@ -17,14 +20,22 @@ public class UserController {
         return user;
     }
 
-    public void loginUser(String email, String pw) {
+    public User loginUser(String email, String pw) {
         searchUser(email);
-        checkPassword(pw);
+        if(checkPassword(pw)) return user;
+        return null;
         // todo
     }
 
     private void searchUser(String email) {
         // todo
+        DataFactory dataFactory = new DataFactory();
+        ArrayList<User> allUsers = dataFactory.getUsers();
+        for(User u : allUsers) {
+            if(email.equals(u.getEmail())) {
+                user = u;
+            }
+        }
     }
 
     private boolean checkPassword(String pw) {

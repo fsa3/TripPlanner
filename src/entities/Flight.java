@@ -1,14 +1,14 @@
 package entities;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Flight {
     private String flightNum;
-    private Date date;
+    private LocalDate date;
     private String depCity;
     private String destCity;
 
-    public Flight(String flightNum, Date date, String depCity, String destCity) {
+    public Flight(String flightNum, LocalDate date, String depCity, String destCity) {
         this.flightNum = flightNum;
         this.date = date;
         this.depCity = depCity;
@@ -23,11 +23,11 @@ public class Flight {
         this.flightNum = flightNum;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -45,5 +45,10 @@ public class Flight {
 
     public void setDestCity(String destCity) {
         this.destCity = destCity;
+    }
+
+    @Override
+    public String toString() {
+        return flightNum + " from " + depCity + " to " + destCity + " on " + date;
     }
 }

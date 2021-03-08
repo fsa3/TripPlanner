@@ -1,11 +1,15 @@
 package entities;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import main.DataFactory;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class SearchResult {
-    protected Date startDate;
-    protected Date endDate;
+    protected LocalDate startDate;
+    protected LocalDate endDate;
     protected String depCity;
     protected String destCity;
     protected int numAdults;
@@ -14,7 +18,7 @@ public class SearchResult {
     protected ArrayList<Hotel> hotels;
     protected ArrayList<DayTrip> dayTrips;
 
-    public SearchResult(Date startDate, Date endDate, String depCity, String destCity, int numAdults, int numChildren) {
+    public SearchResult(LocalDate startDate, LocalDate endDate, String depCity, String destCity, int numAdults, int numChildren) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.depCity = depCity;
@@ -23,19 +27,19 @@ public class SearchResult {
         this.numChildren = numChildren;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -95,7 +99,17 @@ public class SearchResult {
         this.dayTrips = dayTrips;
     }
 
+    public ObservableList<Flight> getFlightsObservable() {
+        ObservableList<Flight> oFlights = FXCollections.observableArrayList();
+        oFlights.addAll(flights);
+        return oFlights;
+    }
+
     public void search() {
         // todo
+        DataFactory dataFactory = new DataFactory();
+        flights = dataFactory.getFlights();
+        hotels = dataFactory.getHotels();
+        dayTrips = dataFactory.getDayTrips();
     }
 }

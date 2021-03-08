@@ -13,8 +13,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Controller">
    <top>
       <AnchorPane prefHeight="68.0" prefWidth="1200.0" style="-fx-background-color: #FF8C00;" BorderPane.alignment="CENTER">
          <children>
@@ -28,7 +27,7 @@
                   <Image url="@logolangt.png" />
                </image>
             </ImageView>
-            <Label layoutX="1044.0" layoutY="24.0" text="Log In">
+            <Label fx:id="loginLabel" layoutX="1044.0" layoutY="24.0" onMouseClicked="#openLogin" style="-fx-cursor: pointer;" text="Log In">
                <font>
                   <Font size="14.0" />
                </font>
@@ -46,13 +45,13 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="64.0" layoutY="70.0" prefHeight="36.0" prefWidth="171.0" promptText="Origin" />
-                  <TextField layoutX="64.0" layoutY="123.0" prefHeight="36.0" prefWidth="171.0" promptText="Destination" />
-                  <DatePicker layoutX="281.0" layoutY="124.0" prefHeight="35.0" prefWidth="79.0" promptText="Return" />
-                  <TextField layoutX="399.0" layoutY="124.0" prefHeight="35.0" prefWidth="61.0" promptText="Children" />
-                  <TextField layoutX="399.0" layoutY="71.0" prefHeight="35.0" prefWidth="61.0" promptText="Adults" />
-                  <DatePicker layoutX="281.0" layoutY="71.0" prefHeight="35.0" prefWidth="79.0" promptText="Depart" />
-                  <Button layoutX="482.0" layoutY="125.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="104.0" style="-fx-background-color: #FF8C00;" text="Search">
+                  <TextField fx:id="originInput" layoutX="64.0" layoutY="70.0" prefHeight="36.0" prefWidth="171.0" promptText="Origin" />
+                  <TextField fx:id="destinationInput" layoutX="64.0" layoutY="123.0" prefHeight="36.0" prefWidth="171.0" promptText="Destination" />
+                  <DatePicker fx:id="returnInput" layoutX="281.0" layoutY="124.0" prefHeight="35.0" prefWidth="79.0" promptText="Return" />
+                  <TextField fx:id="childrenInput" layoutX="399.0" layoutY="124.0" prefHeight="35.0" prefWidth="61.0" promptText="Children" />
+                  <TextField fx:id="adultsInput" layoutX="399.0" layoutY="71.0" prefHeight="35.0" prefWidth="61.0" promptText="Adults" />
+                  <DatePicker fx:id="departureInput" layoutX="281.0" layoutY="71.0" prefHeight="35.0" prefWidth="79.0" promptText="Depart" />
+                  <Button fx:id="searchTripsButton" layoutX="482.0" layoutY="125.0" mnemonicParsing="false" onAction="#searchButtonClicked" prefHeight="34.0" prefWidth="104.0" style="-fx-background-color: #FF8C00;" text="Search">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -64,17 +63,17 @@
             </AnchorPane>
             <ScrollPane layoutX="759.0" layoutY="35.0" prefHeight="199.0" prefWidth="414.0">
                <content>
-                  <ListView prefHeight="200.0" prefWidth="418.0" style="-fx-background-color: #F2D351;" />
+                  <ListView fx:id="allFlightsListView" prefHeight="200.0" prefWidth="418.0" style="-fx-background-color: #F2D351;" />
                </content>
             </ScrollPane>
             <ScrollPane layoutX="759.0" layoutY="267.0" prefHeight="199.0" prefWidth="414.0" style="-fx-background-color: #F2D351;">
                <content>
-                  <ListView prefHeight="200.0" prefWidth="436.0" style="-fx-background-color: #F2D351;" />
+                  <ListView fx:id="allHotelsListView" prefHeight="200.0" prefWidth="436.0" style="-fx-background-color: #F2D351;" />
                </content>
             </ScrollPane>
             <ScrollPane layoutX="759.0" layoutY="508.0" prefHeight="199.0" prefWidth="414.0">
                <content>
-                  <ListView prefHeight="200.0" prefWidth="428.0" style="-fx-background-color: #F2D351;" />
+                  <ListView fx:id="allDayTripsListView" prefHeight="200.0" prefWidth="428.0" style="-fx-background-color: #F2D351;" />
                </content>
             </ScrollPane>
             <Label layoutX="759.0" layoutY="15.0" text="Flights" textFill="WHITE">
@@ -94,7 +93,7 @@
             </Label>
             <ScrollPane layoutX="52.0" layoutY="270.0" prefHeight="437.0" prefWidth="681.0">
                <content>
-                  <ListView prefHeight="436.0" prefWidth="680.0" style="-fx-background-color: #F2D351;" />
+                  <ListView fx:id="tripPackagesListView" prefHeight="436.0" prefWidth="680.0" style="-fx-background-color: #F2D351;" />
                </content>
             </ScrollPane>
             <Label layoutX="52.0" layoutY="241.0" text="Trip Packages for you" textFill="WHITE">

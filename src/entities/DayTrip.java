@@ -6,8 +6,9 @@ public class DayTrip {
     private int numHours;
     private boolean familyFriendly;
 
-    public DayTrip(String name) {
+    public DayTrip(String name, String city) {
         this.name = name;
+        this.city = city;
     }
 
     public String getName() {
@@ -40,5 +41,10 @@ public class DayTrip {
 
     public void setFamilyFriendly(boolean familyFriendly) {
         this.familyFriendly = familyFriendly;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

@@ -1,11 +1,11 @@
 package entities;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class FlightBooking extends Booking {
     private Flight flight;
     private String flightNum;
-    private Date date;
+    private LocalDate date;
     private String departureLocation;
     private String destination;
     private String seat;
@@ -39,11 +39,11 @@ public class FlightBooking extends Booking {
         this.flightNum = flightNum;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
