@@ -37,7 +37,7 @@ public class Controller implements Initializable {
     @FXML
     private Button searchButton;
     @FXML
-    private ListView allFlightsListView;
+    private ListView<entities.Flight> allFlightsListView;
 
 
     @Override
