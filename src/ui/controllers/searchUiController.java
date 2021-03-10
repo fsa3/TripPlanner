@@ -1,4 +1,4 @@
-package main;
+package ui.controllers;
 
 import controllers.UserController;
 import entities.SearchResult;
@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class searchUiController implements Initializable {
     private User user;
 
     @FXML
@@ -53,7 +53,7 @@ public class Controller implements Initializable {
     }
 
     public void openLogin(MouseEvent mouseEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("loginUI.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../views/loginUI.fxml"));
         Stage loginStage = new Stage();
         loginStage.setTitle("BookMaster");
         loginStage.setScene(new Scene(root, 600, 400));

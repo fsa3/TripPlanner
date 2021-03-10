@@ -6,18 +6,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.searchUiController">
    <top>
       <AnchorPane prefHeight="68.0" prefWidth="1200.0" style="-fx-background-color: #FF8C00;" BorderPane.alignment="CENTER">
          <children>
             <ImageView layoutX="982.0" layoutY="9.0">
                <image>
-                  <Image url="@../img/icons8-user-location-50.png" />
+                  <Image url="@../../img/icons8-user-location-50.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="56.0" fitWidth="200.0" layoutX="14.0" layoutY="4.0">
                <image>
-                  <Image url="@../img/logolangt.png" />
+                  <Image url="@../../img/logolangt.png" />
                </image>
             </ImageView>
             <Label fx:id="loginLabel" layoutX="1044.0" layoutY="24.0" onMouseClicked="#openLogin" style="-fx-cursor: pointer;" text="Log In">
