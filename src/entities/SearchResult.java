@@ -105,6 +105,17 @@ public class SearchResult {
         return oFlights;
     }
 
+    public ObservableList<Hotel> getHotelsObservable() {
+        ObservableList<Hotel> oHotels = FXCollections.observableArrayList();
+        oHotels.addAll(hotels);
+        return oHotels;
+    }
+    public ObservableList<DayTrip> getDayTripsObservable() {
+        ObservableList<DayTrip> oDayTrips = FXCollections.observableArrayList();
+        oDayTrips.addAll(dayTrips);
+        return oDayTrips;
+    }
+
     public void search() {
         // todo
         DataFactory dataFactory = new DataFactory();

@@ -38,12 +38,16 @@ public class Controller implements Initializable {
     private Button searchButton;
     @FXML
     private ListView<entities.Flight> allFlightsListView;
+    @FXML
+    private ListView<entities.Hotel> allHotelsListView;
+    @FXML
+    public ListView<entities.DayTrip> allDayTripsListView;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         UserController userController = new UserController();
-        user = userController.loginUser("bbm5@hi.is", "samur");
+        user = userController.loginUser("ahs33@hi.is", "nanna");
         loginLabel.setText(user.getFirstName());
         System.out.println(user);
     }
@@ -60,5 +64,7 @@ public class Controller implements Initializable {
         SearchResult sResult = new SearchResult(departureInput.getValue(), returnInput.getValue(), originInput.getText(), destinationInput.getText(), Integer.parseInt(adultsInput.getText()), Integer.parseInt(childrenInput.getText()));
         sResult.search();
         allFlightsListView.setItems(sResult.getFlightsObservable());
+        allHotelsListView.setItems(sResult.getHotelsObservable());
+        allDayTripsListView.setItems(sResult.getDayTripsObservable());
     }
 }
