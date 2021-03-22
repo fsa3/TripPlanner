@@ -12,12 +12,20 @@ public class TripPackage extends SearchResult{
         masterSearch = search;
     }
 
-    public void addFlight(Flight f) {
-        flights.add(f);
+    public void addInFlight(Flight f) {
+        inFlights.add(f);
     }
 
-    public void removeFlight(Flight f) {
-        flights.remove(flights.indexOf(f));
+    public void removeInFlight(Flight f) {
+        inFlights.remove(f);
+    }
+
+    public void addOutFlight(Flight f) {
+        outFlights.add(f);
+    }
+
+    public void removeOutFlight(Flight f) {
+        outFlights.remove(f);
     }
 
     public void addHotel(Hotel h) {
@@ -25,7 +33,7 @@ public class TripPackage extends SearchResult{
     }
 
     public void removeHotel(Hotel h) {
-        hotels.remove(hotels.indexOf(h));
+        hotels.remove(h);
     }
 
     public void addDayTrip(DayTrip dt) {
@@ -33,7 +41,7 @@ public class TripPackage extends SearchResult{
     }
 
     public void removeDayTrip(DayTrip dt) {
-        dayTrips.remove(dayTrips.indexOf(dt));
+        dayTrips.remove(dt);
     }
 
     public boolean isCustom() {
@@ -46,6 +54,10 @@ public class TripPackage extends SearchResult{
 
     public void bestValue() {
         // todo
+        inFlights = masterSearch.inFlights;
+        outFlights = masterSearch.outFlights;
+        hotels = masterSearch.hotels;
+        dayTrips = masterSearch.dayTrips;
     }
 
     public void highEnd() {

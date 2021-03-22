@@ -14,7 +14,8 @@ public class SearchResult {
     protected String destCity;
     protected int numAdults;
     protected int numChildren;
-    protected ArrayList<Flight> flights;
+    protected ArrayList<Flight> outFlights;
+    protected ArrayList<Flight> inFlights;
     protected ArrayList<Hotel> hotels;
     protected ArrayList<DayTrip> dayTrips;
 
@@ -75,12 +76,20 @@ public class SearchResult {
         this.numChildren = numChildren;
     }
 
-    public ArrayList<Flight> getFlights() {
-        return flights;
+    public ArrayList<Flight> getOutFlights() {
+        return outFlights;
     }
 
-    public void setFlights(ArrayList<Flight> flights) {
-        this.flights = flights;
+    public void setOutFlights(ArrayList<Flight> outFlights) {
+        this.outFlights = outFlights;
+    }
+
+    public ArrayList<Flight> getInFlights() {
+        return inFlights;
+    }
+
+    public void setInFlights(ArrayList<Flight> inFlights) {
+        this.inFlights = inFlights;
     }
 
     public ArrayList<Hotel> getHotels() {
@@ -101,7 +110,8 @@ public class SearchResult {
 
     public ObservableList<Flight> getFlightsObservable() {
         ObservableList<Flight> oFlights = FXCollections.observableArrayList();
-        oFlights.addAll(flights);
+        oFlights.addAll(inFlights);
+        oFlights.addAll(outFlights);
         return oFlights;
     }
 
@@ -119,8 +129,9 @@ public class SearchResult {
     public void search() {
         // todo
         DataFactory dataFactory = new DataFactory();
-        flights = dataFactory.getFlights();
-        hotels = dataFactory.getHotels();
-        dayTrips = dataFactory.getDayTrips();
+        outFlights = dataFactory.getFlights(depCity, destCity, startDate);
+        inFlights = dataFactory.getFlights(destCity, depCity, endDate);
+        hotels = dataFactory.getHotels(destCity);
+        dayTrips = dataFactory.getDayTrips(destCity);
     }
 }

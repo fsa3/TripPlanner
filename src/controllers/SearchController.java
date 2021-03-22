@@ -19,8 +19,9 @@ public class SearchController {
         TripPackage package2 = new TripPackage("High End", searchResult);
         package1.highEnd();
 
+        tPackages = new ArrayList<>();
         tPackages.add(package1);
-        tPackages.add(package2);
+        //tPackages.add(package2);
     }
 
     public ArrayList<TripPackage> getPackages() {
