@@ -49,7 +49,7 @@ public class searchUiController implements Initializable {
         UserController userController = new UserController();
         user = userController.loginUser("ahs33@hi.is", "nanna");
         loginLabel.setText(user.getFirstName());
-        System.out.println(user);
+        System.out.println(user + " er loggaður inn");
     }
 
     public void openLogin(MouseEvent mouseEvent) throws IOException {
