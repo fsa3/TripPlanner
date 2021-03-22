@@ -66,5 +66,6 @@ public class searchUiController implements Initializable {
         allFlightsListView.setItems(sResult.getFlightsObservable());
         allHotelsListView.setItems(sResult.getHotelsObservable());
         allDayTripsListView.setItems(sResult.getDayTripsObservable());
+        System.out.print("Hello World");
     }
 }
