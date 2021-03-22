@@ -17,7 +17,7 @@ public class TripPackage extends SearchResult{
     }
 
     public void removeInFlight(Flight f) {
-        inFlights.remove(inFlights.indexOf(f));
+        inFlights.remove(f);
     }
 
     public void addOutFlight(Flight f) {
@@ -25,7 +25,7 @@ public class TripPackage extends SearchResult{
     }
 
     public void removeOutFlight(Flight f) {
-        outFlights.remove(outFlights.indexOf(f));
+        outFlights.remove(f);
     }
 
     public void addHotel(Hotel h) {
@@ -33,7 +33,7 @@ public class TripPackage extends SearchResult{
     }
 
     public void removeHotel(Hotel h) {
-        hotels.remove(hotels.indexOf(h));
+        hotels.remove(h);
     }
 
     public void addDayTrip(DayTrip dt) {
@@ -41,7 +41,7 @@ public class TripPackage extends SearchResult{
     }
 
     public void removeDayTrip(DayTrip dt) {
-        dayTrips.remove(dayTrips.indexOf(dt));
+        dayTrips.remove(dt);
     }
 
     public boolean isCustom() {
