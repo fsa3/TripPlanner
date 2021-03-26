@@ -1,7 +1,7 @@
 package controllers;
 
 import entities.User;
-import main.DataFactory;
+import data.DataFactory;
 
 import java.util.ArrayList;
 

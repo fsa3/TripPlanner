@@ -1,4 +1,4 @@
-package main;
+package data;
 
 import entities.DayTrip;
 import entities.Flight;
@@ -6,7 +6,6 @@ import entities.Hotel;
 import entities.User;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 
 public class DataFactory implements Database {

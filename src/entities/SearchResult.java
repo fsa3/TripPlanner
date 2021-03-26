@@ -2,9 +2,8 @@ package entities;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import main.DataFactory;
-import main.Database;
-import main.MockDataFactory;
+import data.DataFactory;
+import data.Database;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
