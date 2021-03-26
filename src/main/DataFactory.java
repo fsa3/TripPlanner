@@ -9,11 +9,12 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 
-public class DataFactory {
+public class DataFactory implements Database {
     public DataFactory() {
 
     }
 
+    @Override
     public ArrayList<Flight> getFlights(String depCity, String destCity, LocalDate date) {
         ArrayList<Flight> flights = new ArrayList<>();
         flights.add(new Flight("FN-6969", date, depCity, destCity));
@@ -25,6 +26,7 @@ public class DataFactory {
         return flights;
     }
 
+    @Override
     public ArrayList<Hotel> getHotels(String city) {
         ArrayList<Hotel> hotels = new ArrayList<>();
         hotels.add(new Hotel("Hotel OLV", city));
@@ -37,6 +39,7 @@ public class DataFactory {
         return hotels;
     }
 
+    @Override
     public ArrayList<DayTrip> getDayTrips(String city) {
         ArrayList<DayTrip> dayTrips = new ArrayList<>();
         dayTrips.add(new DayTrip("Kúrstund at Fannar's Room!", city));
@@ -48,6 +51,7 @@ public class DataFactory {
         return dayTrips;
     }
 
+    @Override
     public ArrayList<User> getUsers() {
         ArrayList<User> users = new ArrayList<>();
         users.add(new User("bbm5@hi.is", "Björn Borgar", "Magnússon", "samur", "5540817", "1234"));
