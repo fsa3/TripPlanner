@@ -4,6 +4,7 @@ import entities.User;
 import javafx.scene.control.Alert;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DataConnection {
     private Connection connection;
@@ -45,5 +46,40 @@ public class DataConnection {
         Alert a = new Alert(Alert.AlertType.ERROR);
         a.setContentText("Error Connecting to database");
         a.show();
+    }
+
+    public User getUserByEmail(String email) {
+        try {
+            String query = "SELECT * FROM Users WHERE email = ?";
+            PreparedStatement getUser = connection.prepareStatement(query);
+            getUser.setString(1, email);
+            ResultSet rs = getUser.executeQuery();
+            if(rs.isClosed()) return null;
+            String userEmail = rs.getString(1);
+            String userPw = rs.getString(2);
+            String firstName = rs.getString(3);
+            String lastName = rs.getString(4);
+            String phoneNum = rs.getString(5);
+            String ssNum = rs.getString(6);
+            return new User(userEmail, firstName, lastName, userPw, phoneNum, ssNum);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            databaseError();
+        }
+        return null;
+    }
+
+    public void createUser(ArrayList<String> userInfo) {
+        String query = "INSERT INTO Users(email, password, firstName, lastName, phoneNumber, ssNum) values(?,?,?,?,?,?)";
+        try {
+            PreparedStatement createUser = connection.prepareStatement(query);
+            for(int i = 0; i < 6; i++) {
+                createUser.setString(i+1, userInfo.get(i));
+            }
+            createUser.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            databaseError();
+        }
     }
 }
