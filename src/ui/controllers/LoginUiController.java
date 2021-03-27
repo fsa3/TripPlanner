@@ -62,4 +62,12 @@ public class LoginUiController implements Initializable {
             ((Stage) sceneRoot.getScene().getWindow()).close();
         }
     }
+
+    public void cancelWhenClicked(ActionEvent actionEvent) {
+        ((Stage) sceneRoot.getScene().getWindow()).close();
+    }
+
+    public void signUpUser(MouseEvent mouseEvent) {
+        // Ekki gleyma að gera þessa aðferð
+    }
 }
