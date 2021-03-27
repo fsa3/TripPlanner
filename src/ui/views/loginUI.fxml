@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="sceneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-border-width: 2; -fx-border-color: black;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.LoginUiController">
+<BorderPane fx:id="sceneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-border-width: 2; -fx-border-color: black;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.LoginUiController">
    <top>
       <AnchorPane prefHeight="108.0" prefWidth="600.0" style="-fx-background-color: #1E1E20; visibility: true;" BorderPane.alignment="CENTER">
          <children>
@@ -55,7 +55,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Label layoutX="413.0" layoutY="207.0" onMouseClicked="#signUpUser" text="Not a Member yet? " textFill="#e4eaf0" />
+            <Label fx:id="notMemberLabel" layoutX="413.0" layoutY="207.0" onMouseClicked="#signUpUserLabelClicked" onMouseEntered="#notMemberMouseEnter" onMouseExited="#notMemberMouseExit" text="Not a Member yet? " textFill="#e4eaf0" />
             <AnchorPane layoutY="-107.0" prefHeight="394.0" prefWidth="232.0" style="-fx-background-color: #FF8C00;">
                <children>
                   <ImageView fitHeight="162.0" fitWidth="200.0" layoutX="16.0" layoutY="123.0">

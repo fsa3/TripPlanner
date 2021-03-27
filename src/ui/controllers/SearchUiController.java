@@ -79,7 +79,7 @@ public class SearchUiController implements Initializable {
         loginStage.initStyle(StageStyle.UNDECORATED);
         loginStage.initModality(Modality.WINDOW_MODAL);
         loginStage.initOwner(searchStage);
-        loginStage.showAndWait();
+        loginStage.show();
     }
 
     public void searchButtonClicked(ActionEvent actionEvent) {
