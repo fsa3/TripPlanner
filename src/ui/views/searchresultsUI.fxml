@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="sceneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.SearchUiController">
+   <children>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0">
+         <top>
+            <AnchorPane prefHeight="68.0" prefWidth="1200.0" style="-fx-background-color: #FF8C00;" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView layoutX="982.0" layoutY="9.0" onMouseClicked="#openLogin" onMouseEntered="#mouseOnLoginLabel" onMouseExited="#mouseOffLoginLabel">
+                     <image>
+                        <Image url="@../../img/icons8-user-location-50.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="56.0" fitWidth="200.0" layoutX="14.0" layoutY="4.0">
+                     <image>
+                        <Image url="@../../img/logolangt.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="loginLabel" layoutX="1044.0" layoutY="24.0" onMouseClicked="#openLogin" onMouseEntered="#mouseOnLoginLabel" onMouseExited="#mouseOffLoginLabel" style="-fx-cursor: pointer;" text="Log In">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </top>
+         <center>
+            <AnchorPane prefHeight="439.0" prefWidth="837.0" style="-fx-background-color: #393939;" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
