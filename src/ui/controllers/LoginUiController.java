@@ -23,6 +23,8 @@ import java.util.ResourceBundle;
 public class LoginUiController implements Initializable {
 
     @FXML
+    public Label notMemberLabel;
+    @FXML
     private BorderPane sceneRoot;
     @FXML
     public TextField emailInput;
@@ -67,7 +69,21 @@ public class LoginUiController implements Initializable {
         ((Stage) sceneRoot.getScene().getWindow()).close();
     }
 
-    public void signUpUser(MouseEvent mouseEvent) {
-        // Ekki gleyma að gera þessa aðferð
+    public void signUpUserLabelClicked(MouseEvent mouseEvent) {
+        try {
+            BorderPane signUpRoot = FXMLLoader.load(getClass().getResource("../views/signupUI.fxml"));
+            sceneRoot.getChildren().setAll(signUpRoot);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void notMemberMouseEnter(MouseEvent mouseEvent) {
+        notMemberLabel.setUnderline(true);
+    }
+
+    public void notMemberMouseExit(MouseEvent mouseEvent) {
+        notMemberLabel.setUnderline(false);
     }
 }

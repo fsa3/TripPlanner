@@ -55,7 +55,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Label layoutX="413.0" layoutY="207.0" onMouseClicked="#signUpUser" text="Not a Member yet? " textFill="#e4eaf0" />
+            <Label layoutX="413.0" layoutY="207.0" onMouseClicked="#signUpUserLabelClicked" text="Not a Member yet? " textFill="#e4eaf0" />
             <AnchorPane layoutY="-113.0" prefHeight="400.0" prefWidth="165.0" style="-fx-background-color: #FF8C00;">
                <children>
                   <ImageView fitHeight="119.0" fitWidth="135.0" layoutX="15.0" layoutY="117.0">
