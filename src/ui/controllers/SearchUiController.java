@@ -18,6 +18,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -75,6 +76,7 @@ public class SearchUiController implements Initializable {
         loginUiController.setOwningController(this);
         if(user != null) loginUiController.setUser(user);
 
+        loginStage.initStyle(StageStyle.UNDECORATED);
         loginStage.initModality(Modality.WINDOW_MODAL);
         loginStage.initOwner(searchStage);
         loginStage.showAndWait();
