@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-border-width: 2;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-border-width: 2;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.LoginUiController">
    <top>
       <AnchorPane prefHeight="108.0" prefWidth="600.0" style="-fx-background-color: #1E1E20; visibility: true;" BorderPane.alignment="CENTER">
          <children>
@@ -35,12 +35,12 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField layoutX="308.0" layoutY="40.0" prefHeight="26.0" prefWidth="210.0">
+            <TextField fx:id="emailInput" layoutX="308.0" layoutY="40.0" prefHeight="26.0" prefWidth="210.0">
                <font>
                   <Font size="14.0" />
                </font>
             </TextField>
-            <Button layoutX="309.0" layoutY="156.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="210.0" style="-fx-border-color: pink; -fx-background-color: orange;" text="Log In">
+            <Button layoutX="309.0" layoutY="156.0" mnemonicParsing="false" onAction="#loginOnClick" prefHeight="46.0" prefWidth="210.0" style="-fx-border-color: pink; -fx-background-color: orange;" text="Log In">
                <font>
                   <Font size="17.0" />
                </font>
@@ -55,7 +55,7 @@
                </children>
             </AnchorPane>
             <Label layoutX="414.0" layoutY="214.0" text="Not a Member yet? " textFill="#e4eaf0" />
-            <PasswordField layoutX="308.0" layoutY="109.0" prefHeight="26.0" prefWidth="210.0">
+            <PasswordField fx:id="passwordInput" layoutX="308.0" layoutY="109.0" prefHeight="26.0" prefWidth="210.0">
                <font>
                   <Font size="14.0" />
                </font>
