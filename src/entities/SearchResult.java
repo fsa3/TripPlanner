@@ -2,7 +2,8 @@ package entities;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import main.DataFactory;
+import data.DataFactory;
+import data.Database;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -128,7 +129,8 @@ public class SearchResult {
 
     public void search() {
         // todo
-        DataFactory dataFactory = new DataFactory();
+        Database dataFactory = new DataFactory();
+
         outFlights = dataFactory.getFlights(depCity, destCity, startDate);
         inFlights = dataFactory.getFlights(destCity, depCity, endDate);
         hotels = dataFactory.getHotels(destCity);

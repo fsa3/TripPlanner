@@ -1,6 +1,7 @@
 package ui.controllers;
 
 import controllers.UserController;
+import data.DataConnection;
 import entities.SearchResult;
 import entities.User;
 import javafx.event.ActionEvent;
@@ -11,13 +12,21 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Region;
+import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class searchUiController implements Initializable {
+public class SearchUiController implements Initializable {
+
     private User user;
 
     @FXML
@@ -42,22 +51,35 @@ public class searchUiController implements Initializable {
     private ListView<entities.Hotel> allHotelsListView;
     @FXML
     public ListView<entities.DayTrip> allDayTripsListView;
+    @FXML
+    public AnchorPane sceneRoot;
+
+    private Stage searchStage;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        UserController userController = new UserController();
-        user = userController.loginUser("ahs33@hi.is", "nanna");
-        loginLabel.setText(user.getFirstName());
-        System.out.println(user + " er loggaður inn");
+
     }
 
     public void openLogin(MouseEvent mouseEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../views/loginUI.fxml"));
+        searchStage = (Stage) sceneRoot.getScene().getWindow();
+
         Stage loginStage = new Stage();
-        loginStage.setTitle("BookMaster");
-        loginStage.setScene(new Scene(root, 600, 400));
-        loginStage.show();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/loginUI.fxml"));
+        Region root = loader.load();
+
+        Scene scene = new Scene(root);
+        loginStage.setScene(scene);
+
+        LoginUiController loginUiController = loader.getController();
+        loginUiController.setOwningController(this);
+        if(user != null) loginUiController.setUser(user);
+
+        loginStage.initStyle(StageStyle.UNDECORATED);
+        loginStage.initModality(Modality.WINDOW_MODAL);
+        loginStage.initOwner(searchStage);
+        loginStage.showAndWait();
     }
 
     public void searchButtonClicked(ActionEvent actionEvent) {
@@ -66,5 +88,22 @@ public class searchUiController implements Initializable {
         allFlightsListView.setItems(sResult.getFlightsObservable());
         allHotelsListView.setItems(sResult.getHotelsObservable());
         allDayTripsListView.setItems(sResult.getDayTripsObservable());
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+        loginLabel.setText(this.user.getFirstName());
+    }
+
+    public void mouseOnLoginLabel(MouseEvent mouseEvent) {
+        loginLabel.setUnderline(true);
+    }
+
+    public void mouseOffLoginLabel(MouseEvent mouseEvent) {
+        loginLabel.setUnderline(false);
     }
 }

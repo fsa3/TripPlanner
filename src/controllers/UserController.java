@@ -1,7 +1,8 @@
 package controllers;
 
+import data.DataConnection;
 import entities.User;
-import main.DataFactory;
+import data.DataFactory;
 
 import java.util.ArrayList;
 
@@ -21,10 +22,8 @@ public class UserController {
     }
 
     public User loginUser(String email, String pw) {
-        searchUser(email);
-        if(checkPassword(pw)) return user;
-        return null;
-        // todo
+        DataConnection dc = new DataConnection();
+        return dc.getUserByEmailAndPw(email, pw);
     }
 
     private void searchUser(String email) {
