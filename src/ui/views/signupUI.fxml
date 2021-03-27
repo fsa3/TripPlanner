@@ -28,7 +28,7 @@
       <AnchorPane prefHeight="329.0" prefWidth="596.0" style="-fx-background-color: #1E1E20;" BorderPane.alignment="CENTER">
          <children>
             <Label fx:id="errorLabel" alignment="CENTER" layoutX="307.0" layoutY="125.0" prefHeight="17.0" prefWidth="211.0" text="Incorrect email or password, try again" textAlignment="CENTER" textFill="RED" visible="false" />
-            <Button layoutX="319.0" layoutY="219.0" mnemonicParsing="false" onAction="#loginOnClick" prefHeight="46.0" prefWidth="174.0" style="-fx-border-color: pink; -fx-background-color: orange;" text="Create Account">
+            <Button fx:id="createAccButton" layoutX="319.0" layoutY="219.0" mnemonicParsing="false" onAction="#loginOnClick" prefHeight="46.0" prefWidth="174.0" style="-fx-border-color: pink; -fx-background-color: orange;" text="Create Account">
                <font>
                   <Font size="17.0" />
                </font>
@@ -106,7 +106,7 @@
                   </VBox>
                   <VBox layoutX="111.0" layoutY="7.0" prefHeight="200.0" prefWidth="178.0">
                      <children>
-                        <TextField style="-fx-background-color: #393939; -fx-text-inner-color: #white;">
+                        <TextField fx:id="emailTextField" style="-fx-background-color: #393939;" stylesheets="@../styles/signup.css">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -114,7 +114,7 @@
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField layoutX="10.0" layoutY="10.0" style="-fx-background-color: #393939; -fx-text-inner-color: #white;">
+                        <TextField fx:id="passwordTextField" layoutX="10.0" layoutY="10.0" style="-fx-background-color: #393939;">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -122,7 +122,7 @@
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField layoutX="10.0" layoutY="48.0" style="-fx-background-color: #393939; -fx-text-inner-color: #white;">
+                        <TextField fx:id="firstNametTextField" layoutX="10.0" layoutY="48.0" style="-fx-background-color: #393939;">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -130,7 +130,7 @@
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField layoutX="10.0" layoutY="86.0" style="-fx-background-color: #393939; -fx-text-inner-color: #white;">
+                        <TextField fx:id="lastNameTextField" layoutX="10.0" layoutY="86.0" style="-fx-background-color: #393939;">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -138,7 +138,7 @@
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField layoutX="10.0" layoutY="109.0" style="-fx-background-color: #393939; -fx-text-inner-color: #white;">
+                        <TextField fx:id="phoneTextField" layoutX="10.0" layoutY="109.0" style="-fx-background-color: #393939;">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -146,7 +146,7 @@
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField layoutX="10.0" layoutY="162.0" style="-fx-background-color: #393939; -fx-text-inner-color: #white;">
+                        <TextField fx:id="ssNumberTextField" layoutX="10.0" layoutY="162.0" style="-fx-background-color: #393939;">
                            <font>
                               <Font size="14.0" />
                            </font>
