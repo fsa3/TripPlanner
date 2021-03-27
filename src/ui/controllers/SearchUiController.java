@@ -27,6 +27,7 @@ import java.util.ResourceBundle;
 
 public class SearchUiController implements Initializable {
 
+
     private User user;
 
     @FXML
@@ -53,6 +54,8 @@ public class SearchUiController implements Initializable {
     public ListView<entities.DayTrip> allDayTripsListView;
     @FXML
     public AnchorPane sceneRoot;
+    @FXML
+    public AnchorPane resultSceneRoot;
 
     private Stage searchStage;
 
@@ -83,11 +86,12 @@ public class SearchUiController implements Initializable {
     }
 
     public void searchButtonClicked(ActionEvent actionEvent) {
-        SearchResult sResult = new SearchResult(departureInput.getValue(), returnInput.getValue(), originInput.getText(), destinationInput.getText(), Integer.parseInt(adultsInput.getText()), Integer.parseInt(childrenInput.getText()));
-        sResult.search();
-        allFlightsListView.setItems(sResult.getFlightsObservable());
-        allHotelsListView.setItems(sResult.getHotelsObservable());
-        allDayTripsListView.setItems(sResult.getDayTripsObservable());
+        try {
+            AnchorPane resultRoot = FXMLLoader.load(getClass().getResource("../views/searchresultsUI.fxml"));
+            sceneRoot.getChildren().setAll(resultRoot);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public User getUser() {
