@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -22,9 +23,13 @@ import java.util.ResourceBundle;
 public class LoginUiController implements Initializable {
 
     @FXML
+    private BorderPane sceneRoot;
+    @FXML
     public TextField emailInput;
     @FXML
     public PasswordField passwordInput;
+    @FXML
+    public Label errorLabel;
 
     private User user;
     private SearchUiController owningController;
@@ -46,8 +51,15 @@ public class LoginUiController implements Initializable {
     }
 
     public void loginOnClick(ActionEvent actionEvent) {
+        errorLabel.setVisible(false);
         UserController userController = new UserController();
         user = userController.loginUser(emailInput.getText(), passwordInput.getText());
-        owningController.setUser(user);
+        if(user == null) {
+            errorLabel.setVisible(true);
+        }
+        else {
+            owningController.setUser(user);
+            ((Stage) sceneRoot.getScene().getWindow()).close();
+        }
     }
 }

@@ -15,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -94,5 +95,13 @@ public class SearchUiController implements Initializable {
     public void setUser(User user) {
         this.user = user;
         loginLabel.setText(this.user.getFirstName());
+    }
+
+    public void mouseOnLoginLabel(MouseEvent mouseEvent) {
+        loginLabel.setUnderline(true);
+    }
+
+    public void mouseOffLoginLabel(MouseEvent mouseEvent) {
+        loginLabel.setUnderline(false);
     }
 }
