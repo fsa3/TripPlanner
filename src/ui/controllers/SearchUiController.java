@@ -1,28 +1,24 @@
 package ui.controllers;
 
-import controllers.UserController;
-import data.DataConnection;
-import entities.SearchResult;
 import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Region;
-import javafx.scene.text.Font;
+import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class SearchUiController implements Initializable {
@@ -47,15 +43,9 @@ public class SearchUiController implements Initializable {
     @FXML
     private Button searchButton;
     @FXML
-    private ListView<entities.Flight> allFlightsListView;
-    @FXML
-    private ListView<entities.Hotel> allHotelsListView;
-    @FXML
-    public ListView<entities.DayTrip> allDayTripsListView;
-    @FXML
     public AnchorPane sceneRoot;
     @FXML
-    public AnchorPane resultSceneRoot;
+    public VBox packagesVBox;
 
     private Stage searchStage;
 
@@ -89,6 +79,7 @@ public class SearchUiController implements Initializable {
         try {
             AnchorPane resultRoot = FXMLLoader.load(getClass().getResource("../views/searchresultsUI.fxml"));
             sceneRoot.getChildren().setAll(resultRoot);
+            displayPackages((VBox) sceneRoot.lookup("#packagesVBox"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -109,5 +100,70 @@ public class SearchUiController implements Initializable {
 
     public void mouseOffLoginLabel(MouseEvent mouseEvent) {
         loginLabel.setUnderline(false);
+    }
+
+    @FXML
+    private void displayPackages(VBox packagesVBox) {
+        AnchorPane packageAnchor = new AnchorPane();
+        packageAnchor.getStyleClass().add("packageContainer");
+        GridPane gp = new GridPane();
+        gp.add(new Label("Package"), 0,0);
+        gp.add(new Label("price"), 2, 0);
+
+        VBox flights = new VBox();
+        ImageView fImg = new ImageView();
+        fImg.setImage(new Image("@../../img/landing.png"));
+        fImg.setFitHeight(28);
+        fImg.setPreserveRatio(true);
+        fImg.setRotate(-45);
+        Label flight = new Label("Reykjavík - Akureyri");
+        HBox hb = new HBox();
+        hb.setSpacing(5);
+        hb.getChildren().add(fImg);
+        hb.getChildren().add(flight);
+        flights.getChildren().add(hb);
+        // annað flug
+        fImg = new ImageView();
+        fImg.setImage(new Image("@../../img/landing.png"));
+        fImg.setFitHeight(28);
+        fImg.setPreserveRatio(true);
+        flight = new Label("Reykjavík - Akureyri");
+        hb = new HBox();
+        hb.setSpacing(5);
+        hb.getChildren().add(fImg);
+        hb.getChildren().add(flight);
+        flights.getChildren().add(hb);
+        flights.setPrefWidth(300);
+
+        gp.add(flights, 0, 1);
+
+        VBox dayTrips = new VBox();
+        HBox dt1 = new HBox();
+        dt1.getChildren().add(new Label("Dagsferð"));
+        HBox dt2 = new HBox();
+        dt2.getChildren().add(new Label("Dagsferð"));
+        dayTrips.getChildren().add(dt1);
+        dayTrips.getChildren().add(dt2);
+        gp.add(dayTrips, 1, 1, 2, 1);
+
+        VBox hotel = new VBox();
+        hotel.getChildren().add(new Label("Hotel OLV - 3 nætur - deluxe herbergi"));
+        hotel.setAlignment(Pos.CENTER_LEFT);
+        hotel.setPrefWidth(500);
+        gp.add(hotel, 0, 2, 2, 1);
+
+        HBox buttons = new HBox();
+        buttons.getChildren().add(new Button("See more"));
+        Pane spacer = new Pane();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        spacer.setMinSize(20, 1);
+        buttons.getChildren().add(spacer);
+        buttons.getChildren().add(new Button("Book package"));
+        gp.add(buttons, 2, 2);
+
+        packagesVBox.setSpacing(10);
+        packageAnchor.getChildren().add(gp);
+        packagesVBox.getChildren().add(packageAnchor);
+
     }
 }

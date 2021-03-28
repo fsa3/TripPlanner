@@ -1,3 +1,20 @@
 .packageContainer{
-    -fx-border-color: #00ffff;
+    -fx-border-color: #0D7377;
+}
+
+GridPane {
+    -fx-padding: 10;
+}
+
+.packageContainer Label {
+    -fx-text-fill: #ffffff;
+    -fx-padding: 5;
+}
+
+HBox {
+    -fx-padding: 5;
+}
+
+Button {
+    -fx-padding: 5;
 }
