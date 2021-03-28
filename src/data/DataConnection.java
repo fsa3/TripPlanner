@@ -48,11 +48,11 @@ public class DataConnection {
         a.show();
     }
 
-    public User getUserByEmail(String email) {
+    public User getUserBy(String attribute, String value) {
         try {
-            String query = "SELECT * FROM Users WHERE email = ?";
+            String query = "SELECT * FROM Users WHERE "+attribute+" = ?";
             PreparedStatement getUser = connection.prepareStatement(query);
-            getUser.setString(1, email);
+            getUser.setString(1, value);
             ResultSet rs = getUser.executeQuery();
             if(rs.isClosed()) return null;
             String userEmail = rs.getString(1);

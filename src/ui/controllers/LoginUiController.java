@@ -123,11 +123,14 @@ public class LoginUiController implements Initializable {
         else if(!emailPattern.matcher(userInfo.get(0)).matches()) {
             signUpErrorLabel.setText("Invalid email address");
         }
-        else if(userController.getUser(userInfo.get(0)) != null) {
+        else if(userController.getUser("email", userInfo.get(0)) != null) {
             signUpErrorLabel.setText("An account with this email already exists");
         }
         else if(!phonePattern.matcher(userInfo.get(4)).matches()) {
             signUpErrorLabel.setText("Invalid phone number");
+        }
+        else if(userController.getUser("ssNum", userInfo.get(5)) != null) {
+            signUpErrorLabel.setText("Invalid Social Security Number");
         }
         else {
             userController.createUser(userInfo);

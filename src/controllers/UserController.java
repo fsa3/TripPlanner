@@ -26,9 +26,9 @@ public class UserController {
         return dc.getUserByEmailAndPw(email, pw);
     }
 
-    public User getUser(String email) {
+    public User getUser(String attribute, String value) {
         DataConnection dc = new DataConnection();
-        return dc.getUserByEmail(email);
+        return dc.getUserBy(attribute, value);
     }
 
     private void searchUser(String email) {
