@@ -1,6 +1,7 @@
 package ui.controllers;
 
-import entities.User;
+import controllers.SearchController;
+import entities.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,12 +14,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class SearchUiController implements Initializable {
@@ -52,7 +56,7 @@ public class SearchUiController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        System.out.println("initialize");
     }
 
     public void openLogin(MouseEvent mouseEvent) throws IOException {
@@ -79,10 +83,12 @@ public class SearchUiController implements Initializable {
         try {
             AnchorPane resultRoot = FXMLLoader.load(getClass().getResource("../views/searchresultsUI.fxml"));
             sceneRoot.getChildren().setAll(resultRoot);
-            displayPackages((VBox) sceneRoot.lookup("#packagesVBox"));
+            displayTripPackage(createTestPackage(), (VBox) sceneRoot.lookup("#packagesVBox"));
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        createTestPackage();
     }
 
     public User getUser() {
@@ -102,52 +108,67 @@ public class SearchUiController implements Initializable {
         loginLabel.setUnderline(false);
     }
 
-    @FXML
-    private void displayPackages(VBox packagesVBox) {
-        AnchorPane packageAnchor = new AnchorPane();
-        packageAnchor.getStyleClass().add("packageContainer");
+    public TripPackage createTestPackage() {
+        SearchResult searchResult = new SearchResult(LocalDate.of(2021, 3, 23),
+                LocalDate.of(2021, 3, 28),
+                "Reykjavík", "Akureyri", 2, 1
+        );
+        searchResult.search();
+        SearchController searchController = new SearchController(searchResult);
+        searchController.createTripPackages();
+        return searchController.getPackages().get(0);
+    }
+
+    private void displayTripPackage(TripPackage tPackage, VBox packagesVBox) {
+        AnchorPane packageContainer = new AnchorPane();
+        packageContainer.getStyleClass().add("packageContainer");
+
         GridPane gp = new GridPane();
-        gp.add(new Label("Package"), 0,0);
-        gp.add(new Label("price"), 2, 0);
+
+        Label name = new Label(tPackage.getName());
+        name.getStyleClass().add("packageTitle");
+        VBox price = new VBox();
+        price.getChildren().add(new Label(String.valueOf(tPackage.getPrice()) + "$"));
+        price.getStyleClass().add("packagePrice");
+        price.setAlignment(Pos.CENTER_RIGHT);
+        gp.add(name, 0,0);
+        gp.add(price, 2, 0);
 
         VBox flights = new VBox();
         ImageView fImg = new ImageView();
         fImg.setImage(new Image("@../../img/landing.png"));
         fImg.setFitHeight(28);
         fImg.setPreserveRatio(true);
+        //out flight
         fImg.setRotate(-45);
-        Label flight = new Label("Reykjavík - Akureyri");
-        HBox hb = new HBox();
-        hb.setSpacing(5);
-        hb.getChildren().add(fImg);
-        hb.getChildren().add(flight);
-        flights.getChildren().add(hb);
-        // annað flug
-        fImg = new ImageView();
-        fImg.setImage(new Image("@../../img/landing.png"));
-        fImg.setFitHeight(28);
-        fImg.setPreserveRatio(true);
-        flight = new Label("Reykjavík - Akureyri");
-        hb = new HBox();
-        hb.setSpacing(5);
-        hb.getChildren().add(fImg);
-        hb.getChildren().add(flight);
-        flights.getChildren().add(hb);
-        flights.setPrefWidth(300);
-
+        Label flightLabel = new Label(tPackage.getOutFlights().get(0).toString());
+        HBox flightHBox = new HBox();
+        flightHBox.setSpacing(5);
+        flightHBox.getChildren().addAll(fImg, flightLabel);
+        flights.getChildren().add(flightHBox);
+        //in flight
+        ImageView fImg2 = new ImageView();
+        fImg2.setImage(new Image("@../../img/landing.png"));
+        fImg2.setFitHeight(28);
+        fImg2.setPreserveRatio(true);
+        flightLabel = new Label(tPackage.getInFlights().get(0).toString());
+        HBox flightHBox2 = new HBox();
+        flightHBox2.setSpacing(5);
+        flightHBox2.getChildren().addAll(fImg2, flightLabel);
+        flights.getChildren().add(flightHBox2);
+        flights.setPrefWidth(400);
         gp.add(flights, 0, 1);
 
         VBox dayTrips = new VBox();
-        HBox dt1 = new HBox();
-        dt1.getChildren().add(new Label("Dagsferð"));
-        HBox dt2 = new HBox();
-        dt2.getChildren().add(new Label("Dagsferð"));
-        dayTrips.getChildren().add(dt1);
-        dayTrips.getChildren().add(dt2);
+        for(DayTrip dt : tPackage.getDayTrips()) {
+            HBox dtHBox = new HBox();
+            dtHBox.getChildren().add(new Label(dt.toString()));
+            dayTrips.getChildren().add(dtHBox);
+        }
         gp.add(dayTrips, 1, 1, 2, 1);
 
         VBox hotel = new VBox();
-        hotel.getChildren().add(new Label("Hotel OLV - 3 nætur - deluxe herbergi"));
+        hotel.getChildren().add(new Label(tPackage.getHotels().get(0).toString()));
         hotel.setAlignment(Pos.CENTER_LEFT);
         hotel.setPrefWidth(500);
         gp.add(hotel, 0, 2, 2, 1);
@@ -162,8 +183,7 @@ public class SearchUiController implements Initializable {
         gp.add(buttons, 2, 2);
 
         packagesVBox.setSpacing(10);
-        packageAnchor.getChildren().add(gp);
-        packagesVBox.getChildren().add(packageAnchor);
-
+        packageContainer.getChildren().add(gp);
+        packagesVBox.getChildren().add(packageContainer);
     }
 }

@@ -58,9 +58,18 @@ public class TripPackage extends SearchResult{
         outFlights = masterSearch.outFlights;
         hotels = masterSearch.hotels;
         dayTrips = masterSearch.dayTrips;
+        price = 45.69;
     }
 
     public void highEnd() {
         // todo
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
     }
 }
