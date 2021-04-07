@@ -1,100 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.searchUiController">
-   <top>
-      <AnchorPane prefHeight="68.0" prefWidth="1200.0" style="-fx-background-color: #FF8C00;" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView layoutX="982.0" layoutY="9.0">
-               <image>
-                  <Image url="@../../img/icons8-user-location-50.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="56.0" fitWidth="200.0" layoutX="14.0" layoutY="4.0">
-               <image>
-                  <Image url="@../../img/logolangt.png" />
-               </image>
-            </ImageView>
-            <Label fx:id="loginLabel" layoutX="1044.0" layoutY="24.0" onMouseClicked="#openLogin" style="-fx-cursor: pointer;" text="Log In">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-   </top>
-   <center>
-      <AnchorPane prefHeight="439.0" prefWidth="837.0" style="-fx-background-color: #393939;" BorderPane.alignment="CENTER">
-         <children>
-            <AnchorPane layoutX="52.0" layoutY="23.0" prefHeight="200.0" prefWidth="691.0" style="-fx-background-color: #0D7377;">
+<AnchorPane fx:id="sceneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.SearchUiController">
+   <children>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0">
+         <top>
+            <AnchorPane prefHeight="68.0" prefWidth="1200.0" style="-fx-background-color: #FF8C00;" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="14.0" layoutY="14.0" text="Search trips" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="originInput" layoutX="64.0" layoutY="70.0" prefHeight="36.0" prefWidth="171.0" promptText="Origin" />
-                  <TextField fx:id="destinationInput" layoutX="64.0" layoutY="123.0" prefHeight="36.0" prefWidth="171.0" promptText="Destination" />
-                  <DatePicker fx:id="returnInput" layoutX="281.0" layoutY="124.0" prefHeight="35.0" prefWidth="79.0" promptText="Return" />
-                  <TextField fx:id="childrenInput" layoutX="399.0" layoutY="124.0" prefHeight="35.0" prefWidth="61.0" promptText="Children" />
-                  <TextField fx:id="adultsInput" layoutX="399.0" layoutY="71.0" prefHeight="35.0" prefWidth="61.0" promptText="Adults" />
-                  <DatePicker fx:id="departureInput" layoutX="281.0" layoutY="71.0" prefHeight="35.0" prefWidth="79.0" promptText="Depart" />
-                  <Button fx:id="searchTripsButton" layoutX="482.0" layoutY="125.0" mnemonicParsing="false" onAction="#searchButtonClicked" prefHeight="34.0" prefWidth="104.0" style="-fx-background-color: #FF8C00;" text="Search">
+                  <ImageView layoutX="982.0" layoutY="9.0" onMouseClicked="#openLogin" onMouseEntered="#mouseOnLoginLabel" onMouseExited="#mouseOffLoginLabel">
+                     <image>
+                        <Image url="@../../img/icons8-user-location-50.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="56.0" fitWidth="200.0" layoutX="14.0" layoutY="4.0">
+                     <image>
+                        <Image url="@../../img/logolangt.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="loginLabel" layoutX="1044.0" layoutY="24.0" onMouseClicked="#openLogin" onMouseEntered="#mouseOnLoginLabel" onMouseExited="#mouseOffLoginLabel" style="-fx-cursor: pointer;" text="Log In">
                      <font>
                         <Font size="14.0" />
                      </font>
-                  </Button>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Label>
                </children>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
             </AnchorPane>
-            <ScrollPane layoutX="759.0" layoutY="35.0" prefHeight="199.0" prefWidth="414.0">
-               <content>
-                  <ListView fx:id="allFlightsListView" prefHeight="200.0" prefWidth="418.0" />
-               </content>
-            </ScrollPane>
-            <ScrollPane layoutX="759.0" layoutY="267.0" prefHeight="199.0" prefWidth="414.0" style="-fx-background-color: #F2D351;">
-               <content>
-                  <ListView fx:id="allHotelsListView" prefHeight="200.0" prefWidth="436.0" />
-               </content>
-            </ScrollPane>
-            <ScrollPane layoutX="759.0" layoutY="508.0" prefHeight="199.0" prefWidth="414.0">
-               <content>
-                  <ListView fx:id="allDayTripsListView" prefHeight="200.0" prefWidth="428.0" />
-               </content>
-            </ScrollPane>
-            <Label layoutX="759.0" layoutY="15.0" text="Flights" textFill="WHITE">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label layoutX="759.0" layoutY="241.0" text="Hotels" textFill="WHITE">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label layoutX="759.0" layoutY="480.0" text="Day trips" textFill="WHITE">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <ScrollPane layoutX="52.0" layoutY="270.0" prefHeight="437.0" prefWidth="681.0">
-               <content>
-                  <ListView fx:id="tripPackagesListView" prefHeight="436.0" prefWidth="680.0" />
-               </content>
-            </ScrollPane>
-            <Label layoutX="52.0" layoutY="241.0" text="Trip Packages for you" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-   </center>
-</BorderPane>
+         </top>
+         <center>
+            <AnchorPane prefHeight="439.0" prefWidth="837.0" style="-fx-background-color: #393939;" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="695.0" fitWidth="1207.0" layoutX="-6.0" layoutY="-1.0">
+                     <image>
+                        <Image url="@../../img/141_20201013185512_Consumer%20Survey%20Finds%2070%20Percent%20of%20Travelers%20Plan%20to%20Holiday%20in%202021.jpg" />
+                     </image>
+                  </ImageView>
+                  <AnchorPane layoutX="46.0" layoutY="190.0" opacity="0.9" prefHeight="170.0" prefWidth="1108.0" style="-fx-background-color: #1E1E20;">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" text="Search trips" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="originInput" layoutX="64.0" layoutY="70.0" prefHeight="36.0" prefWidth="171.0" promptText="Origin" />
+                        <TextField fx:id="destinationInput" layoutX="250.0" layoutY="70.0" prefHeight="36.0" prefWidth="171.0" promptText="Destination" />
+                        <DatePicker fx:id="departureInput" layoutX="453.0" layoutY="71.0" prefHeight="35.0" prefWidth="79.0" promptText="Depart" />
+                        <DatePicker fx:id="returnInput" layoutX="545.0" layoutY="71.0" prefHeight="35.0" prefWidth="79.0" promptText="Return" />
+                        <TextField fx:id="adultsInput" layoutX="658.0" layoutY="71.0" prefHeight="35.0" prefWidth="61.0" promptText="Adults" />
+                        <TextField fx:id="childrenInput" layoutX="732.0" layoutY="71.0" prefHeight="35.0" prefWidth="61.0" promptText="Children" />
+                        <Button fx:id="searchTripsButton" layoutX="844.0" layoutY="72.0" mnemonicParsing="false" onAction="#searchButtonClicked" prefHeight="34.0" prefWidth="104.0" style="-fx-background-color: #FF8C00;" text="Search">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

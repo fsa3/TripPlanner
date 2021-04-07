@@ -1,7 +1,8 @@
 package controllers;
 
+import data.DataConnection;
 import entities.User;
-import main.DataFactory;
+import data.DataFactory;
 
 import java.util.ArrayList;
 
@@ -15,16 +16,19 @@ public class UserController {
         this.user = user;
     }
 
-    public User createUser(String email, String firstName, String lastName, String password, String phoneNumber, String ssNum) {
-        user = new User(email, firstName, lastName, password, phoneNumber, ssNum);
-        return user;
+    public void createUser(ArrayList<String> userInfo) {
+        DataConnection dc = new DataConnection();
+        dc.createUser(userInfo);
     }
 
     public User loginUser(String email, String pw) {
-        searchUser(email);
-        if(checkPassword(pw)) return user;
-        return null;
-        // todo
+        DataConnection dc = new DataConnection();
+        return dc.getUserByEmailAndPw(email, pw);
+    }
+
+    public User getUser(String attribute, String value) {
+        DataConnection dc = new DataConnection();
+        return dc.getUserBy(attribute, value);
     }
 
     private void searchUser(String email) {

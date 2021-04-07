@@ -1,0 +1,31 @@
+.packageContainer{
+    -fx-border-color: #0D7377;
+    -fx-background-color: #2d2b2b;
+}
+
+GridPane {
+    -fx-padding: 10;
+}
+
+.packageContainer Label {
+    -fx-text-fill: #ffffff;
+    -fx-padding: 5;
+}
+
+HBox {
+    -fx-padding: 5;
+}
+
+Button {
+    -fx-padding: 5;
+}
+
+.packageTitle {
+    -fx-font-size: 15;
+}
+
+.packagePrice {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_RIGHT;
+}
