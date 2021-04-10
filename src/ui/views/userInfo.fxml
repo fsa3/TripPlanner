@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,23 +15,28 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="userInfo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-border-width: 2; -fx-border-color: black;" stylesheets="@../styles/global.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.UserInfoController">
+<BorderPane fx:id="userInfo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-border-width: 2; -fx-border-color: black;" stylesheets="@../styles/global.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.UserInfoController">
    <top>
-      <AnchorPane prefHeight="108.0" prefWidth="600.0" style="-fx-background-color: #1E1E20; visibility: true;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="193.0" prefWidth="816.0" style="-fx-background-color: #1E1E20; visibility: true;" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="350.0" layoutY="10.0" text="Change your user information!" textFill="WHITE">
+            <Label fx:id="signUpErrorLabel" alignment="CENTER" layoutX="187.0" layoutY="42.0" prefHeight="34.0" prefWidth="397.0" textAlignment="CENTER" textFill="RED" wrapText="true" />
+            <AnchorPane layoutX="486.0" prefHeight="193.0" prefWidth="309.0">
+               <children>
+                  <ImageView fitHeight="128.0" fitWidth="193.0" layoutX="89.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </AnchorPane>
+            <Label layoutX="208.0" layoutY="-14.0" prefHeight="89.0" prefWidth="325.0" text="Change your user information!" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>
             </Label>
-            <Label fx:id="signUpErrorLabel" alignment="CENTER" layoutX="187.0" layoutY="42.0" prefHeight="34.0" prefWidth="397.0" textAlignment="CENTER" textFill="RED" wrapText="true" />
          </children>
       </AnchorPane>
    </top>
    <bottom>
       <AnchorPane prefHeight="329.0" prefWidth="596.0" style="-fx-background-color: #1E1E20;" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane layoutY="-107.0" prefHeight="394.0" prefWidth="171.0" style="-fx-background-color: #FF8C00;">
+            <AnchorPane layoutX="3.0" layoutY="-89.0" prefHeight="394.0" prefWidth="178.0" style="-fx-background-color: #FF8C00;">
                <children>
                   <ImageView fitHeight="111.0" fitWidth="135.0" layoutX="18.0" layoutY="142.0">
                      <image>
@@ -39,9 +45,9 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="206.0" layoutY="-37.0" prefHeight="248.0" prefWidth="323.0">
+            <AnchorPane layoutX="199.0" layoutY="-95.0" prefHeight="400.0" prefWidth="593.0">
                <children>
-                  <VBox alignment="TOP_RIGHT" layoutX="-30.0" layoutY="-26.0" prefHeight="200.0" prefWidth="100.0">
+                  <VBox alignment="TOP_RIGHT" layoutX="-31.0" layoutY="60.0" prefHeight="306.0" prefWidth="100.0">
                      <children>
                         <Label text="Email:" textFill="WHITE">
                            <font>
@@ -75,7 +81,7 @@
                               <Insets bottom="20.0" />
                            </VBox.margin>
                         </Label>
-                        <Label text="Phone Number:" textFill="#f5f5f5">
+                        <Label text="Phone Nr:" textFill="#f5f5f5">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -91,9 +97,14 @@
                               <Insets bottom="15.0" />
                            </VBox.margin>
                         </Label>
+                        <Label prefHeight="29.0" prefWidth="37.0" text="Email:" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
                      </children>
                   </VBox>
-                  <VBox fx:id="inputs" layoutX="81.0" layoutY="-19.0" prefHeight="231.0" prefWidth="178.0">
+                  <VBox fx:id="inputs" layoutX="80.0" layoutY="69.0" prefHeight="269.0" prefWidth="178.0">
                      <children>
                         <TextField fx:id="emailInput" accessibleText="email" style="-fx-background-color: #393939;">
                            <font>
@@ -140,27 +151,43 @@
                               <Font size="14.0" />
                            </font>
                         </TextField>
+                        <TextField fx:id="ssNumberTextField1" accessibleText="social security number" prefWidth="178.0" style="-fx-background-color: #393939;">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </TextField>
                      </children>
                   </VBox>
-                  <CheckBox layoutX="266.0" layoutY="219.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="179.0" text="NSFW?" textFill="#fbfbfb" />
+                  <CheckBox layoutX="274.0" layoutY="298.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="75.0" text="NSFW?" textFill="#fbfbfb" />
+                  <Label layoutX="396.0" layoutY="154.0" prefHeight="32.0" prefWidth="143.0" text="Change your password" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="createAccButton" layoutX="204.0" layoutY="343.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="174.0" style="-fx-border-color: pink; -fx-background-color: orange;" text="Confirm changes">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="144.0" fitWidth="245.0" layoutX="346.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/quote.jpg" />
+                     </image>
+                     <effect>
+                        <InnerShadow />
+                     </effect>
+                  </ImageView>
                </children>
             </AnchorPane>
-            <Button fx:id="createAccButton" layoutX="428.0" layoutY="211.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="174.0" style="-fx-border-color: pink; -fx-background-color: orange;" text="Confirm changes">
-               <font>
-                  <Font size="17.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Button layoutX="641.0" layoutY="221.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="25.0" prefWidth="97.0" style="-fx-background-color: #7a0b0b;" text="Close window" textFill="#ff2802">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <VBox alignment="TOP_RIGHT" layoutX="480.0" layoutY="-64.0" prefHeight="200.0" prefWidth="100.0">
+            <VBox alignment="TOP_RIGHT" layoutX="466.0" layoutY="88.0" prefHeight="122.0" prefWidth="119.0">
                <children>
-                  <Label text="Email:" textFill="WHITE">
+                  <Label text="Old password:" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -168,7 +195,7 @@
                         <Insets bottom="20.0" top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Label text="Password:" textFill="#f5f5f5">
+                  <Label text="New password:" textFill="#f5f5f5">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -176,51 +203,19 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Label>
-                  <Label text="First Name:" textFill="#f5f5f5">
+                  <Label prefHeight="19.0" prefWidth="115.0" text="Confirm password:" textFill="#f5f5f5">
                      <font>
                         <Font size="14.0" />
                      </font>
                      <VBox.margin>
                         <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label text="Last Name:" textFill="#f5f5f5">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label text="Phone Number:" textFill="#f5f5f5">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label text="blablabla" textFill="#f5f5f5">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="15.0" />
                      </VBox.margin>
                   </Label>
                </children>
             </VBox>
-            <VBox fx:id="inputs1" layoutX="591.0" layoutY="-57.0" prefHeight="231.0" prefWidth="178.0">
+            <VBox fx:id="inputs1" layoutX="590.0" layoutY="94.0" prefHeight="194.0" prefWidth="184.0">
                <children>
-                  <TextField fx:id="emailInput1" accessibleText="email" style="-fx-background-color: #393939;">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <PasswordField fx:id="passwordInput1" accessibleText="password" style="-fx-background-color: #393939;">
+                  <PasswordField fx:id="passwordInput1" accessibleText="password" prefHeight="131.0" prefWidth="184.0" style="-fx-background-color: #393939;">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
@@ -228,38 +223,38 @@
                         <Font size="14.0" />
                      </font>
                   </PasswordField>
-                  <TextField fx:id="firstNameTextField1" accessibleText="first name" layoutX="10.0" layoutY="48.0" style="-fx-background-color: #393939;">
+                  <PasswordField fx:id="passwordInput11" accessibleText="password" style="-fx-background-color: #393939;">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </PasswordField>
+                  <PasswordField fx:id="passwordInput111" accessibleText="password" style="-fx-background-color: #393939;">
                      <font>
                         <Font size="14.0" />
                      </font>
                      <VBox.margin>
-                        <Insets bottom="10.0" />
+                        <Insets top="10.0" />
                      </VBox.margin>
-                  </TextField>
-                  <TextField fx:id="lastNameTextField1" accessibleText="last name" layoutX="10.0" layoutY="86.0" style="-fx-background-color: #393939;">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
+                  </PasswordField>
+                  <Button mnemonicParsing="false" prefHeight="28.0" style="-fx-background-color: orange; -fx-border-color: pink;" text="Change password">
                      <VBox.margin>
-                        <Insets bottom="10.0" />
+                        <Insets bottom="30.0" left="39.0" top="10.0" />
                      </VBox.margin>
-                  </TextField>
-                  <TextField fx:id="phoneTextField1" accessibleText="phone number" layoutX="10.0" layoutY="109.0" style="-fx-background-color: #393939;">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#closeWindow" prefHeight="25.0" prefWidth="97.0" style="-fx-background-color: #7a0b0b;" text="Close window" textFill="#ff2802">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                      <VBox.margin>
-                        <Insets bottom="10.0" />
+                        <Insets left="100.0" />
                      </VBox.margin>
-                  </TextField>
-                  <TextField fx:id="ssNumberTextField1" accessibleText="social security number" layoutX="10.0" layoutY="162.0" style="-fx-background-color: #393939;">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
+                  </Button>
                </children>
             </VBox>
          </children>
       </AnchorPane>
    </bottom>
+   <left>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </left>
 </BorderPane>
