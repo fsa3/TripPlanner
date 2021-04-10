@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="sceneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-border-width: 2; -fx-border-color: black;" stylesheets="@../styles/global.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.LoginUiController">
+<BorderPane fx:id="userInfo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-border-width: 2; -fx-border-color: black;" stylesheets="@../styles/global.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.UserInfoController">
    <top>
       <AnchorPane prefHeight="108.0" prefWidth="600.0" style="-fx-background-color: #1E1E20; visibility: true;" BorderPane.alignment="CENTER">
          <children>
@@ -145,7 +145,7 @@
                   <CheckBox layoutX="266.0" layoutY="219.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="179.0" text="NSFW?" textFill="#fbfbfb" />
                </children>
             </AnchorPane>
-            <Button fx:id="createAccButton" layoutX="428.0" layoutY="211.0" mnemonicParsing="false" onAction="#createUser" prefHeight="46.0" prefWidth="174.0" style="-fx-border-color: pink; -fx-background-color: orange;" text="Confirm changes">
+            <Button fx:id="createAccButton" layoutX="428.0" layoutY="211.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="174.0" style="-fx-border-color: pink; -fx-background-color: orange;" text="Confirm changes">
                <font>
                   <Font size="17.0" />
                </font>
@@ -153,7 +153,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="641.0" layoutY="221.0" mnemonicParsing="false" onAction="#cancelWhenClicked" prefHeight="25.0" prefWidth="97.0" style="-fx-background-color: #7a0b0b;" text="Close window" textFill="#ff2802">
+            <Button layoutX="641.0" layoutY="221.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="25.0" prefWidth="97.0" style="-fx-background-color: #7a0b0b;" text="Close window" textFill="#ff2802">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

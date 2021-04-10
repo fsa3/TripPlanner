@@ -109,6 +109,9 @@ public class SearchUiController implements Initializable {
             Scene scene = new Scene(root,800,429);
             userStage.setScene(scene);
 
+            UserUIController userUIController = loader.getController();
+            userUIController.setUser(user);
+
             userStage.initStyle(StageStyle.UNDECORATED);
             userStage.initModality(Modality.WINDOW_MODAL);
             userStage.initOwner(searchStage);
@@ -121,7 +124,9 @@ public class SearchUiController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/searchresultsUI.fxml"));
             AnchorPane resultRoot = loader.load();
             SearchUiController resultController = loader.getController();
-            resultController.setUser(user);
+            if(user != null) {
+                resultController.setUser(user);
+            }
             sceneRoot.getChildren().setAll(resultRoot);
 
             // todo sækja uppsl úr inputtum og smíða search result með því
@@ -172,7 +177,9 @@ public class SearchUiController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/searchUI.fxml"));
             AnchorPane searchRoot = loader.load();
             SearchUiController searchController = loader.getController();
-            searchController.setUser(user);
+            if(user != null) {
+                searchController.setUser(user);
+            }
             sceneRoot.getChildren().setAll(searchRoot);
             originInput = (TextField) searchRoot.lookup("#originInput");
             destinationInput = (TextField) searchRoot.lookup("#destinationInput");

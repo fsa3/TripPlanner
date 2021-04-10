@@ -53,3 +53,26 @@ Button {
 .tab-header-background {
     -fx-background-color: #393939;
 }
+
+.date-picker-popup {
+    -fx-control-inner-background: #393939;
+}
+
+.date-picker-popup > * > .today {
+    -fx-background-color: #ffa84d;
+}
+
+.date-picker-popup > * > .day-cell:hover,
+.date-picker-popup > * > .selected {
+    -fx-background-color: #FF8C00;
+}
+
+.date-picker-popup > * > .day-name-cell,
+.date-picker-popup > * > .week-number-cell {
+    -fx-background-color: #343434;
+    -fx-text-fill: #0D7377;
+}
+
+.date-picker-popup > * > Button {
+    -fx-background-color: green;
+}
