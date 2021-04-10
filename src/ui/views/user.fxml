@@ -9,20 +9,20 @@
    <children>
       <TabPane prefHeight="429.0" prefWidth="800.0" style="-fx-background-color: blue;" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab style="-fx-background-color: #FF8C00;" styleClass="tabussi" text="Bookings">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="800.0">
-                     <children>
-                        <fx:include fx:id="userBookings" source="userBookings.fxml" />
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
           <Tab style="-fx-background-color: #FF8C00;" styleClass="tabussi" text="User info">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <fx:include fx:id="userInfo" source="userInfo.fxml" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab style="-fx-background-color: #FF8C00;" styleClass="tabussi" text="Bookings">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="800.0">
+                     <children>
+                        <fx:include fx:id="userBookings" source="userBookings.fxml" />
                      </children>
                   </AnchorPane>
             </content>
