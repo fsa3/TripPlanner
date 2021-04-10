@@ -98,7 +98,7 @@ public class SearchUiController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/user.fxml"));
             Region root = loader.load();
 
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(root,800,400);
             userStage.setScene(scene);
 
             userStage.initStyle(StageStyle.UNDECORATED);

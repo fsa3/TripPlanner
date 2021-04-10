@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="sceneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1200.0" stylesheets="@../styles/searchresults.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.SearchUiController">
+<AnchorPane fx:id="sceneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1200.0" stylesheets="@../styles/searchresults.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.SearchUiController">
    <children>
       <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1200.0">
          <top>
@@ -39,9 +39,9 @@
             </AnchorPane>
          </top>
          <center>
-            <ScrollPane fx:id="resultScrollPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #393939;" BorderPane.alignment="CENTER">
+            <ScrollPane fx:id="resultScrollPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #393939;" stylesheets="@../styles/scrollpaneStyle.css" BorderPane.alignment="CENTER">
                <content>
-                  <AnchorPane maxWidth="1200.0" minWidth="1183.0" prefWidth="1183.0" style="-fx-background-color: #393939;">
+                  <AnchorPane maxWidth="1200.0" minWidth="1183.0" prefWidth="1187.35" style="-fx-background-color: #393939;">
                      <children>
                         <AnchorPane prefHeight="578.0" prefWidth="682.0">
                            <children>
