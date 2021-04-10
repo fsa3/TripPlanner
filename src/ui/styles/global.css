@@ -41,3 +41,15 @@ Button {
     -fx-font-weight: bold;
     -fx-alignment: CENTER_RIGHT;
 }
+
+.text-field, .password-field {
+    -fx-prompt-text-fill: #ffffff;
+    -jfx-focus-color: #ffffff;
+    -jfx-unfocus-color: #ffffff;
+    -fx-text-inner-color: #ffffff;
+    -fx-background-color: #393939;
+}
+
+.tab-header-background {
+    -fx-background-color: #393939;
+}

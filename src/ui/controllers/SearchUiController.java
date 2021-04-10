@@ -76,6 +76,9 @@ public class SearchUiController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("initialize");
+        if(user != null) {
+            loginLabel.setText(user.getFirstName());
+        }
     }
 
     public void openLogin(MouseEvent mouseEvent) throws IOException {
@@ -115,7 +118,10 @@ public class SearchUiController implements Initializable {
 
     public void searchButtonClicked(ActionEvent actionEvent) {
         try {
-            AnchorPane resultRoot = FXMLLoader.load(getClass().getResource("../views/searchresultsUI.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/searchresultsUI.fxml"));
+            AnchorPane resultRoot = loader.load();
+            SearchUiController resultController = loader.getController();
+            resultController.setUser(user);
             sceneRoot.getChildren().setAll(resultRoot);
 
             // todo sækja uppsl úr inputtum og smíða search result með því
@@ -162,9 +168,11 @@ public class SearchUiController implements Initializable {
     }
 
     private void goBackToSearch() {
-        AnchorPane searchRoot = null;
         try {
-            searchRoot = FXMLLoader.load(getClass().getResource("../views/searchUI.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/searchUI.fxml"));
+            AnchorPane searchRoot = loader.load();
+            SearchUiController searchController = loader.getController();
+            searchController.setUser(user);
             sceneRoot.getChildren().setAll(searchRoot);
             originInput = (TextField) searchRoot.lookup("#originInput");
             destinationInput = (TextField) searchRoot.lookup("#destinationInput");
