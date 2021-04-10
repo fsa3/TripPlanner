@@ -17,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -62,10 +63,14 @@ public class SearchUiController implements Initializable {
     public VBox packagesVBox;
     @FXML
     private ScrollPane resultScrollPane;
+    @FXML
+    private Button backToSearch;
 
     private Stage searchStage;
 
     private TripPackage customPackage;
+
+    public SearchResult searchResult;
 
 
     @Override
@@ -110,21 +115,32 @@ public class SearchUiController implements Initializable {
 
     public void searchButtonClicked(ActionEvent actionEvent) {
         try {
+            AnchorPane resultRoot = FXMLLoader.load(getClass().getResource("../views/searchresultsUI.fxml"));
+            sceneRoot.getChildren().setAll(resultRoot);
+
             // todo sækja uppsl úr inputtum og smíða search result með því
-            SearchResult searchResult = new SearchResult(LocalDate.of(2021, 3, 23),
+            searchResult = new SearchResult(LocalDate.of(2021, 3, 23),
                     LocalDate.of(2021, 3, 28),
                     "Reykjavík", "Akureyri", 2, 1
             );
             searchResult.search();
-            customPackage = new TripPackage("Custom Package" ,searchResult);
 
-            AnchorPane resultRoot = FXMLLoader.load(getClass().getResource("../views/searchresultsUI.fxml"));
-            sceneRoot.getChildren().setAll(resultRoot);
+            backToSearch = (Button) sceneRoot.lookup("#backToSearch");
+
+            backToSearch.setOnAction((evt) -> {
+                goBackToSearch();
+            });
+
+            customPackage = new TripPackage("Custom Package" ,searchResult);
+            customPackage.emptyPackage();
+
+
+
             // (VBox) sceneRoot.lookup("#packagesVBox")
             resultScrollPane = (ScrollPane) sceneRoot.lookup("#resultScrollPane");
             resultScrollPane.applyCss();
             resultScrollPane.layout();
-            VBox packagesVBox = (VBox) resultScrollPane.lookup("#packagesVBox");
+            packagesVBox = (VBox) resultScrollPane.lookup("#packagesVBox");
 
             displayTripPackage(createTestPackage(), packagesVBox);
             displayTripPackage(createTestPackage(), packagesVBox);
@@ -135,40 +151,106 @@ public class SearchUiController implements Initializable {
             allHotelsVB = (VBox) resultScrollPane.lookup("#allHotelsVB");
             allDayTripsVB = (VBox) resultScrollPane.lookup("#allDayTripsVB");
             selectedFlightsVB = (VBox) resultScrollPane.lookup("#selectedFlightsVB");
-            selectedHotelVB = (VBox) resultScrollPane.lookup("#selectedHotelsVB");
+            selectedHotelVB = (VBox) resultScrollPane.lookup("#selectedHotelVB");
             selectedDayTripsVB = (VBox) resultScrollPane.lookup("#selectedDayTripsVB");
 
-            ToggleGroup outFlightsSelected = new ToggleGroup();
-            for(Flight f : searchResult.getOutFlights()) {
-                RadioButton flightRadio = new RadioButton(f.toString());
-                flightRadio.setToggleGroup(outFlightsSelected);
-                allOutFlightsVB.getChildren().add(flightRadio);
-
-                flightRadio.selectedProperty().addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> obs, Boolean wasPreviouslySelected, Boolean isNowSelected) {
-                        if (isNowSelected) {
-                            customPackage.removeAllOutFlights();
-                            customPackage.addOutFlight(f);
-                            displayCustomPackage();
-                        } else {
-
-                        }
-                    }
-                });
-            }
-            for(Flight f : searchResult.getInFlights()) {
-                allInFlightsVB.getChildren().add(new Label(f.toString()));
-            }
-            for(Hotel h : searchResult.getHotels()) {
-                allHotelsVB.getChildren().add(new Label(h.toString()));
-            }
-            for(DayTrip dt : searchResult.getDayTrips()) {
-                allDayTripsVB.getChildren().add(new Label(dt.toString()));
-            }
+            displayAllSearchResult();
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void goBackToSearch() {
+        AnchorPane searchRoot = null;
+        try {
+            searchRoot = FXMLLoader.load(getClass().getResource("../views/searchUI.fxml"));
+            sceneRoot.getChildren().setAll(searchRoot);
+            originInput = (TextField) searchRoot.lookup("#originInput");
+            destinationInput = (TextField) searchRoot.lookup("#destinationInput");
+            departureInput = (DatePicker) searchRoot.lookup("#departureInput");
+            returnInput = (DatePicker) searchRoot.lookup("#returnInput");
+            adultsInput = (TextField) searchRoot.lookup("#adultsInput");
+            childrenInput = (TextField) searchRoot.lookup("#childrenInput");
+            originInput.setText(searchResult.getDepCity());
+            destinationInput.setText(searchResult.getDestCity());
+            departureInput.setValue(searchResult.getStartDate());
+            returnInput.setValue(searchResult.getEndDate());
+            adultsInput.setText(String.valueOf(searchResult.getNumAdults()));
+            childrenInput.setText(String.valueOf(searchResult.getNumChildren()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void displayAllSearchResult() {
+        // Display all out flights
+        ToggleGroup outFlightsToggleGroup = new ToggleGroup();
+        for(Flight f : searchResult.getOutFlights()) {
+            RadioButton flightRadio = new RadioButton(f.toString());
+            flightRadio.setToggleGroup(outFlightsToggleGroup);
+            allOutFlightsVB.getChildren().add(flightRadio);
+            flightRadio.selectedProperty().addListener(new ChangeListener<Boolean>() {
+                @Override
+                public void changed(ObservableValue<? extends Boolean> obs, Boolean wasSelected, Boolean isSelected) {
+                    if (isSelected) {
+                        customPackage.removeAllOutFlights();
+                        customPackage.addOutFlight(f);
+                        displayCustomPackage();
+                    }
+                }
+            });
+        }
+        // display all in flights
+        ToggleGroup inFlightsToggleGroup = new ToggleGroup();
+        for(Flight f : searchResult.getInFlights()) {
+            RadioButton flightRadio = new RadioButton(f.toString());
+            flightRadio.setToggleGroup(inFlightsToggleGroup);
+            allInFlightsVB.getChildren().add(flightRadio);
+            flightRadio.selectedProperty().addListener(new ChangeListener<Boolean>() {
+                @Override
+                public void changed(ObservableValue<? extends Boolean> obs, Boolean wasSelected, Boolean isSelected) {
+                    if(isSelected) {
+                        customPackage.removeAllInFlights();
+                        customPackage.addInFlight(f);
+                        displayCustomPackage();
+                    }
+                }
+            });
+        }
+        // display all hotels
+        ToggleGroup hotelsToggleGroup = new ToggleGroup();
+        for(Hotel h : searchResult.getHotels()) {
+            RadioButton hotelRadio = new RadioButton(h.toString());
+            hotelRadio.setToggleGroup(hotelsToggleGroup);
+            allHotelsVB.getChildren().add(hotelRadio);
+            hotelRadio.selectedProperty().addListener(new ChangeListener<Boolean>() {
+                @Override
+                public void changed(ObservableValue<? extends Boolean> obs, Boolean wasSelected, Boolean isSelected) {
+                    if(isSelected) {
+                        customPackage.removeAllHotels();
+                        customPackage.addHotel(h);
+                        displayCustomPackage();
+                    }
+                }
+            });
+        }
+        // display all day trips
+        for(DayTrip dt : searchResult.getDayTrips()) {
+           CheckBox dayTripCheck = new CheckBox(dt.toString());
+           allDayTripsVB.getChildren().add(dayTripCheck);
+           dayTripCheck.selectedProperty().addListener(new ChangeListener<Boolean>() {
+               @Override
+               public void changed(ObservableValue<? extends Boolean> obs, Boolean unchecked, Boolean checked) {
+                   if(checked) {
+                       customPackage.addDayTrip(dt);
+                   }
+                   if (unchecked) {
+                       customPackage.removeDayTrip(dt);
+                   }
+                   displayCustomPackage();
+               }
+           });
         }
     }
 
@@ -176,6 +258,17 @@ public class SearchUiController implements Initializable {
         selectedFlightsVB.getChildren().clear();
         for(Flight f : customPackage.getOutFlights()) {
             selectedFlightsVB.getChildren().add(new Label(f.toString()));
+        }
+        for(Flight f : customPackage.getInFlights()) {
+            selectedFlightsVB.getChildren().add(new Label(f.toString()));
+        }
+        selectedHotelVB.getChildren().clear();
+        for(Hotel h : customPackage.getHotels()) {
+            selectedHotelVB.getChildren().add(new Label(h.toString()));
+        }
+        selectedDayTripsVB.getChildren().clear();
+        for(DayTrip dt : customPackage.getDayTrips()) {
+            selectedDayTripsVB.getChildren().add(new Label(dt.toString()));
         }
     }
 

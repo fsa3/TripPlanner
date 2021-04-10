@@ -16,10 +16,12 @@ public class TripPackage extends SearchResult{
         inFlights = new ArrayList<>();
         hotels = new ArrayList<>();
         dayTrips = new ArrayList<>();
+        /*
         outFlights.addAll(masterSearch.getOutFlights());
         inFlights.addAll(masterSearch.getInFlights());
         hotels.addAll(masterSearch.getHotels());
         dayTrips.addAll(masterSearch.getDayTrips());
+         */
     }
 
     public void addInFlight(Flight f) {
@@ -89,6 +91,13 @@ public class TripPackage extends SearchResult{
 
     public void highEnd() {
         // todo
+    }
+
+    public void emptyPackage() {
+        outFlights.clear();
+        inFlights.clear();
+        hotels.clear();
+        dayTrips.clear();
     }
 
     public String getName() {

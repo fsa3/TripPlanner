@@ -29,7 +29,7 @@
                         <Image url="@../../img/logolangt.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="loginLabel" layoutX="1044.0" layoutY="24.0" onMouseClicked="#openLogin" onMouseEntered="#mouseOnLoginLabel" onMouseExited="#mouseOffLoginLabel" style="-fx-cursor: pointer;" text="Log In">
+                  <Label fx:id="loginLabel" layoutX="1044.0" layoutY="24.0" onMouseClicked="#openLogin" onMouseEntered="#mouseOnLoginLabel" onMouseExited="#mouseOffLoginLabel" style="-fx-cursor: pointer; -fx-text-fill: #000000;" text="Log In">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -52,7 +52,7 @@
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <VBox fx:id="packagesVBox" layoutX="31.0" layoutY="76.0" maxHeight="1.7976931348623157E308" prefHeight="482.0" prefWidth="644.0" />
+                              <VBox fx:id="packagesVBox" layoutX="31.0" layoutY="76.0" maxHeight="1.7976931348623157E308" prefHeight="482.0" prefWidth="644.0" AnchorPane.bottomAnchor="20.0" AnchorPane.topAnchor="76.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane layoutX="690.0" layoutY="3.0" prefHeight="578.0" prefWidth="492.0">
@@ -62,7 +62,7 @@
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <VBox layoutX="14.0" layoutY="68.0" prefHeight="462.0" prefWidth="467.0">
+                              <VBox layoutX="14.0" layoutY="76.0" prefHeight="462.0" prefWidth="467.0" AnchorPane.topAnchor="76.0">
                                  <children>
                                     <VBox prefHeight="173.0" prefWidth="461.0" styleClass="packageContainer">
                                        <children>
@@ -121,5 +121,6 @@
             </ScrollPane>
          </center>
       </BorderPane>
+      <Button fx:id="backToSearch" layoutX="1095.0" layoutY="614.0" mnemonicParsing="false" text="Back to search" />
    </children>
 </AnchorPane>
