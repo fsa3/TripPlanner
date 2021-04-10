@@ -11,6 +11,10 @@ Label {
     -fx-text-fill: #ffffff;
 }
 
+RadioButton {
+    -fx-text-fill: #ffffff;
+}
+
 .packageContainer Label {
     -fx-padding: 5;
 }

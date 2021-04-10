@@ -110,6 +110,7 @@ public class SearchUiController implements Initializable {
 
     public void searchButtonClicked(ActionEvent actionEvent) {
         try {
+            // todo sækja uppsl úr inputtum og smíða search result með því
             SearchResult searchResult = new SearchResult(LocalDate.of(2021, 3, 23),
                     LocalDate.of(2021, 3, 28),
                     "Reykjavík", "Akureyri", 2, 1
@@ -139,22 +140,19 @@ public class SearchUiController implements Initializable {
 
             ToggleGroup outFlightsSelected = new ToggleGroup();
             for(Flight f : searchResult.getOutFlights()) {
-                HBox flight = new HBox();
-                RadioButton radioButton = new RadioButton();
-                radioButton.setToggleGroup(outFlightsSelected);
-                flight.getChildren().add(radioButton);
-                flight.getChildren().add(new Label(f.toString()));
-                allOutFlightsVB.getChildren().add(flight);
+                RadioButton flightRadio = new RadioButton(f.toString());
+                flightRadio.setToggleGroup(outFlightsSelected);
+                allOutFlightsVB.getChildren().add(flightRadio);
 
-                radioButton.selectedProperty().addListener(new ChangeListener<Boolean>() {
+                flightRadio.selectedProperty().addListener(new ChangeListener<Boolean>() {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> obs, Boolean wasPreviouslySelected, Boolean isNowSelected) {
                         if (isNowSelected) {
                             customPackage.removeAllOutFlights();
-                            customPackage.addInFlight(f);
+                            customPackage.addOutFlight(f);
                             displayCustomPackage();
                         } else {
-                            // ...
+
                         }
                     }
                 });
@@ -175,7 +173,7 @@ public class SearchUiController implements Initializable {
     }
 
     private void displayCustomPackage() {
-        selectedFlightsVB.getChildren().removeAll();
+        selectedFlightsVB.getChildren().clear();
         for(Flight f : customPackage.getOutFlights()) {
             selectedFlightsVB.getChildren().add(new Label(f.toString()));
         }
