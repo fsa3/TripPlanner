@@ -50,6 +50,8 @@ public class SearchUiController implements Initializable {
     public AnchorPane sceneRoot;
     @FXML
     public VBox packagesVBox;
+    @FXML
+    private ScrollPane resultScrollPane;
 
     private Stage searchStage;
 
@@ -83,7 +85,15 @@ public class SearchUiController implements Initializable {
         try {
             AnchorPane resultRoot = FXMLLoader.load(getClass().getResource("../views/searchresultsUI.fxml"));
             sceneRoot.getChildren().setAll(resultRoot);
-            displayTripPackage(createTestPackage(), (VBox) sceneRoot.lookup("#packagesVBox"));
+            // (VBox) sceneRoot.lookup("#packagesVBox")
+            resultScrollPane = (ScrollPane) sceneRoot.lookup("#resultScrollPane");
+            resultScrollPane.applyCss();
+            resultScrollPane.layout();
+            VBox packagesVBox = (VBox) resultScrollPane.lookup("#packagesVBox");
+
+            displayTripPackage(createTestPackage(), packagesVBox);
+            displayTripPackage(createTestPackage(), packagesVBox);
+            displayTripPackage(createTestPackage(), packagesVBox);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -167,13 +177,20 @@ public class SearchUiController implements Initializable {
         }
         gp.add(dayTrips, 1, 1, 2, 1);
 
-        VBox hotel = new VBox();
+        HBox hotel = new HBox();
+        ImageView hotelImg = new ImageView();
+        hotelImg.setImage(new Image("@../../img/hotel.png"));
+        hotelImg.setFitHeight(40);
+        hotelImg.setPreserveRatio(true);
+        hotel.getChildren().add(hotelImg);
         hotel.getChildren().add(new Label(tPackage.getHotels().get(0).toString()));
         hotel.setAlignment(Pos.CENTER_LEFT);
         hotel.setPrefWidth(500);
         gp.add(hotel, 0, 2, 2, 1);
 
         HBox buttons = new HBox();
+        buttons.setPrefHeight(40);
+        buttons.setAlignment(Pos.BOTTOM_CENTER);
         buttons.getChildren().add(new Button("See more"));
         Pane spacer = new Pane();
         HBox.setHgrow(spacer, Priority.ALWAYS);
