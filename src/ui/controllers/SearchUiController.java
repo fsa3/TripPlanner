@@ -1,7 +1,10 @@
 package ui.controllers;
 
 import controllers.SearchController;
+import controllers.UserController;
 import entities.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +31,13 @@ import java.util.ResourceBundle;
 public class SearchUiController implements Initializable {
 
 
+    public VBox selectedFlightsVB;
+    public VBox selectedHotelVB;
+    public VBox selectedDayTripsVB;
+    public VBox allOutFlightsVB;
+    public VBox allInFlightsVB;
+    public VBox allHotelsVB;
+    public VBox allDayTripsVB;
     private User user;
 
     @FXML
@@ -55,6 +65,8 @@ public class SearchUiController implements Initializable {
 
     private Stage searchStage;
 
+    private TripPackage customPackage;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -64,25 +76,47 @@ public class SearchUiController implements Initializable {
     public void openLogin(MouseEvent mouseEvent) throws IOException {
         searchStage = (Stage) sceneRoot.getScene().getWindow();
 
-        Stage loginStage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/loginUI.fxml"));
-        Region root = loader.load();
+        if(user == null) {
+            Stage loginStage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/loginUI.fxml"));
+            Region root = loader.load();
 
-        Scene scene = new Scene(root);
-        loginStage.setScene(scene);
+            Scene scene = new Scene(root);
+            loginStage.setScene(scene);
 
-        LoginUiController loginUiController = loader.getController();
-        loginUiController.setOwningController(this);
-        if(user != null) loginUiController.setUser(user);
+            LoginUiController loginUiController = loader.getController();
+            loginUiController.setOwningController(this);
+            if(user != null) loginUiController.setUser(user);
 
-        loginStage.initStyle(StageStyle.UNDECORATED);
-        loginStage.initModality(Modality.WINDOW_MODAL);
-        loginStage.initOwner(searchStage);
-        loginStage.show();
+            loginStage.initStyle(StageStyle.UNDECORATED);
+            loginStage.initModality(Modality.WINDOW_MODAL);
+            loginStage.initOwner(searchStage);
+            loginStage.show();
+        }
+        else {
+            Stage userStage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/user.fxml"));
+            Region root = loader.load();
+
+            Scene scene = new Scene(root);
+            userStage.setScene(scene);
+
+            userStage.initStyle(StageStyle.UNDECORATED);
+            userStage.initModality(Modality.WINDOW_MODAL);
+            userStage.initOwner(searchStage);
+            userStage.show();
+        }
     }
 
     public void searchButtonClicked(ActionEvent actionEvent) {
         try {
+            SearchResult searchResult = new SearchResult(LocalDate.of(2021, 3, 23),
+                    LocalDate.of(2021, 3, 28),
+                    "Reykjavík", "Akureyri", 2, 1
+            );
+            searchResult.search();
+            customPackage = new TripPackage("Custom Package" ,searchResult);
+
             AnchorPane resultRoot = FXMLLoader.load(getClass().getResource("../views/searchresultsUI.fxml"));
             sceneRoot.getChildren().setAll(resultRoot);
             // (VBox) sceneRoot.lookup("#packagesVBox")
@@ -94,11 +128,57 @@ public class SearchUiController implements Initializable {
             displayTripPackage(createTestPackage(), packagesVBox);
             displayTripPackage(createTestPackage(), packagesVBox);
             displayTripPackage(createTestPackage(), packagesVBox);
+
+            allOutFlightsVB = (VBox) resultScrollPane.lookup("#allOutFlightsVB");
+            allInFlightsVB = (VBox) resultScrollPane.lookup("#allInFlightsVB");
+            allHotelsVB = (VBox) resultScrollPane.lookup("#allHotelsVB");
+            allDayTripsVB = (VBox) resultScrollPane.lookup("#allDayTripsVB");
+            selectedFlightsVB = (VBox) resultScrollPane.lookup("#selectedFlightsVB");
+            selectedHotelVB = (VBox) resultScrollPane.lookup("#selectedHotelsVB");
+            selectedDayTripsVB = (VBox) resultScrollPane.lookup("#selectedDayTripsVB");
+
+            ToggleGroup outFlightsSelected = new ToggleGroup();
+            for(Flight f : searchResult.getOutFlights()) {
+                HBox flight = new HBox();
+                RadioButton radioButton = new RadioButton();
+                radioButton.setToggleGroup(outFlightsSelected);
+                flight.getChildren().add(radioButton);
+                flight.getChildren().add(new Label(f.toString()));
+                allOutFlightsVB.getChildren().add(flight);
+
+                radioButton.selectedProperty().addListener(new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> obs, Boolean wasPreviouslySelected, Boolean isNowSelected) {
+                        if (isNowSelected) {
+                            customPackage.removeAllOutFlights();
+                            customPackage.addInFlight(f);
+                            displayCustomPackage();
+                        } else {
+                            // ...
+                        }
+                    }
+                });
+            }
+            for(Flight f : searchResult.getInFlights()) {
+                allInFlightsVB.getChildren().add(new Label(f.toString()));
+            }
+            for(Hotel h : searchResult.getHotels()) {
+                allHotelsVB.getChildren().add(new Label(h.toString()));
+            }
+            for(DayTrip dt : searchResult.getDayTrips()) {
+                allDayTripsVB.getChildren().add(new Label(dt.toString()));
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
-        createTestPackage();
+    private void displayCustomPackage() {
+        selectedFlightsVB.getChildren().removeAll();
+        for(Flight f : customPackage.getOutFlights()) {
+            selectedFlightsVB.getChildren().add(new Label(f.toString()));
+        }
     }
 
     public User getUser() {
@@ -166,7 +246,7 @@ public class SearchUiController implements Initializable {
         flightHBox2.setSpacing(5);
         flightHBox2.getChildren().addAll(fImg2, flightLabel);
         flights.getChildren().add(flightHBox2);
-        flights.setPrefWidth(400);
+        flights.setPrefWidth(350);
         gp.add(flights, 0, 1);
 
         VBox dayTrips = new VBox();
@@ -185,7 +265,7 @@ public class SearchUiController implements Initializable {
         hotel.getChildren().add(hotelImg);
         hotel.getChildren().add(new Label(tPackage.getHotels().get(0).toString()));
         hotel.setAlignment(Pos.CENTER_LEFT);
-        hotel.setPrefWidth(500);
+        hotel.setPrefWidth(450);
         gp.add(hotel, 0, 2, 2, 1);
 
         HBox buttons = new HBox();

@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.ArrayList;
+
 public class TripPackage extends SearchResult{
     private String name;
     private double price;
@@ -10,6 +12,14 @@ public class TripPackage extends SearchResult{
         super(search.getStartDate(), search.getEndDate(), search.getDepCity(), search.getDestCity(), search.getNumAdults(), search.getNumChildren());
         this.name = name;
         masterSearch = search;
+        outFlights = new ArrayList<>();
+        inFlights = new ArrayList<>();
+        hotels = new ArrayList<>();
+        dayTrips = new ArrayList<>();
+        outFlights.addAll(masterSearch.getOutFlights());
+        inFlights.addAll(masterSearch.getInFlights());
+        hotels.addAll(masterSearch.getHotels());
+        dayTrips.addAll(masterSearch.getDayTrips());
     }
 
     public void addInFlight(Flight f) {
@@ -42,6 +52,22 @@ public class TripPackage extends SearchResult{
 
     public void removeDayTrip(DayTrip dt) {
         dayTrips.remove(dt);
+    }
+
+    public void removeAllOutFlights() {
+        outFlights.clear();
+    }
+
+    public void removeAllInFlights() {
+        inFlights.clear();
+    }
+
+    public void removeAllHotels() {
+        hotels.clear();
+    }
+
+    public void removeAllDayTrips() {
+        dayTrips.clear();
     }
 
     public boolean isCustom() {
