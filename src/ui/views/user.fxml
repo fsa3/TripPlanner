@@ -18,7 +18,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab style="-fx-background-color: #FF8C00;" text="Booked packages">
+          <Tab style="-fx-background-color: #FF8C00;" text="Bookings">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="800.0">
                      <children>

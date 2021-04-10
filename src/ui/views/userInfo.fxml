@@ -153,7 +153,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="641.0" layoutY="221.0" mnemonicParsing="false" onAction="#cancelWhenClicked" prefHeight="25.0" prefWidth="77.0" style="-fx-background-color: #7a0b0b;" text="Main page" textFill="#ff2802">
+            <Button layoutX="641.0" layoutY="221.0" mnemonicParsing="false" onAction="#cancelWhenClicked" prefHeight="25.0" prefWidth="97.0" style="-fx-background-color: #7a0b0b;" text="Close window" textFill="#ff2802">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
