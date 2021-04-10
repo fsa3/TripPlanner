@@ -43,11 +43,15 @@ Button {
 }
 
 .text-field, .password-field {
-    -fx-prompt-text-fill: #ffffff;
+    -fx-prompt-text-fill: #726f6f;
     -jfx-focus-color: #ffffff;
     -jfx-unfocus-color: #ffffff;
     -fx-text-inner-color: #ffffff;
     -fx-background-color: #393939;
+}
+.paynow {
+    -fx-background-color: #ff8c00;
+    -fx-text-fill: black;
 }
 
 .tab-header-background {
@@ -64,7 +68,7 @@ Button {
 
 .date-picker-popup > * > .day-cell:hover,
 .date-picker-popup > * > .selected {
-    -fx-background-color: #FF8C00;
+    -fx-background-color: #ff8c00;
 }
 
 .date-picker-popup > * > .day-name-cell,
