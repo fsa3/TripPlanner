@@ -2,6 +2,7 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,9 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="sceneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../styles/searchresults.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.SearchUiController">
+<AnchorPane fx:id="sceneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1200.0" stylesheets="@../styles/searchresults.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.SearchUiController">
    <children>
-      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0">
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1200.0">
          <top>
             <AnchorPane prefHeight="68.0" prefWidth="1200.0" style="-fx-background-color: #FF8C00;" BorderPane.alignment="CENTER">
                <children>
@@ -37,29 +38,33 @@
             </AnchorPane>
          </top>
          <center>
-            <AnchorPane prefHeight="730.0" prefWidth="1200.0" style="-fx-background-color: #393939;" BorderPane.alignment="CENTER">
-               <children>
-                  <AnchorPane layoutX="14.0" layoutY="3.0" prefHeight="712.0" prefWidth="683.0">
+            <ScrollPane fx:id="resultScrollPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #393939;" BorderPane.alignment="CENTER">
+               <content>
+                  <AnchorPane maxWidth="1200.0" minWidth="1183.0" prefWidth="1183.0" style="-fx-background-color: #393939;">
                      <children>
-                        <Label alignment="CENTER" layoutX="19.0" layoutY="22.0" prefHeight="35.0" prefWidth="644.0" text="Trip packages for you" textAlignment="CENTER" textFill="WHITE">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                        <VBox fx:id="packagesVBox" layoutX="19.0" layoutY="78.0" prefHeight="612.0" prefWidth="644.0" />
+                        <AnchorPane prefHeight="578.0" prefWidth="706.0">
+                           <children>
+                              <Label alignment="CENTER" layoutX="31.0" layoutY="34.0" prefHeight="35.0" prefWidth="644.0" text="Trip packages for you" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <VBox fx:id="packagesVBox" layoutX="31.0" layoutY="76.0" maxHeight="1.7976931348623157E308" prefHeight="482.0" prefWidth="644.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="697.0" layoutY="3.0" prefHeight="578.0" prefWidth="485.0">
+                           <children>
+                              <Label layoutX="86.0" layoutY="33.0" text="Create your own trip package" textFill="WHITE">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="697.0" layoutY="3.0" prefHeight="679.0" prefWidth="498.0">
-                     <children>
-                        <Label layoutX="99.0" layoutY="33.0" text="Create your own trip package" textFill="WHITE">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-               </children>
-            </AnchorPane>
+               </content>
+            </ScrollPane>
          </center>
       </BorderPane>
    </children>

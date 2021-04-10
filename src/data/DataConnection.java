@@ -26,20 +26,24 @@ public class DataConnection {
             PreparedStatement getUser = connection.prepareStatement(query);
             getUser.setString(1, email);
             getUser.setString(2, pw);
-            ResultSet rs = getUser.executeQuery();
-            if(rs.isClosed()) return null;
-            String userEmail = rs.getString(1);
-            String userPw = rs.getString(2);
-            String firstName = rs.getString(3);
-            String lastName = rs.getString(4);
-            String phoneNum = rs.getString(5);
-            String ssNum = rs.getString(6);
-            return new User(userEmail, firstName, lastName, userPw, phoneNum, ssNum);
+            return getUserFromStatement(getUser);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             databaseError();
         }
         return null;
+    }
+
+    private User getUserFromStatement(PreparedStatement getUser) throws SQLException {
+        ResultSet rs = getUser.executeQuery();
+        if(rs.isClosed()) return null;
+        String userEmail = rs.getString(1);
+        String userPw = rs.getString(2);
+        String firstName = rs.getString(3);
+        String lastName = rs.getString(4);
+        String phoneNum = rs.getString(5);
+        String ssNum = rs.getString(6);
+        return new User(userEmail, firstName, lastName, userPw, phoneNum, ssNum);
     }
 
     private void databaseError() {
@@ -53,15 +57,7 @@ public class DataConnection {
             String query = "SELECT * FROM Users WHERE "+attribute+" = ?";
             PreparedStatement getUser = connection.prepareStatement(query);
             getUser.setString(1, value);
-            ResultSet rs = getUser.executeQuery();
-            if(rs.isClosed()) return null;
-            String userEmail = rs.getString(1);
-            String userPw = rs.getString(2);
-            String firstName = rs.getString(3);
-            String lastName = rs.getString(4);
-            String phoneNum = rs.getString(5);
-            String ssNum = rs.getString(6);
-            return new User(userEmail, firstName, lastName, userPw, phoneNum, ssNum);
+            return getUserFromStatement(getUser);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             databaseError();
