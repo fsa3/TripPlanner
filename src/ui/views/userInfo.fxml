@@ -25,7 +25,7 @@
                   <ImageView fitHeight="128.0" fitWidth="193.0" layoutX="89.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </AnchorPane>
-            <Label layoutX="208.0" layoutY="-14.0" prefHeight="89.0" prefWidth="325.0" text="Change your user information!" textFill="WHITE">
+            <Label layoutX="199.0" layoutY="-24.0" prefHeight="99.0" prefWidth="334.0" text="Change your user information!" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>
@@ -36,7 +36,7 @@
    <bottom>
       <AnchorPane prefHeight="329.0" prefWidth="596.0" style="-fx-background-color: #1E1E20;" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane layoutX="3.0" layoutY="-89.0" prefHeight="394.0" prefWidth="178.0" style="-fx-background-color: #FF8C00;">
+            <AnchorPane layoutX="1.0" layoutY="-90.0" prefHeight="394.0" prefWidth="180.0" style="-fx-background-color: #FF8C00;">
                <children>
                   <ImageView fitHeight="111.0" fitWidth="135.0" layoutX="18.0" layoutY="142.0">
                      <image>
@@ -104,7 +104,7 @@
                         </Label>
                      </children>
                   </VBox>
-                  <VBox fx:id="inputs" layoutX="80.0" layoutY="69.0" prefHeight="269.0" prefWidth="178.0">
+                  <VBox fx:id="inputs" layoutX="80.0" layoutY="57.0" prefHeight="281.0" prefWidth="178.0">
                      <children>
                         <TextField fx:id="emailInput" accessibleText="email" style="-fx-background-color: #393939;">
                            <font>
@@ -161,8 +161,8 @@
                         </TextField>
                      </children>
                   </VBox>
-                  <CheckBox layoutX="274.0" layoutY="298.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="75.0" text="NSFW?" textFill="#fbfbfb" />
-                  <Label layoutX="413.0" layoutY="154.0" prefHeight="32.0" prefWidth="143.0" text="Change your password" textFill="WHITE">
+                  <CheckBox layoutX="270.0" layoutY="278.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="75.0" text="NSFW?" textFill="#fbfbfb" />
+                  <Label layoutX="413.0" layoutY="146.0" prefHeight="40.0" prefWidth="143.0" text="Change your password" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
@@ -185,7 +185,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <VBox alignment="TOP_RIGHT" layoutX="466.0" layoutY="88.0" prefHeight="122.0" prefWidth="119.0">
+            <VBox alignment="TOP_RIGHT" layoutX="466.0" layoutY="76.0" prefHeight="114.0" prefWidth="119.0">
                <children>
                   <Label text="Old password:" textFill="WHITE">
                      <font>
@@ -213,7 +213,7 @@
                   </Label>
                </children>
             </VBox>
-            <VBox fx:id="inputs1" layoutX="590.0" layoutY="94.0" prefHeight="194.0" prefWidth="184.0">
+            <VBox fx:id="inputs1" layoutX="599.0" layoutY="84.0" prefHeight="195.0" prefWidth="188.0">
                <children>
                   <PasswordField fx:id="passwordInput1" accessibleText="password" prefHeight="131.0" prefWidth="184.0" style="-fx-background-color: #393939;">
                      <VBox.margin>
