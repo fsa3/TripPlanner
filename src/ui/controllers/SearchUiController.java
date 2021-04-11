@@ -258,6 +258,7 @@ public class SearchUiController implements Initializable {
                     }
                 }
             });
+            if(customPackage.getHotels().contains(h)) hotelRadio.setSelected(true);
         }
         // display all day trips
         for(DayTrip dt : searchResult.getDayTrips()) {
