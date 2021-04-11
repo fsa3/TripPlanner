@@ -3,15 +3,18 @@ package ui.controllers;
 import entities.DayTrip;
 import entities.TripPackage;
 import entities.User;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
+import java.util.ArrayList;
 
 public class BookingUiController {
 
@@ -73,8 +76,14 @@ public class BookingUiController {
         for(DayTrip dt : tripPackage.getDayTrips()) {
             HBox dtHBox = new HBox();
             Label tripLabel = new Label(dt.toString());
-            dtHBox.getChildren().addAll(tripLabel);
-            dayTripsVB.getChildren().add(dtHBox);
+            tripLabel.setPrefWidth(200);
+            ArrayList<String> testData = new ArrayList<>();
+            testData.add("test1");
+            testData.add("test2");
+            ComboBox<? extends String> dayChooser = new ComboBox<>(FXCollections.observableList(testData));
+            dayChooser.setPrefHeight(10);
+            dtHBox.getChildren().addAll(tripLabel, dayChooser);
+            dayTripsVB.getChildren().addAll(dtHBox);
         }
     }
 
