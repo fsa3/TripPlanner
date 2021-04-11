@@ -66,11 +66,11 @@
                                  <children>
                                     <VBox prefHeight="173.0" prefWidth="461.0" styleClass="packageContainer">
                                        <children>
-                                          <Label styleClass="title2" text="Flights" />
+                                          <Label styleClass="packageTitle" text="Flights" />
                                           <VBox fx:id="selectedFlightsVB" prefHeight="200.0" prefWidth="100.0" />
-                                          <Label styleClass="title2" text="Hotel" />
+                                          <Label styleClass="packageTitle" text="Hotel" />
                                           <VBox fx:id="selectedHotelVB" prefHeight="200.0" prefWidth="100.0" />
-                                          <Label styleClass="title2" text="Day Trips" />
+                                          <Label styleClass="packageTitle" text="Day Trips" />
                                           <VBox fx:id="selectedDayTripsVB" prefHeight="200.0" prefWidth="100.0" />
                                           <ButtonBar prefHeight="40.0" prefWidth="200.0">
                                             <buttons>
