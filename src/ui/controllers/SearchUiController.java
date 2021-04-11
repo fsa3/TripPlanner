@@ -116,6 +116,10 @@ public class SearchUiController implements Initializable {
         }
     }
 
+    public void setSearchResult(SearchResult searchResult) {
+        this.searchResult = searchResult;
+    }
+
     public void searchButtonClicked(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/searchresultsUI.fxml"));
@@ -129,52 +133,55 @@ public class SearchUiController implements Initializable {
             // todo sækja uppsl úr inputtum og smíða search result með því
             searchResult = new SearchResult(LocalDate.of(2021, 3, 23),
                     LocalDate.of(2021, 3, 28),
-                    "Reykjavík", "Akureyri", 2, 1
+                    "Reykjavík", "Akureyri", 6, 3
             );
-            searchResult.search();
 
-            backToSearch = (Button) sceneRoot.lookup("#backToSearch");
-
-            backToSearch.setOnAction((evt) -> {
-                goBackToSearch();
-            });
-
-            customPackage = new TripPackage("Custom Package" ,searchResult);
-            customPackage.emptyPackage();
-
-
-
-            // (VBox) sceneRoot.lookup("#packagesVBox")
-            resultScrollPane = (ScrollPane) sceneRoot.lookup("#resultScrollPane");
-            resultScrollPane.applyCss();
-            resultScrollPane.layout();
-            packagesVBox = (VBox) resultScrollPane.lookup("#packagesVBox");
-
-            displayTripPackage(createTestPackage(), packagesVBox);
-            displayTripPackage(createTestPackage(), packagesVBox);
-            displayTripPackage(createTestPackage(), packagesVBox);
-
-            allOutFlightsVB = (VBox) resultScrollPane.lookup("#allOutFlightsVB");
-            allInFlightsVB = (VBox) resultScrollPane.lookup("#allInFlightsVB");
-            allHotelsVB = (VBox) resultScrollPane.lookup("#allHotelsVB");
-            allDayTripsVB = (VBox) resultScrollPane.lookup("#allDayTripsVB");
-            selectedFlightsVB = (VBox) resultScrollPane.lookup("#selectedFlightsVB");
-            selectedHotelVB = (VBox) resultScrollPane.lookup("#selectedHotelVB");
-            selectedDayTripsVB = (VBox) resultScrollPane.lookup("#selectedDayTripsVB");
-
-            bookCustomPackage = (Button) resultScrollPane.lookup("#bookCustomPackage");
-            bookCustomPackage.setOnAction((evt) -> {
-                book(customPackage);
-            });
-
-            displayAllSearchResult();
+            updateSearchView();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void goBackToSearch() {
+    public void updateSearchView() {
+        searchResult.search();
+        backToSearch = (Button) sceneRoot.lookup("#backToSearch");
+
+        backToSearch.setOnAction((evt) -> {
+            goBackToSearch();
+        });
+
+        customPackage = new TripPackage("Custom Package" ,searchResult);
+        customPackage.emptyPackage();
+
+
+        // (VBox) sceneRoot.lookup("#packagesVBox")
+        resultScrollPane = (ScrollPane) sceneRoot.lookup("#resultScrollPane");
+        resultScrollPane.applyCss();
+        resultScrollPane.layout();
+        packagesVBox = (VBox) resultScrollPane.lookup("#packagesVBox");
+
+        displayTripPackage(createTestPackage(), packagesVBox);
+        displayTripPackage(createTestPackage(), packagesVBox);
+        displayTripPackage(createTestPackage(), packagesVBox);
+
+        allOutFlightsVB = (VBox) resultScrollPane.lookup("#allOutFlightsVB");
+        allInFlightsVB = (VBox) resultScrollPane.lookup("#allInFlightsVB");
+        allHotelsVB = (VBox) resultScrollPane.lookup("#allHotelsVB");
+        allDayTripsVB = (VBox) resultScrollPane.lookup("#allDayTripsVB");
+        selectedFlightsVB = (VBox) resultScrollPane.lookup("#selectedFlightsVB");
+        selectedHotelVB = (VBox) resultScrollPane.lookup("#selectedHotelVB");
+        selectedDayTripsVB = (VBox) resultScrollPane.lookup("#selectedDayTripsVB");
+
+        bookCustomPackage = (Button) resultScrollPane.lookup("#bookCustomPackage");
+        bookCustomPackage.setOnAction((evt) -> {
+            book(customPackage);
+        });
+
+        displayAllSearchResult();
+    }
+
+    public void goBackToSearch() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/searchUI.fxml"));
             AnchorPane searchRoot = loader.load();
@@ -295,7 +302,7 @@ public class SearchUiController implements Initializable {
 
     public void setUser(User user) {
         this.user = user;
-        loginLabel.setText(this.user.getFirstName());
+        //loginLabel.setText(this.user.getFirstName());
     }
 
     public void mouseOnLoginLabel(MouseEvent mouseEvent) {
@@ -306,6 +313,7 @@ public class SearchUiController implements Initializable {
         loginLabel.setUnderline(false);
     }
 
+    // todo eyða falli
     public TripPackage createTestPackage() {
         SearchResult searchResult = new SearchResult(LocalDate.of(2021, 3, 23),
                 LocalDate.of(2021, 3, 28),
@@ -402,10 +410,12 @@ public class SearchUiController implements Initializable {
         try {
             AnchorPane bookRoot = loader.load();
             BookingUiController bookingUiController = loader.getController();
+            sceneRoot.getChildren().setAll(bookRoot);
             bookingUiController.setUser(user);
             bookingUiController.setTripPackage(tPackage);
+            bookingUiController.setSearchResult(searchResult);
+            bookingUiController.setSearchRoot(sceneRoot);
             bookingUiController.updateView();
-            sceneRoot.getChildren().setAll(bookRoot);
         } catch (IOException e) {
             e.printStackTrace();
         }

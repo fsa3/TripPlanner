@@ -95,3 +95,7 @@ Button {
 .tabussi > * > Label {
     -fx-text-fill: black;
 }
+
+.personName {
+    -fx-background-color: #1E1E20;
+}
