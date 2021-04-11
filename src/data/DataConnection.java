@@ -21,7 +21,6 @@ public class DataConnection {
 
     public User getUserByEmailAndPw(String email, String pw) {
         try {
-            Statement statement = connection.createStatement();
             String query = "SELECT * FROM Users WHERE email = ? AND password = ?";
             PreparedStatement getUser = connection.prepareStatement(query);
             getUser.setString(1, email);
@@ -43,6 +42,7 @@ public class DataConnection {
         String lastName = rs.getString(4);
         String phoneNum = rs.getString(5);
         String ssNum = rs.getString(6);
+        getUser.close();
         return new User(userEmail, firstName, lastName, userPw, phoneNum, ssNum);
     }
 
@@ -73,9 +73,32 @@ public class DataConnection {
                 createUser.setString(i+1, userInfo.get(i));
             }
             createUser.executeUpdate();
+            createUser.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             databaseError();
+        }
+    }
+
+    public void updateUser(String email, String attribute, String value) {
+        try {
+            String query = "UPDATE Users SET "+attribute+" = ? WHERE email = ?";
+            PreparedStatement updateUserStm = connection.prepareStatement(query);
+            updateUserStm.setString(1, value);
+            updateUserStm.setString(2, email);
+            updateUserStm.executeUpdate();
+            updateUserStm.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            databaseError();
+        }
+    }
+
+    public void closeConnection() {
+        try {
+            if(connection != null) connection.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 }
