@@ -5,11 +5,11 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="429.0" prefWidth="800.0" stylesheets="@../styles/global.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.UserUIController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="429.0" prefWidth="800.0" stylesheets="@../styles/global.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.UserUIController">
    <children>
       <TabPane prefHeight="429.0" prefWidth="800.0" style="-fx-background-color: blue;" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab style="-fx-background-color: #FF8C00;" text="User info">
+          <Tab style="-fx-background-color: #FF8C00;" styleClass="tabussi" text="User info">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -18,7 +18,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab style="-fx-background-color: #FF8C00;" text="Bookings">
+          <Tab style="-fx-background-color: #FF8C00;" styleClass="tabussi" text="Bookings">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="800.0">
                      <children>

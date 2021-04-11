@@ -85,3 +85,7 @@ Button {
 .date-picker-popup > * > Button {
     -fx-background-color: green;
 }
+
+.tabussi > * > Label {
+    -fx-text-fill: black;
+}
