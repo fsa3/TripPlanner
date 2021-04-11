@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class UserInfoController {
+    @FXML private Label changeSuccessful;
     @FXML private PasswordField oldPassword;
     @FXML private PasswordField newPassword;
     @FXML private PasswordField newPassword2;
@@ -68,6 +69,11 @@ public class UserInfoController {
         uc.updateUser("firstName",firstNameTextField.getText());
         uc.updateUser("lastName",lastNameTextField.getText());
         uc.updateUser("phoneNumber",phoneTextField.getText());
+        changeSuccessful.setText("Changes saved successfully!");
+        user = uc.getUser("email",emailInput.getText());
+
+        //todo
+
     }
 }
 
