@@ -21,6 +21,13 @@ public class BookingUiController {
     private VBox flightsVB;
     @FXML
     private VBox dayTripsVB;
+    @FXML
+    private VBox hotelVB;
+    @FXML
+    private VBox adultsVB;
+    @FXML
+    private VBox childrenVB;
+
 
     private User user;
     private TripPackage tripPackage;
