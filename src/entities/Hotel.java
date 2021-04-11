@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.Objects;
+
 public class Hotel {
     private String name;
     private String city;
@@ -28,5 +30,13 @@ public class Hotel {
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Hotel hotel = (Hotel) o;
+        return name.equals(hotel.name) && city.equals(hotel.city);
     }
 }

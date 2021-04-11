@@ -25,6 +25,10 @@ public class BookingUiController {
     @FXML
     private AnchorPane bookRoot;
     @FXML
+    private Label packageTitle;
+    @FXML
+    private Label packagePrice;
+    @FXML
     private VBox flightsVB;
     @FXML
     private VBox dayTripsVB;
@@ -50,7 +54,7 @@ public class BookingUiController {
     private User user;
     private TripPackage tripPackage;
     private SearchResult searchResult;
-    private AnchorPane searchRoot;
+    private TripPackage customPackage;
 
     public void initialize() {
         System.out.println("initialize book UI");
@@ -68,12 +72,13 @@ public class BookingUiController {
         searchResult = result;
     }
 
-    public void setSearchRoot(AnchorPane root) {
-        searchRoot = root;
+    public void setCustomPackage(TripPackage customPackage) {
+        this.customPackage = customPackage;
     }
 
     public void updateView() {
-        // todo stinga inn nafni á pakka
+        packageTitle.setText("Book " + tripPackage.getName());
+        packagePrice.setText(String.valueOf(tripPackage.getPrice())+"$");
         // todo stinga inn verði á pakka
         if(!tripPackage.getOutFlights().isEmpty()) {
             //out flight
@@ -182,7 +187,8 @@ public class BookingUiController {
             bookRoot.getChildren().setAll(resultRoot);
             searchUiController.setUser(user);
             searchUiController.setSearchResult(searchResult);
-            searchUiController.goBackToSearch();
+            searchUiController.setCustomPackage(customPackage);
+            searchUiController.searchButtonClicked();
         } catch (IOException e) {
             e.printStackTrace();
         }

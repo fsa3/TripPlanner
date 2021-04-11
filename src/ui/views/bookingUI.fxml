@@ -50,44 +50,53 @@
                         <Label layoutX="313.0" layoutY="14.0" styleClass="title1" text="Trip information" />
                         <VBox layoutX="-2.0" layoutY="53.0" prefHeight="529.0" prefWidth="819.0">
                            <children>
-                              <Label styleClass="title2" text="Book &lt;nafn pakka&gt;" />
+                              <Label fx:id="packageTitle" styleClass="title2" text="Book &lt;nafn pakka&gt;">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin></Label>
                               <HBox prefHeight="61.0" prefWidth="819.0">
                                  <children>
                                     <VBox fx:id="flightsVB" prefHeight="45.0" prefWidth="345.0">
                                        <children>
-                                          <Label text="Flight" />
+                                          <Label styleClass="packageTitle" text="Flight" />
                                        </children></VBox>
                                     <VBox fx:id="dayTripsVB" prefHeight="45.0" prefWidth="358.0">
                                        <children>
-                                          <Label text="Day Trips" />
+                                          <Label styleClass="packageTitle" text="Day Trips" />
                                        </children></VBox>
                                  </children>
                               </HBox>
                               <HBox prefHeight="29.0" prefWidth="789.0">
                                  <children>
-                                    <Label text="Hotel" />
+                                    <Label styleClass="packageTitle" text="Hotel" />
                                  </children>
                               </HBox>
                               <VBox fx:id="hotelVB" prefHeight="45.0" prefWidth="699.0" />
-                              <Label styleClass="title2" text="Passanger Information" />
+                              <Label styleClass="title2" text="Passanger Information">
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding></Label>
                               <VBox fx:id="adultsVB" prefHeight="57.0" prefWidth="702.0">
                                  <children>
                                     <HBox prefHeight="100.0" prefWidth="200.0">
                                        <children>
                                           <VBox fx:id="adultsVB" prefHeight="47.0" prefWidth="280.0">
                                              <children>
-                                                <Label text="Adults" />
+                                                <Label text="Adults" underline="true">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font></Label>
                                              </children>
                                              <HBox.margin>
                                                 <Insets right="20.0" />
                                              </HBox.margin>
                                           </VBox>
-                                          <VBox fx:id="flightOutSeat" prefHeight="200.0" prefWidth="100.0">
+                                          <VBox fx:id="flightOutSeat" prefHeight="200.0" prefWidth="70.0">
                                              <children>
                                                 <Label fx:id="fNumOut" />
                                              </children>
                                           </VBox>
-                                          <VBox fx:id="flightInSeat" prefHeight="200.0" prefWidth="100.0">
+                                          <VBox fx:id="flightInSeat" prefHeight="200.0" prefWidth="70.0">
                                              <children>
                                                 <Label fx:id="fNumIn" />
                                              </children>
@@ -97,7 +106,10 @@
                                  </children></VBox>
                               <HBox prefHeight="25.0" prefWidth="789.0">
                                  <children>
-                                    <Label text="Children" />
+                                    <Label text="Children" underline="true" wrapText="true">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></Label>
                                  </children>
                               </HBox>
                               <VBox fx:id="childrenVB" prefHeight="63.0" prefWidth="693.0">
@@ -109,8 +121,8 @@
                                                 <Insets right="20.0" />
                                              </HBox.margin>
                                           </VBox>
-                                          <VBox fx:id="flightOutSeatC" prefHeight="200.0" prefWidth="100.0" />
-                                          <VBox fx:id="flightInSeatC" prefHeight="200.0" prefWidth="100.0" />
+                                          <VBox fx:id="flightOutSeatC" prefHeight="200.0" prefWidth="70.0" />
+                                          <VBox fx:id="flightInSeatC" prefHeight="200.0" prefWidth="70.0" />
                                        </children>
                                     </HBox>
                                  </children></VBox>
@@ -190,17 +202,17 @@
                   </HBox>
                   <HBox prefHeight="29.0" prefWidth="302.0" styleClass="packagePrice">
                      <children>
-                        <Label styleClass="packagePrice" text="Total Amount:">
+                        <Label text="Total Amount:">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Label>
-                        <Label styleClass="packagePrice" text="Label" />
+                        <Label fx:id="packagePrice" text="Label" />
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <Button layoutX="36.0" layoutY="337.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="300.0" style="-fx-background-color: #ff8c00;" styleClass="payNow" text="Pay Now">
+            <Button layoutX="36.0" layoutY="319.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="300.0" style="-fx-background-color: #ff8c00;" styleClass="payNow" text="Pay Now">
                <font>
                   <Font size="18.0" />
                </font>
