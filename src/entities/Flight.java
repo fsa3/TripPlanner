@@ -1,6 +1,7 @@
 package entities;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Flight {
     private String flightNum;
@@ -50,5 +51,13 @@ public class Flight {
     @Override
     public String toString() {
         return flightNum + " from " + depCity + " to " + destCity + " on " + date;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Flight flight = (Flight) o;
+        return flightNum.equals(flight.flightNum) && date.equals(flight.date) && depCity.equals(flight.depCity) && destCity.equals(flight.destCity);
     }
 }

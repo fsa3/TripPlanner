@@ -120,7 +120,11 @@ public class SearchUiController implements Initializable {
         this.searchResult = searchResult;
     }
 
-    public void searchButtonClicked(ActionEvent actionEvent) {
+    public void setCustomPackage(TripPackage customPackage) {
+        this.customPackage = customPackage;
+    }
+
+    public void searchButtonClicked() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/searchresultsUI.fxml"));
             AnchorPane resultRoot = loader.load();
@@ -151,9 +155,10 @@ public class SearchUiController implements Initializable {
             goBackToSearch();
         });
 
-        customPackage = new TripPackage("Custom Package" ,searchResult);
-        customPackage.emptyPackage();
-
+        if(customPackage == null) {
+            customPackage = new TripPackage("Custom Package" ,searchResult);
+            customPackage.emptyPackage();
+        }
 
         // (VBox) sceneRoot.lookup("#packagesVBox")
         resultScrollPane = (ScrollPane) sceneRoot.lookup("#resultScrollPane");
@@ -224,6 +229,7 @@ public class SearchUiController implements Initializable {
                     }
                 }
             });
+            if(customPackage.getOutFlights().contains(f)) flightRadio.setSelected(true);
         }
         // display all in flights
         ToggleGroup inFlightsToggleGroup = new ToggleGroup();
@@ -241,6 +247,7 @@ public class SearchUiController implements Initializable {
                     }
                 }
             });
+            if(customPackage.getInFlights().contains(f)) flightRadio.setSelected(true);
         }
         // display all hotels
         ToggleGroup hotelsToggleGroup = new ToggleGroup();
@@ -276,6 +283,10 @@ public class SearchUiController implements Initializable {
                    displayCustomPackage();
                }
            });
+           if(customPackage.getDayTrips().contains(dt)) {
+               customPackage.removeDayTrip(dt);
+               dayTripCheck.setSelected(true);
+           }
         }
     }
 
@@ -415,7 +426,7 @@ public class SearchUiController implements Initializable {
             bookingUiController.setUser(user);
             bookingUiController.setTripPackage(tPackage);
             bookingUiController.setSearchResult(searchResult);
-            bookingUiController.setSearchRoot(sceneRoot);
+            bookingUiController.setCustomPackage(customPackage);
             bookingUiController.updateView();
         } catch (IOException e) {
             e.printStackTrace();
