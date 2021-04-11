@@ -19,16 +19,21 @@ public class UserController {
     public void createUser(ArrayList<String> userInfo) {
         DataConnection dc = new DataConnection();
         dc.createUser(userInfo);
+        dc.closeConnection();
     }
 
     public User loginUser(String email, String pw) {
         DataConnection dc = new DataConnection();
-        return dc.getUserByEmailAndPw(email, pw);
+        User returnUser = dc.getUserByEmailAndPw(email, pw);
+        dc.closeConnection();
+        return returnUser;
     }
 
     public User getUser(String attribute, String value) {
         DataConnection dc = new DataConnection();
-        return dc.getUserBy(attribute, value);
+        User returnUser = dc.getUserBy(attribute, value);
+        dc.closeConnection();
+        return returnUser;
     }
 
     private void searchUser(String email) {
@@ -55,6 +60,8 @@ public class UserController {
     }
 
     public void updateUser(String attributeToUpdate, String data) {
-        // todo
+        DataConnection dc = new DataConnection();
+        dc.updateUser(user.getEmail(), attributeToUpdate, data);
+        dc.closeConnection();
     }
 }

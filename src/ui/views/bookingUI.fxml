@@ -47,6 +47,24 @@
                   <AnchorPane fx:id="bookRoot" maxWidth="1200.0" minWidth="1183.0" prefWidth="1187.35" style="-fx-background-color: #393939;">
                      <children>
                         <AnchorPane layoutX="811.0" layoutY="3.0" prefHeight="578.0" prefWidth="371.0" />
+                        <Label layoutX="313.0" layoutY="14.0" styleClass="title1" text="Trip information" />
+                        <AnchorPane layoutX="-1.0" layoutY="72.0" prefHeight="508.0" prefWidth="819.0">
+                           <children>
+                              <Label layoutX="70.0" layoutY="32.0" text="Flights" />
+                              <VBox fx:id="flightsVB" layoutX="67.0" layoutY="49.0" prefHeight="45.0" prefWidth="345.0" />
+                              <Label layoutX="424.0" layoutY="32.0" text="Day Trips" />
+                              <VBox fx:id="DayTripsVB" layoutX="424.0" layoutY="49.0" prefHeight="45.0" prefWidth="358.0" />
+                              <Label layoutX="70.0" layoutY="106.0" text="Hotel" />
+                              <VBox fx:id="hotelVB" layoutX="60.0" layoutY="123.0" prefHeight="45.0" prefWidth="699.0" />
+                              <Label layoutX="70.0" layoutY="168.0" text="Passanger Information" />
+                              <VBox fx:id="adultsVB" layoutX="73.0" layoutY="211.0" prefHeight="57.0" prefWidth="702.0" />
+                              <Label layoutX="71.0" layoutY="194.0" text="Adults" />
+                              <HBox fx:id="fNums" layoutX="424.0" layoutY="183.0" prefHeight="29.0" prefWidth="200.0" />
+                              <Label layoutX="71.0" layoutY="269.0" text="Children" />
+                              <VBox fx:id="childrenVB" layoutX="73.0" layoutY="286.0" prefHeight="63.0" prefWidth="693.0" />
+                              <Label layoutX="71.0" layoutY="6.0" text="Book &lt;nafn pakka&gt;" />
+                           </children>
+                        </AnchorPane>
                      </children>
                   </AnchorPane>
                </content>
@@ -55,12 +73,12 @@
       </BorderPane>
       <AnchorPane layoutX="820.0" layoutY="71.0" prefHeight="578.0" prefWidth="371.0" style="-fx-background-color: #1E1E20;">
          <children>
-            <Label layoutX="74.0" layoutY="14.0" text="Payment Information">
+            <Label layoutX="66.0" layoutY="14.0" styleClass="title1" text="Payment Information">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <VBox layoutX="37.0" layoutY="76.0" prefHeight="189.0" prefWidth="302.0">
+            <VBox layoutX="37.0" layoutY="76.0" prefHeight="245.0" prefWidth="302.0">
                <children>
                   <Label text="Cardholder">
                      <VBox.margin>
@@ -112,10 +130,23 @@
                         </TextField>
                         <TextField prefHeight="25.0" prefWidth="100.0" promptText="253" />
                      </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox prefHeight="29.0" prefWidth="302.0">
+                     <children>
+                        <Label text="Total Amount:">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label text="Label" />
+                     </children>
                   </HBox>
                </children>
             </VBox>
-            <Button layoutX="36.0" layoutY="305.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="300.0" style="-fx-background-color: #ff8c00;" styleClass="payNow" text="Pay Now">
+            <Button layoutX="36.0" layoutY="337.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="300.0" style="-fx-background-color: #ff8c00;" styleClass="payNow" text="Pay Now">
                <font>
                   <Font size="18.0" />
                </font>

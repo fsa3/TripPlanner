@@ -49,7 +49,9 @@ public class UserInfoController {
         UserController uc = new UserController(user);
         if(uc.checkPassword(old)) {
             if(new1.equals(new2)) {
-                //fff
+                UserController userController = new UserController(this.user);
+                userController.updateUser("password", new1);
+                passwordLabel.setText("Password successfully updated");
             }
             else {
                 passwordLabel.setText("Passwords do not match");
