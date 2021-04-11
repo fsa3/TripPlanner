@@ -61,4 +61,13 @@ public class UserInfoController {
             passwordLabel.setText("Incorrect password");
         }
     }
+
+    public void confirmChanges(ActionEvent actionEvent) {
+        UserController uc = new UserController(user);
+        uc.updateUser("email",emailInput.getText());
+        uc.updateUser("firstName",firstNameTextField.getText());
+        uc.updateUser("lastName",lastNameTextField.getText());
+        uc.updateUser("phoneNumber",phoneTextField.getText());
+    }
 }
+
