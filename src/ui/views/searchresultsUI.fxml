@@ -47,7 +47,7 @@
                      <children>
                         <AnchorPane prefHeight="578.0" prefWidth="682.0">
                            <children>
-                              <Label alignment="CENTER" layoutX="31.0" layoutY="34.0" prefHeight="35.0" prefWidth="644.0" text="Trip packages for you" textAlignment="CENTER" textFill="WHITE">
+                              <Label alignment="CENTER" layoutX="31.0" layoutY="34.0" prefHeight="35.0" prefWidth="644.0" styleClass="title1" text="Trip packages for you" textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -57,7 +57,7 @@
                         </AnchorPane>
                         <AnchorPane layoutX="690.0" layoutY="3.0" prefHeight="578.0" prefWidth="492.0">
                            <children>
-                              <Label layoutX="94.0" layoutY="33.0" text="Create your own trip package" textFill="WHITE">
+                              <Label layoutX="94.0" layoutY="33.0" styleClass="title1" text="Create your own trip package" textFill="WHITE">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -66,11 +66,11 @@
                                  <children>
                                     <VBox prefHeight="173.0" prefWidth="461.0" styleClass="packageContainer">
                                        <children>
-                                          <Label text="Flights" />
+                                          <Label styleClass="title2" text="Flights" />
                                           <VBox fx:id="selectedFlightsVB" prefHeight="200.0" prefWidth="100.0" />
-                                          <Label text="Hotel" />
+                                          <Label styleClass="title2" text="Hotel" />
                                           <VBox fx:id="selectedHotelVB" prefHeight="200.0" prefWidth="100.0" />
-                                          <Label text="Day Trips" />
+                                          <Label styleClass="title2" text="Day Trips" />
                                           <VBox fx:id="selectedDayTripsVB" prefHeight="200.0" prefWidth="100.0" />
                                           <ButtonBar prefHeight="40.0" prefWidth="200.0">
                                             <buttons>
@@ -85,7 +85,7 @@
                                           <Insets />
                                        </opaqueInsets>
                                     </VBox>
-                                    <Label prefHeight="21.0" prefWidth="166.0" text="Select flights">
+                                    <Label prefHeight="21.0" prefWidth="166.0" styleClass="title2" text="Select flights">
                                        <opaqueInsets>
                                           <Insets />
                                        </opaqueInsets>
@@ -99,13 +99,13 @@
                                           <Insets top="10.0" />
                                        </VBox.margin>
                                     </VBox>
-                                    <Label text="Select hotel">
+                                    <Label styleClass="title2" text="Select hotel">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin>
                                     </Label>
                                     <VBox fx:id="allHotelsVB" prefHeight="200.0" prefWidth="100.0" />
-                                    <Label text="Select day trips">
+                                    <Label styleClass="title2" text="Select day trips">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin>
