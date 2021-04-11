@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="userInfo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-border-width: 2; -fx-border-color: black;" stylesheets="@../styles/global.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.UserInfoController">
+<BorderPane fx:id="userInfo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-border-width: 2; -fx-border-color: black;" stylesheets="@../styles/global.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.UserInfoController">
    <top>
       <AnchorPane prefHeight="193.0" prefWidth="816.0" style="-fx-background-color: #1E1E20; visibility: true;" BorderPane.alignment="CENTER">
          <children>
@@ -47,7 +47,7 @@
             </AnchorPane>
             <AnchorPane layoutX="199.0" layoutY="-95.0" prefHeight="400.0" prefWidth="593.0">
                <children>
-                  <VBox alignment="TOP_RIGHT" layoutX="-31.0" layoutY="60.0" prefHeight="306.0" prefWidth="100.0">
+                  <VBox alignment="TOP_RIGHT" layoutX="-6.0" layoutY="56.0" prefHeight="268.0" prefWidth="75.0">
                      <children>
                         <Label text="Email:" textFill="WHITE">
                            <font>
@@ -104,7 +104,7 @@
                         </Label>
                      </children>
                   </VBox>
-                  <VBox fx:id="inputs" layoutX="80.0" layoutY="69.0" prefHeight="269.0" prefWidth="178.0">
+                  <VBox fx:id="inputs" layoutX="80.0" layoutY="61.0" prefHeight="277.0" prefWidth="178.0">
                      <children>
                         <TextField fx:id="emailInput" accessibleText="email" style="-fx-background-color: #393939;">
                            <font>
@@ -161,13 +161,13 @@
                         </TextField>
                      </children>
                   </VBox>
-                  <CheckBox layoutX="274.0" layoutY="298.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="75.0" text="NSFW?" textFill="#fbfbfb" />
-                  <Label layoutX="413.0" layoutY="154.0" prefHeight="32.0" prefWidth="143.0" text="Change your password" textFill="WHITE">
+                  <CheckBox layoutX="270.0" layoutY="289.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="75.0" text="NSFW?" textFill="#fbfbfb" />
+                  <Label layoutX="420.0" layoutY="154.0" prefHeight="32.0" prefWidth="143.0" text="Change your password" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Label>
-                  <Button fx:id="createAccButton" layoutX="204.0" layoutY="343.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="174.0" style="-fx-border-color: pink; -fx-background-color: orange;" text="Confirm changes">
+                  <Button fx:id="createAccButton" layoutX="82.0" layoutY="343.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="174.0" style="-fx-border-color: pink; -fx-background-color: orange;" text="Confirm changes">
                      <font>
                         <Font size="17.0" />
                      </font>
@@ -183,9 +183,19 @@
                         <InnerShadow />
                      </effect>
                   </ImageView>
+                  <Button layoutX="505.0" layoutY="352.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="20.0" prefWidth="59.0" style="-fx-background-color: #7a0b0b;" text="Close" textFill="#ff2802">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="logout" layoutX="413.0" layoutY="352.0" mnemonicParsing="false" onAction="#logUserOut" prefHeight="28.0" prefWidth="63.0" style="-fx-background-color: #0D7377;" text="Log out" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
                </children>
             </AnchorPane>
-            <VBox alignment="TOP_RIGHT" layoutX="461.0" layoutY="88.0" prefHeight="130.0" prefWidth="136.0">
+            <VBox alignment="TOP_RIGHT" layoutX="461.0" layoutY="83.0" prefHeight="135.0" prefWidth="136.0">
                <children>
                   <Label prefHeight="20.0" prefWidth="95.0" text="Old password:" textFill="WHITE">
                      <font>
@@ -213,9 +223,9 @@
                   </Label>
                </children>
             </VBox>
-            <VBox fx:id="inputs1" layoutX="600.0" layoutY="94.0" prefHeight="194.0" prefWidth="184.0">
+            <VBox fx:id="inputs1" layoutX="600.0" layoutY="88.0" prefHeight="171.0" prefWidth="184.0">
                <children>
-                  <PasswordField fx:id="oldPassword" accessibleText="password" prefHeight="131.0" prefWidth="184.0" style="-fx-background-color: #393939;">
+                  <PasswordField fx:id="oldPassword" accessibleText="password" prefHeight="30.0" prefWidth="184.0" style="-fx-background-color: #393939;">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
@@ -236,9 +246,9 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </PasswordField>
-                  <Button mnemonicParsing="false" onAction="#changePassword" prefHeight="28.0" style="-fx-background-color: orange; -fx-border-color: pink;" text="Change password">
+                  <Button mnemonicParsing="false" onAction="#changePassword" prefHeight="27.0" prefWidth="107.0" style="-fx-background-color: orange; -fx-border-color: pink;" text="Change password">
                      <VBox.margin>
-                        <Insets bottom="5.0" left="39.0" top="10.0" />
+                        <Insets left="35.0" top="12.0" />
                      </VBox.margin>
                   </Button>
                   <Label fx:id="passwordLabel" alignment="CENTER" prefHeight="17.0" prefWidth="186.0" textAlignment="CENTER">
@@ -246,14 +256,6 @@
                         <Insets />
                      </VBox.margin>
                   </Label>
-                  <Button mnemonicParsing="false" onAction="#closeWindow" prefHeight="25.0" prefWidth="97.0" style="-fx-background-color: #7a0b0b;" text="Close window" textFill="#ff2802">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <VBox.margin>
-                        <Insets left="100.0" top="10.0" />
-                     </VBox.margin>
-                  </Button>
                </children>
             </VBox>
          </children>
