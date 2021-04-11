@@ -1,11 +1,7 @@
 package ui.controllers;
 
-import controllers.BookingController;
 import controllers.SearchController;
-import controllers.UserController;
 import entities.*;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -15,18 +11,14 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -412,7 +404,7 @@ public class SearchUiController implements Initializable {
             BookingUiController bookingUiController = loader.getController();
             bookingUiController.setUser(user);
             bookingUiController.setTripPackage(tPackage);
-            bookingUiController.update();
+            bookingUiController.updateView();
             sceneRoot.getChildren().setAll(bookRoot);
         } catch (IOException e) {
             e.printStackTrace();
