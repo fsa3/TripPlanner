@@ -78,7 +78,7 @@ public class SearchUiController implements Initializable {
         }
     }
 
-    public void openLogin(MouseEvent mouseEvent) throws IOException {
+    public void openLogin() throws IOException {
         searchStage = (Stage) sceneRoot.getScene().getWindow();
 
         if(user == null) {
@@ -418,6 +418,14 @@ public class SearchUiController implements Initializable {
     }
 
     private void book(TripPackage tPackage) {
+        if(user == null) {
+            try {
+                openLogin();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/bookingUI.fxml"));
         try {
             AnchorPane bookRoot = loader.load();

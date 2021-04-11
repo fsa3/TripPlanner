@@ -1,5 +1,6 @@
 package ui.controllers;
 
+import controllers.BookingController;
 import entities.DayTrip;
 import entities.SearchResult;
 import entities.TripPackage;
@@ -9,12 +10,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.Window;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -189,6 +196,48 @@ public class BookingUiController {
             searchUiController.setSearchResult(searchResult);
             searchUiController.setCustomPackage(customPackage);
             searchUiController.searchButtonClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void payButtonPressed() {
+        BookingController bookingController = new BookingController(tripPackage, user);
+        bookingController.bookPackage();
+        goBackToSearch();
+        openUserBookings();
+    }
+
+    private void openUserBookings() {
+        Stage bookWindow = (Stage) bookRoot.getScene().getWindow();
+
+        Stage userStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/user.fxml"));
+        try {
+            Region root = loader.load();
+            Scene scene = new Scene(root,800,429);
+            userStage.setScene(scene);
+
+            UserUIController userUIController = loader.getController();
+            userUIController.setUser(user);
+            userUIController.openBookinsTab();
+
+            userStage.initStyle(StageStyle.UNDECORATED);
+            userStage.initModality(Modality.WINDOW_MODAL);
+            userStage.initOwner(bookWindow);
+            userStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void goBackToSearch() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/searchUI.fxml"));
+        try {
+            AnchorPane resultRoot = loader.load();
+            SearchUiController searchUiController = loader.getController();
+            bookRoot.getChildren().setAll(resultRoot);
+            searchUiController.setUser(user);
         } catch (IOException e) {
             e.printStackTrace();
         }

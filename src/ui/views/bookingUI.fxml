@@ -75,7 +75,10 @@
                               <Label styleClass="title2" text="Passanger Information">
                                  <padding>
                                     <Insets bottom="10.0" />
-                                 </padding></Label>
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin></Label>
                               <VBox fx:id="adultsVB" prefHeight="57.0" prefWidth="702.0">
                                  <children>
                                     <HBox prefHeight="100.0" prefWidth="200.0">
@@ -85,7 +88,10 @@
                                                 <Label text="Adults" underline="true">
                                                    <font>
                                                       <Font size="14.0" />
-                                                   </font></Label>
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets bottom="5.0" />
+                                                   </VBox.margin></Label>
                                              </children>
                                              <HBox.margin>
                                                 <Insets right="20.0" />
@@ -93,12 +99,18 @@
                                           </VBox>
                                           <VBox fx:id="flightOutSeat" prefHeight="200.0" prefWidth="70.0">
                                              <children>
-                                                <Label fx:id="fNumOut" />
+                                                <Label fx:id="fNumOut">
+                                                   <VBox.margin>
+                                                      <Insets bottom="5.0" />
+                                                   </VBox.margin></Label>
                                              </children>
                                           </VBox>
                                           <VBox fx:id="flightInSeat" prefHeight="200.0" prefWidth="70.0">
                                              <children>
-                                                <Label fx:id="fNumIn" />
+                                                <Label fx:id="fNumIn">
+                                                   <VBox.margin>
+                                                      <Insets bottom="5.0" />
+                                                   </VBox.margin></Label>
                                              </children>
                                           </VBox>
                                        </children>
@@ -212,7 +224,7 @@
                   </HBox>
                </children>
             </VBox>
-            <Button layoutX="36.0" layoutY="319.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="300.0" style="-fx-background-color: #ff8c00;" styleClass="payNow" text="Pay Now">
+            <Button layoutX="36.0" layoutY="319.0" mnemonicParsing="false" onAction="#payButtonPressed" prefHeight="27.0" prefWidth="300.0" style="-fx-background-color: #ff8c00;" styleClass="payNow" text="Pay Now">
                <font>
                   <Font size="18.0" />
                </font>

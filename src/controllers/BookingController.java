@@ -22,7 +22,8 @@ public class BookingController {
     }
 
     public void bookPackage() {
-        // todo
+        // todo kalla á föll frá hinum hópunum til að bóka
+
     }
 
     public void getPackageFromBookings() {
