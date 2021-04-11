@@ -42,7 +42,7 @@ public class UserController {
         }
     }
 
-    private boolean checkPassword(String pw) {
+    public boolean checkPassword(String pw) {
         return pw.equals(user.getPassword());
     }
 

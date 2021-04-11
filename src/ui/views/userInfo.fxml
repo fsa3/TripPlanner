@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="userInfo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-border-width: 2; -fx-border-color: black;" stylesheets="@../styles/global.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.UserInfoController">
+<BorderPane fx:id="userInfo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-border-width: 2; -fx-border-color: black;" stylesheets="@../styles/global.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.UserInfoController">
    <top>
       <AnchorPane prefHeight="193.0" prefWidth="816.0" style="-fx-background-color: #1E1E20; visibility: true;" BorderPane.alignment="CENTER">
          <children>
@@ -185,9 +185,9 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <VBox alignment="TOP_RIGHT" layoutX="466.0" layoutY="88.0" prefHeight="122.0" prefWidth="119.0">
+            <VBox alignment="TOP_RIGHT" layoutX="461.0" layoutY="88.0" prefHeight="130.0" prefWidth="136.0">
                <children>
-                  <Label text="Old password:" textFill="WHITE">
+                  <Label prefHeight="20.0" prefWidth="95.0" text="Old password:" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -195,7 +195,7 @@
                         <Insets bottom="20.0" top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Label text="New password:" textFill="#f5f5f5">
+                  <Label prefHeight="20.0" prefWidth="100.0" text="New password:" textFill="#f5f5f5">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -203,7 +203,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Label>
-                  <Label prefHeight="19.0" prefWidth="115.0" text="Confirm password:" textFill="#f5f5f5">
+                  <Label prefHeight="20.0" prefWidth="119.0" text="Confirm password:" textFill="#f5f5f5">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -213,9 +213,9 @@
                   </Label>
                </children>
             </VBox>
-            <VBox fx:id="inputs1" layoutX="590.0" layoutY="94.0" prefHeight="194.0" prefWidth="184.0">
+            <VBox fx:id="inputs1" layoutX="600.0" layoutY="94.0" prefHeight="194.0" prefWidth="184.0">
                <children>
-                  <PasswordField fx:id="passwordInput1" accessibleText="password" prefHeight="131.0" prefWidth="184.0" style="-fx-background-color: #393939;">
+                  <PasswordField fx:id="oldPassword" accessibleText="password" prefHeight="131.0" prefWidth="184.0" style="-fx-background-color: #393939;">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
@@ -223,12 +223,12 @@
                         <Font size="14.0" />
                      </font>
                   </PasswordField>
-                  <PasswordField fx:id="passwordInput11" accessibleText="password" style="-fx-background-color: #393939;">
+                  <PasswordField fx:id="newPassword" accessibleText="password" style="-fx-background-color: #393939;">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </PasswordField>
-                  <PasswordField fx:id="passwordInput111" accessibleText="password" style="-fx-background-color: #393939;">
+                  <PasswordField fx:id="newPassword2" accessibleText="password" style="-fx-background-color: #393939;">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -236,17 +236,22 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </PasswordField>
-                  <Button mnemonicParsing="false" prefHeight="28.0" style="-fx-background-color: orange; -fx-border-color: pink;" text="Change password">
+                  <Button mnemonicParsing="false" onAction="#changePassword" prefHeight="28.0" style="-fx-background-color: orange; -fx-border-color: pink;" text="Change password">
                      <VBox.margin>
-                        <Insets bottom="30.0" left="39.0" top="10.0" />
+                        <Insets bottom="5.0" left="39.0" top="10.0" />
                      </VBox.margin>
                   </Button>
+                  <Label fx:id="passwordLabel" alignment="CENTER" prefHeight="17.0" prefWidth="186.0" textAlignment="CENTER">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Label>
                   <Button mnemonicParsing="false" onAction="#closeWindow" prefHeight="25.0" prefWidth="97.0" style="-fx-background-color: #7a0b0b;" text="Close window" textFill="#ff2802">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                      <VBox.margin>
-                        <Insets left="100.0" />
+                        <Insets left="100.0" top="10.0" />
                      </VBox.margin>
                   </Button>
                </children>

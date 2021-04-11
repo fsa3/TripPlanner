@@ -1,8 +1,11 @@
 package ui.controllers;
 
+import controllers.BookingController;
 import controllers.SearchController;
 import controllers.UserController;
 import entities.*;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -65,6 +68,8 @@ public class SearchUiController implements Initializable {
     private ScrollPane resultScrollPane;
     @FXML
     private Button backToSearch;
+    @FXML
+    private Button bookCustomPackage;
 
     private Stage searchStage;
 
@@ -164,6 +169,11 @@ public class SearchUiController implements Initializable {
             selectedFlightsVB = (VBox) resultScrollPane.lookup("#selectedFlightsVB");
             selectedHotelVB = (VBox) resultScrollPane.lookup("#selectedHotelVB");
             selectedDayTripsVB = (VBox) resultScrollPane.lookup("#selectedDayTripsVB");
+
+            bookCustomPackage = (Button) resultScrollPane.lookup("#bookCustomPackage");
+            bookCustomPackage.setOnAction((evt) -> {
+                book(customPackage);
+            });
 
             displayAllSearchResult();
 
@@ -382,11 +392,30 @@ public class SearchUiController implements Initializable {
         HBox.setHgrow(spacer, Priority.ALWAYS);
         spacer.setMinSize(20, 1);
         buttons.getChildren().add(spacer);
-        buttons.getChildren().add(new Button("Book package"));
+        Button bookButton = new Button("Book package");
+        buttons.getChildren().add(bookButton);
         gp.add(buttons, 2, 2);
+
+        bookButton.setOnAction((evt) -> {
+            book(tPackage);
+        });
 
         packagesVBox.setSpacing(10);
         packageContainer.getChildren().add(gp);
         packagesVBox.getChildren().add(packageContainer);
+    }
+
+    private void book(TripPackage tPackage) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/bookingUI.fxml"));
+        try {
+            AnchorPane bookRoot = loader.load();
+            BookingUiController bookingUiController = loader.getController();
+            bookingUiController.setUser(user);
+            bookingUiController.setTripPackage(tPackage);
+            bookingUiController.update();
+            sceneRoot.getChildren().setAll(bookRoot);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

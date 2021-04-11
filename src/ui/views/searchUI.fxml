@@ -55,12 +55,12 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="originInput" layoutX="64.0" layoutY="70.0" prefHeight="36.0" prefWidth="171.0" promptText="Origin" />
-                        <TextField fx:id="destinationInput" layoutX="250.0" layoutY="70.0" prefHeight="36.0" prefWidth="171.0" promptText="Destination" />
-                        <DatePicker fx:id="departureInput" layoutX="453.0" layoutY="71.0" prefHeight="35.0" prefWidth="79.0" promptText="Depart" />
-                        <DatePicker fx:id="returnInput" layoutX="545.0" layoutY="71.0" prefHeight="35.0" prefWidth="79.0" promptText="Return" />
-                        <TextField fx:id="adultsInput" layoutX="658.0" layoutY="71.0" prefHeight="35.0" prefWidth="61.0" promptText="Adults" />
-                        <TextField fx:id="childrenInput" layoutX="732.0" layoutY="71.0" prefHeight="35.0" prefWidth="61.0" promptText="Children" />
+                        <TextField fx:id="originInput" layoutX="38.0" layoutY="70.0" prefHeight="36.0" prefWidth="171.0" promptText="Origin" />
+                        <TextField fx:id="destinationInput" layoutX="223.0" layoutY="70.0" prefHeight="36.0" prefWidth="171.0" promptText="Destination" />
+                        <DatePicker fx:id="departureInput" layoutX="406.0" layoutY="71.0" prefHeight="35.0" prefWidth="120.0" promptText="Depart" />
+                        <DatePicker fx:id="returnInput" layoutX="535.0" layoutY="71.0" prefHeight="35.0" prefWidth="120.0" promptText="Return" />
+                        <TextField fx:id="adultsInput" layoutX="671.0" layoutY="71.0" prefHeight="35.0" prefWidth="61.0" promptText="Adults" />
+                        <TextField fx:id="childrenInput" layoutX="741.0" layoutY="71.0" prefHeight="35.0" prefWidth="61.0" promptText="Children" />
                         <Button fx:id="searchTripsButton" layoutX="844.0" layoutY="72.0" mnemonicParsing="false" onAction="#searchButtonClicked" prefHeight="34.0" prefWidth="104.0" style="-fx-background-color: #FF8C00;" text="Search">
                            <font>
                               <Font size="14.0" />
