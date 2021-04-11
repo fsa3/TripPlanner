@@ -53,7 +53,7 @@
                               <Label styleClass="title2" text="Book &lt;nafn pakka&gt;" />
                               <HBox prefHeight="30.0" prefWidth="819.0">
                                  <children>
-                                    <Label text="Flights" />
+                                    <Label text="Flight" />
                                     <Label text="Day Trips" />
                                  </children>
                               </HBox>
