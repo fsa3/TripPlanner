@@ -66,7 +66,9 @@ Button {
 .date-picker-popup {
     -fx-control-inner-background: #393939;
 }
-
+.title1{
+    -fx-font-size: 20pt ;
+}
 .date-picker-popup > * > .today {
     -fx-background-color: #ffa84d;
 }
