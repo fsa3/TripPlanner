@@ -92,7 +92,7 @@ Button {
     -fx-text-fill: #0D7377;
 }
 
-.date-picker-popup > * > Button {
+.date-picker-popup > * > .label {
     -fx-background-color: green;
 }
 
@@ -102,4 +102,8 @@ Button {
 
 .personName {
     -fx-background-color: #1E1E20;
+}
+
+.passengerHeader {
+    -fx-font-size: 14;
 }

@@ -9,7 +9,6 @@ public class FlightBooking extends Booking {
     private String departureLocation;
     private String destination;
     private String seat;
-    private String airline;
 
     public FlightBooking(Flight flight) {
         this.flight = flight;
@@ -71,11 +70,4 @@ public class FlightBooking extends Booking {
         this.seat = seat;
     }
 
-    public String getAirline() {
-        return airline;
-    }
-
-    public void setAirline(String airline) {
-        this.airline = airline;
-    }
 }

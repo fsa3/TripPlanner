@@ -85,10 +85,7 @@
                                        <children>
                                           <VBox fx:id="adultsVB" prefHeight="47.0" prefWidth="280.0">
                                              <children>
-                                                <Label text="Adults" underline="true">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
+                                                <Label styleClass="passengerHeader" text="Adults" underline="true">
                                                    <VBox.margin>
                                                       <Insets bottom="5.0" />
                                                    </VBox.margin></Label>
@@ -118,10 +115,7 @@
                                  </children></VBox>
                               <HBox prefHeight="25.0" prefWidth="789.0">
                                  <children>
-                                    <Label text="Children" underline="true" wrapText="true">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font></Label>
+                                    <Label styleClass="passengerHeader" text="Children" underline="true" wrapText="true" />
                                  </children>
                               </HBox>
                               <VBox fx:id="childrenVB" prefHeight="63.0" prefWidth="693.0">

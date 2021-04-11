@@ -202,7 +202,7 @@ public class BookingUiController {
     }
 
     public void payButtonPressed() {
-        BookingController bookingController = new BookingController(tripPackage, user);
+        BookingController bookingController = new BookingController(tripPackage, user, searchResult);
         bookingController.bookPackage();
         goBackToSearch();
         openUserBookings();
