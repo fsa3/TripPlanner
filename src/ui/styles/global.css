@@ -77,6 +77,10 @@ Button {
     -fx-font-size: 14pt ;
     -fx-font-family: "SansSerif";
 }
+.userlabel{
+    -fx-font-size: 10pt ;
+    -fx-font-family: "SansSerif";
+}
 .date-picker-popup > * > .today {
     -fx-background-color: #ffa84d;
 }

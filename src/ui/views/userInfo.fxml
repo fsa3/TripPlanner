@@ -47,14 +47,14 @@
             </AnchorPane>
             <AnchorPane layoutX="199.0" layoutY="-95.0" prefHeight="400.0" prefWidth="593.0">
                <children>
-                  <VBox alignment="TOP_RIGHT" layoutX="-6.0" layoutY="56.0" prefHeight="282.0" prefWidth="75.0">
+                  <VBox alignment="TOP_RIGHT" layoutX="-6.0" layoutY="56.0" prefHeight="282.0" prefWidth="75.0" styleClass="userlabel">
                      <children>
                         <Label text="Email:" textFill="WHITE">
                            <font>
                               <Font size="14.0" />
                            </font>
                            <VBox.margin>
-                              <Insets bottom="20.0" top="10.0" />
+                              <Insets bottom="23.5" top="12.0" />
                            </VBox.margin>
                         </Label>
                         <Label text="First Name" textFill="#f5f5f5">
@@ -62,7 +62,7 @@
                               <Font size="14.0" />
                            </font>
                            <VBox.margin>
-                              <Insets bottom="20.0" />
+                              <Insets bottom="23.5" />
                            </VBox.margin>
                         </Label>
                         <Label text="Last Name:" textFill="#f5f5f5">
@@ -70,7 +70,7 @@
                               <Font size="14.0" />
                            </font>
                            <VBox.margin>
-                              <Insets bottom="20.0" />
+                              <Insets bottom="23.5" />
                            </VBox.margin>
                         </Label>
                         <Label text="Phone Nr." textFill="#f5f5f5">
@@ -78,15 +78,15 @@
                               <Font size="14.0" />
                            </font>
                            <VBox.margin>
-                              <Insets bottom="20.0" />
+                              <Insets bottom="23.5" />
                            </VBox.margin>
                         </Label>
-                        <Label text="blabla" textFill="#f5f5f5">
+                        <Label text="yolo heh" textFill="#f5f5f5">
                            <font>
                               <Font size="14.0" />
                            </font>
                            <VBox.margin>
-                              <Insets bottom="20.0" />
+                              <Insets bottom="23.5" />
                            </VBox.margin>
                         </Label>
                         <Label text="blablabla" textFill="#f5f5f5">
@@ -94,13 +94,16 @@
                               <Font size="14.0" />
                            </font>
                            <VBox.margin>
-                              <Insets bottom="15.0" />
+                              <Insets bottom="23.5" />
                            </VBox.margin>
                         </Label>
-                        <Label prefHeight="23.0" prefWidth="68.0" text="blvalva" textFill="WHITE">
+                        <Label layoutX="31.0" layoutY="200.0" text="blablabla" textFill="#f5f5f5">
                            <font>
                               <Font size="14.0" />
                            </font>
+                           <VBox.margin>
+                              <Insets bottom="23.5" />
+                           </VBox.margin>
                         </Label>
                      </children>
                   </VBox>
@@ -161,8 +164,7 @@
                         </TextField>
                      </children>
                   </VBox>
-                  <CheckBox layoutX="270.0" layoutY="289.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="75.0" text="NSFW?" textFill="#fbfbfb" />
-                  <Label layoutX="423.0" layoutY="154.0" prefHeight="32.0" prefWidth="151.0" text="Change your password" textFill="WHITE">
+                  <Label layoutX="423.0" layoutY="154.0" prefHeight="32.0" prefWidth="151.0" styleClass="userlabel" text="Change your password" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
@@ -194,9 +196,10 @@
                      </cursor>
                   </Button>
                   <Label fx:id="changeSuccessful" layoutX="265.0" layoutY="357.0" prefHeight="17.0" prefWidth="159.0" />
+                  <CheckBox layoutX="269.0" layoutY="307.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="75.0" text="NSFW?" textFill="#fbfbfb" />
                </children>
             </AnchorPane>
-            <VBox alignment="TOP_RIGHT" layoutX="461.0" layoutY="83.0" prefHeight="135.0" prefWidth="136.0">
+            <VBox id="userl" alignment="TOP_RIGHT" layoutX="461.0" layoutY="83.0" prefHeight="135.0" prefWidth="136.0" styleClass="userlabel">
                <children>
                   <Label prefHeight="20.0" prefWidth="95.0" text="Old password:" textFill="WHITE">
                      <font>
