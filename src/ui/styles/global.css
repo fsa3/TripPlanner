@@ -95,6 +95,17 @@ Button {
     -fx-background-color: #343434;
     -fx-text-fill: #0D7377;
 }
+.back-button{
+    -fx-background-color:  #7a0b0b;
+    -fx-text-fill: #ff2802;
+}
+.orange-button{
+    -fx-background-color:  #ff8c00;
+}
+.blue-button{
+    -fx-background-color:  #0D7377 ;
+    -fx-text-fill: white;
+}
 
 .date-picker-popup > * > .label {
     -fx-background-color: green;

@@ -399,12 +399,17 @@ public class SearchUiController implements Initializable {
         HBox buttons = new HBox();
         buttons.setPrefHeight(40);
         buttons.setAlignment(Pos.BOTTOM_CENTER);
-        buttons.getChildren().add(new Button("See more"));
+        //buttons.getChildren().add(new Button("See more"));
+        Button seemoreButton = new Button("See more");
+        seemoreButton.getStyleClass().add("blue-button");
+        buttons.getChildren().add(seemoreButton);
+
         Pane spacer = new Pane();
         HBox.setHgrow(spacer, Priority.ALWAYS);
         spacer.setMinSize(20, 1);
         buttons.getChildren().add(spacer);
         Button bookButton = new Button("Book package");
+        bookButton.getStyleClass().add("orange-button");
         buttons.getChildren().add(bookButton);
         gp.add(buttons, 2, 2);
 
