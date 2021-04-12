@@ -418,14 +418,15 @@ public class SearchUiController implements Initializable {
     }
 
     private void book(TripPackage tPackage) {
-        if(user == null) {
+        /*if(user == null) {
             try {
                 openLogin();
             } catch (IOException e) {
                 e.printStackTrace();
             }
             return;
-        }
+        }*/
+        // todo taka þetta út
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/bookingUI.fxml"));
         try {
             AnchorPane bookRoot = loader.load();

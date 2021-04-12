@@ -5,7 +5,6 @@ import entities.DayTrip;
 import entities.SearchResult;
 import entities.TripPackage;
 import entities.User;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,11 +20,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.Window;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class BookingUiController {
 
@@ -42,7 +39,9 @@ public class BookingUiController {
     @FXML
     private VBox hotelVB;
     @FXML
-    private VBox adultsVB;
+    private VBox adultsFirstNameVB;
+    @FXML
+    private VBox adultsLastNameVB;
     @FXML
     private VBox childrenVB;
     @FXML
@@ -150,10 +149,14 @@ public class BookingUiController {
         }
 
         for(int i = 0; i < searchResult.getNumAdults(); i++) {
-            TextField adultName = new TextField();
-            adultName.setPromptText("Name of person " + (i+1));
-            adultName.getStyleClass().add("personName");
-            adultsVB.getChildren().add(adultName);
+            TextField adultFirstName = new TextField();
+            adultFirstName.setPromptText("First name " + (i+1));
+            adultFirstName.getStyleClass().add("personName");
+            TextField adultLastName = new TextField();
+            adultLastName.setPromptText("Last name " + (i+1));
+            adultLastName.getStyleClass().add("personName");
+            adultsFirstNameVB.getChildren().add(adultFirstName);
+            adultsLastNameVB.getChildren().add(adultLastName);
             if(!tripPackage.getOutFlights().isEmpty()) {
                 ComboBox seatOut = new ComboBox();
                 flightOutSeat.getChildren().add(seatOut);
@@ -163,7 +166,8 @@ public class BookingUiController {
                 flightInSeat.getChildren().add(seatIn);
             }
         }
-        adultsVB.setSpacing(5);
+        adultsFirstNameVB.setSpacing(5);
+        adultsLastNameVB.setSpacing(5);
         flightOutSeat.setSpacing(5);
         flightInSeat.setSpacing(5);
 

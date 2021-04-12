@@ -8,8 +8,8 @@ public abstract class Booking {
     protected double price;
     protected int numAdults;
     protected int numChildren;
-    protected ArrayList<String> adultNames;
-    protected ArrayList<String> childrenNames;
+    protected String passengerName;
+    protected boolean isChild;
 
     public abstract void cancelBooking();
 }
