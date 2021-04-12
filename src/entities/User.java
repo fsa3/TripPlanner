@@ -15,7 +15,7 @@ public class User {
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.ssNum = ssNum;
-    }
+    }//commit test
 
     public String getEmail() {
         return email;
