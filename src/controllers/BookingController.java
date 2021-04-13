@@ -52,7 +52,7 @@ public class BookingController {
             bookings.add(hotelBooking);
         }*/
         for(int i = 0; i < tPackage.getDayTrips().toArray().length; i++) {
-            DayTripBooking dtBooking = new DayTripBooking(tPackage.getDayTrips().get(i), dayTripDates.get(i), bookingId);
+            DayTripBooking dtBooking = new DayTripBooking(tPackage.getDayTrips().get(i), dayTripDates.get(i), bookingId, user);
             DataConnection dc = new DataConnection();
             dc.createDayTripBooking(dtBooking);
             dc.closeConnection();

@@ -107,7 +107,7 @@ public class DataConnection {
     }
 
     public void createDayTripBooking(DayTripBooking dtBooking) {
-        String query = "INSERT INTO DayTripBookings(dayTripName, city, numHours, date, bookingId) values(?,?,?,?,?)";
+        String query = "INSERT INTO DayTripBookings(dayTripName, city, numHours, date, bookingId, user) values(?,?,?,?,?,?)";
         try {
             PreparedStatement createDayTripBooking = connection.prepareStatement(query);
             createDayTripBooking.setString(1, dtBooking.getDayTripName());
@@ -115,6 +115,7 @@ public class DataConnection {
             createDayTripBooking.setInt(3, dtBooking.getNumHours());
             createDayTripBooking.setDate(4, localDateToDate(dtBooking.getDate()));
             createDayTripBooking.setInt(5, dtBooking.getBookingId());
+            createDayTripBooking.setString(6, dtBooking.getBookingUser().getEmail());
             createDayTripBooking.executeUpdate();
             createDayTripBooking.close();
         } catch (SQLException throwables) {
@@ -122,10 +123,8 @@ public class DataConnection {
         }
     }
 
-    private LocalDate dateToLocalDate(Date dateToConvert) {
-        return dateToConvert.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDate();
+    private LocalDate dateToLocalDate(java.sql.Date dateToConvert) {
+        return dateToConvert.toLocalDate();
     }
 
     private Date localDateToDate(LocalDate localDate) {
@@ -148,32 +147,44 @@ public class DataConnection {
         }
     }
 
-    public String getUserBookings(User user) {
-        String query = "SELECT bookingUser, bookingId, price, numAdults, numChildren FROM Booking WHERE bookingUser = ?";
+    public ArrayList<Integer> getUserBookings(User user) {
+        String query = "SELECT bookingId FROM Booking WHERE bookingUser = ?";
+        ArrayList<Integer> bookingIds = new ArrayList<>();
         try {
             PreparedStatement getUserBookings = connection.prepareStatement(query);
             getUserBookings.setString(1, user.getEmail());
             ResultSet rs = getUserBookings.executeQuery();
-            StringBuilder result = new StringBuilder();
             while (rs.next()) {
-                result.append(rs.getString(1)).append(" ");
-                result.append(rs.getInt(2)).append(" ");
-                result.append(rs.getDouble(3)).append(" ");
-                result.append(rs.getInt(4)).append(" ");
-                result.append(rs.getInt(5)).append(" ");
-                result.append(";;;");
+                bookingIds.add(rs.getInt(1));
             }
-            return result.toString();
+            rs.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            return "Book something";
         }
+        return bookingIds;
     }
 
-    public ArrayList<DayTripBooking> getDayTripBookings(int bookingId) {
+    public ArrayList<DayTripBooking> getDayTripBookings(User user) {
         ArrayList<DayTripBooking> dayTripBookings = new ArrayList<>();
-        String query = "SELECT * FROM Booking WHERE bookingId = ?";
-        //PreparedStatement getDayTripBookings = connection.prepareStatement(query);
-        return null;
+        String query = "SELECT * FROM DayTripBookings WHERE user = ?";
+        try {
+            PreparedStatement getDayTripBookings = connection.prepareStatement(query);
+            getDayTripBookings.setString(1, user.getEmail());
+            ResultSet rs = getDayTripBookings.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString(1);
+                String city = rs.getString(2);
+                int numHours = rs.getInt(3);
+                LocalDate date = dateToLocalDate(rs.getDate(4));
+                int id = rs.getInt(5);
+                User bookingUser = getUserBy("email", rs.getString(6));
+                DayTripBooking dtB = new DayTripBooking(name, city, numHours, date, id, bookingUser);
+                dayTripBookings.add(dtB);
+            }
+            rs.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return dayTripBookings;
     }
 }

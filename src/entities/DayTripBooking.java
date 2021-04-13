@@ -10,7 +10,7 @@ public class DayTripBooking extends Booking {
     private int numHours;
     private boolean familyFriendly;
 
-    public DayTripBooking(DayTrip dayTrip, LocalDate date, int id) {
+    public DayTripBooking(DayTrip dayTrip, LocalDate date, int id, User user) {
         this.dayTrip = dayTrip;
         this.date = date;
         dayTripName = dayTrip.getName();
@@ -18,6 +18,18 @@ public class DayTripBooking extends Booking {
         numHours = dayTrip.getNumHours();
         familyFriendly = dayTrip.isFamilyFriendly();
         bookingId = id;
+        bookingUser = user;
+    }
+
+    public DayTripBooking(String name, String city, int numHours, LocalDate date, int id, User user) {
+        dayTripName = name;
+        this.city = city;
+        this.numHours = numHours;
+        this.date = date;
+        bookingId = id;
+        bookingUser = user;
+        // todo fylla í dayTrip attribute
+        dayTrip = new DayTrip(name, city);
     }
 
     public void cancelBooking() {
@@ -70,5 +82,16 @@ public class DayTripBooking extends Booking {
 
     public void setFamilyFriendly(boolean familyFriendly) {
         this.familyFriendly = familyFriendly;
+    }
+
+    @Override
+    public String toString() {
+        return "DayTripBooking{" +
+                "dayTrip=" + dayTrip +
+                ", dayTripName='" + dayTripName + '\'' +
+                ", city='" + city + '\'' +
+                ", date=" + date +
+                ", numHours=" + numHours +
+                '}';
     }
 }

@@ -17,6 +17,7 @@ public class UserBookingsController {
     @FXML private VBox bookedPackagesView;
 
     private User user;
+    private ArrayList<Integer> userBookingIds;
     private ArrayList<DayTripBooking> dayTripBookings;
 
     public void initialize() {
@@ -25,13 +26,25 @@ public class UserBookingsController {
 
     public void setUser(User user) {
         this.user = user;
+        displayBookings();
+    }
 
+    private void displayBookings() {
+        // get user bookings
         DataConnection dc = new DataConnection();
-        String bookings = dc.getUserBookings(user);
-        dc.closeConnection();
-        bookedPackagesView.getChildren().add(new Label(bookings));
+        userBookingIds = dc.getUserBookings(user);
+        dayTripBookings = dc.getDayTripBookings(user);
+        for(Integer id : userBookingIds) {
+            bookedPackagesView.getChildren().add(new Label(id.toString()));
+            for(DayTripBooking dtB : dayTripBookings) {
+                if(dtB.getBookingId() == id) {
+                    Label dtLabel = new Label(dtB.toString());
+                    dtLabel.setWrapText(true);
+                    bookedPackagesView.getChildren().add(dtLabel);
+                }
+            }
+        }
 
-        //dayTripBookings = dc.getDayTripBookings(user);
     }
 
     public void closeWindow(ActionEvent actionEvent) {

@@ -16,4 +16,8 @@ public abstract class Booking {
     public int getBookingId() {
         return bookingId;
     }
+
+    public User getBookingUser() {
+        return bookingUser;
+    }
 }
