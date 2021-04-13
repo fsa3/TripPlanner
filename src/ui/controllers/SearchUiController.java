@@ -2,9 +2,9 @@ package ui.controllers;
 
 import controllers.SearchController;
 import entities.*;
+import hotelSystem.entities.Accommodation;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -251,7 +251,7 @@ public class SearchUiController implements Initializable {
         }
         // display all hotels
         ToggleGroup hotelsToggleGroup = new ToggleGroup();
-        for(Hotel h : searchResult.getHotels()) {
+        for(Accommodation h : searchResult.getHotels()) {
             RadioButton hotelRadio = new RadioButton(h.toString());
             hotelRadio.setToggleGroup(hotelsToggleGroup);
             allHotelsVB.getChildren().add(hotelRadio);
@@ -299,7 +299,7 @@ public class SearchUiController implements Initializable {
             selectedFlightsVB.getChildren().add(new Label(f.toString()));
         }
         selectedHotelVB.getChildren().clear();
-        for(Hotel h : customPackage.getHotels()) {
+        for(Accommodation h : customPackage.getHotels()) {
             selectedHotelVB.getChildren().add(new Label(h.toString()));
         }
         selectedDayTripsVB.getChildren().clear();

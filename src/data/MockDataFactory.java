@@ -2,7 +2,7 @@ package data;
 
 import entities.DayTrip;
 import entities.Flight;
-import entities.Hotel;
+import hotelSystem.entities.Accommodation;
 import entities.User;
 
 import java.time.LocalDate;
@@ -17,9 +17,8 @@ public class MockDataFactory implements Database{
     }
 
     @Override
-    public ArrayList<Hotel> getHotels(String city) {
-        ArrayList<Hotel> hotels = new ArrayList<>();
-        hotels.add(new Hotel("Hotel OLV", city));
+    public ArrayList<Accommodation> getHotels(String city) {
+        ArrayList<Accommodation> hotels = new ArrayList<>();
         return hotels;
     }
 

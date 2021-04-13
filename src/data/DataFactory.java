@@ -2,7 +2,7 @@ package data;
 
 import entities.DayTrip;
 import entities.Flight;
-import entities.Hotel;
+import hotelSystem.entities.Accommodation;
 import entities.User;
 
 import java.time.LocalDate;
@@ -26,15 +26,15 @@ public class DataFactory implements Database {
     }
 
     @Override
-    public ArrayList<Hotel> getHotels(String city) {
-        ArrayList<Hotel> hotels = new ArrayList<>();
-        hotels.add(new Hotel("Hotel OLV", city));
-        hotels.add(new Hotel("Skítapleis", city));
-        hotels.add(new Hotel("Fannar's Room", city));
-        hotels.add(new Hotel("Svallhús Bogga", city));
-        hotels.add(new Hotel("Hotel Kex", city));
-        hotels.add(new Hotel("Eldhus", city));
-        hotels.add(new Hotel("Hótel Svanborg", city));
+    public ArrayList<Accommodation> getHotels(String city) {
+        ArrayList<Accommodation> hotels = new ArrayList<>();
+        hotels.add(new Accommodation(0, "Hotel OLV", city, 3, null, null, null, "description"));
+        hotels.add(new Accommodation(1, "Skítapleis", city, 3, null, null, null, "description"));
+        hotels.add(new Accommodation(2, "Fannar's Room", city, 3, null, null, null, "description"));
+        hotels.add(new Accommodation(3, "Svallhús Bogga", city, 3, null, null, null, "description"));
+        hotels.add(new Accommodation(4, "Hotel Kex", city, 3, null, null, null, "description"));
+        hotels.add(new Accommodation(5, "Eldhus", city,3, null, null, null, "description"));
+        hotels.add(new Accommodation(6, "Hótel Svanborg", city,3, null, null, null, "description"));
         return hotels;
     }
 

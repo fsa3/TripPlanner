@@ -1,5 +1,7 @@
 package entities;
 
+import hotelSystem.entities.Accommodation;
+
 import java.util.ArrayList;
 
 public class TripPackage extends SearchResult{
@@ -40,11 +42,11 @@ public class TripPackage extends SearchResult{
         outFlights.remove(f);
     }
 
-    public void addHotel(Hotel h) {
+    public void addHotel(Accommodation h) {
         hotels.add(h);
     }
 
-    public void removeHotel(Hotel h) {
+    public void removeHotel(Accommodation h) {
         hotels.remove(h);
     }
 

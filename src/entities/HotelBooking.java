@@ -1,11 +1,12 @@
 package entities;
 
+import hotelSystem.entities.Accommodation;
+
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Date;
 
 public class HotelBooking extends Booking{
-    private Hotel hotel;
+    private Accommodation hotel;
     private String hotelName;
     private String city;
     private LocalDate checkInDate;
@@ -13,14 +14,14 @@ public class HotelBooking extends Booking{
     private int numberOfNights;
     private String room;
 
-    public HotelBooking(Hotel hotel, LocalDate checkInDate, LocalDate checkOutDate, int bookingId, User user, String room) {
+    public HotelBooking(Accommodation hotel, LocalDate checkInDate, LocalDate checkOutDate, int bookingId, User user, String room) {
         this.hotel = hotel;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
         Period p = Period.between(checkInDate, checkOutDate);
         numberOfNights = p.getDays();
         hotelName = hotel.getName();
-        city = hotel.getCity();
+        city = hotel.getLocation();
         this.bookingId = bookingId;
         bookingUser = user;
         this.room = room;
@@ -30,11 +31,11 @@ public class HotelBooking extends Booking{
         // todo
     }
 
-    public Hotel getHotel() {
+    public Accommodation getHotel() {
         return hotel;
     }
 
-    public void setHotel(Hotel hotel) {
+    public void setHotel(Accommodation hotel) {
         this.hotel = hotel;
     }
 

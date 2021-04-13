@@ -1,5 +1,6 @@
 package entities;
 
+import hotelSystem.entities.Accommodation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import data.DataFactory;
@@ -17,7 +18,7 @@ public class SearchResult {
     protected int numChildren;
     protected ArrayList<Flight> outFlights;
     protected ArrayList<Flight> inFlights;
-    protected ArrayList<Hotel> hotels;
+    protected ArrayList<Accommodation> hotels;
     protected ArrayList<DayTrip> dayTrips;
 
     public SearchResult(LocalDate startDate, LocalDate endDate, String depCity, String destCity, int numAdults, int numChildren) {
@@ -93,11 +94,11 @@ public class SearchResult {
         this.inFlights = inFlights;
     }
 
-    public ArrayList<Hotel> getHotels() {
+    public ArrayList<Accommodation> getHotels() {
         return hotels;
     }
 
-    public void setHotels(ArrayList<Hotel> hotels) {
+    public void setHotels(ArrayList<Accommodation> hotels) {
         this.hotels = hotels;
     }
 
@@ -116,8 +117,8 @@ public class SearchResult {
         return oFlights;
     }
 
-    public ObservableList<Hotel> getHotelsObservable() {
-        ObservableList<Hotel> oHotels = FXCollections.observableArrayList();
+    public ObservableList<Accommodation> getHotelsObservable() {
+        ObservableList<Accommodation> oHotels = FXCollections.observableArrayList();
         oHotels.addAll(hotels);
         return oHotels;
     }

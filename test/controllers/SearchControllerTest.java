@@ -1,6 +1,7 @@
 package controllers;
 
 import entities.*;
+import hotelSystem.entities.Accommodation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -112,8 +113,8 @@ class SearchControllerTest {
     @Test
     public void testHotelLocation() {
         for(TripPackage tPackage : tPackages) {
-            for(Hotel h : tPackage.getHotels()) {
-                assertEquals(dest, h.getCity());
+            for(Accommodation h : tPackage.getHotels()) {
+                assertEquals(dest, h.getLocation());
             }
         }
     }

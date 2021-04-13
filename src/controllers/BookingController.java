@@ -2,9 +2,9 @@ package controllers;
 
 import data.DataConnection;
 import entities.*;
+import hotelSystem.entities.Accommodation;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -47,7 +47,7 @@ public class BookingController {
             FlightBooking flightBooking = new FlightBooking(f);
             bookings.add(flightBooking);
         }*/
-        for(Hotel h : tPackage.getHotels()) {
+        for(Accommodation h : tPackage.getHotels()) {
             HotelBooking hotelBooking = new HotelBooking(h, searchResult.getStartDate(), searchResult.getEndDate(), bookingId, user, "King room"); //todo setja room
             DataConnection dc = new DataConnection();
             dc.createHotelBooking(hotelBooking);
