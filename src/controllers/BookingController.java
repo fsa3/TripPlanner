@@ -46,11 +46,14 @@ public class BookingController {
         for(Flight f : tPackage.getInFlights()) {
             FlightBooking flightBooking = new FlightBooking(f);
             bookings.add(flightBooking);
-        }
-        for(Hotel h : tPackage.getHotels()) {
-            HotelBooking hotelBooking = new HotelBooking(h, searchResult.getStartDate(), searchResult.getEndDate());
-            bookings.add(hotelBooking);
         }*/
+        for(Hotel h : tPackage.getHotels()) {
+            HotelBooking hotelBooking = new HotelBooking(h, searchResult.getStartDate(), searchResult.getEndDate(), bookingId, user, "King room"); //todo setja room
+            DataConnection dc = new DataConnection();
+            dc.createHotelBooking(hotelBooking);
+            dc.closeConnection();
+            bookings.add(hotelBooking);
+        }
         for(int i = 0; i < tPackage.getDayTrips().toArray().length; i++) {
             DayTripBooking dtBooking = new DayTripBooking(tPackage.getDayTrips().get(i), dayTripDates.get(i), bookingId, user);
             DataConnection dc = new DataConnection();

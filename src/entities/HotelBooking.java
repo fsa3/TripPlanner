@@ -11,8 +11,9 @@ public class HotelBooking extends Booking{
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
     private int numberOfNights;
+    private String room;
 
-    public HotelBooking(Hotel hotel, LocalDate checkInDate, LocalDate checkOutDate) {
+    public HotelBooking(Hotel hotel, LocalDate checkInDate, LocalDate checkOutDate, int bookingId, User user, String room) {
         this.hotel = hotel;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
@@ -20,6 +21,9 @@ public class HotelBooking extends Booking{
         numberOfNights = p.getDays();
         hotelName = hotel.getName();
         city = hotel.getCity();
+        this.bookingId = bookingId;
+        bookingUser = user;
+        this.room = room;
     }
 
     public void cancelBooking() {
@@ -72,5 +76,13 @@ public class HotelBooking extends Booking{
 
     public void setNumberOfNights(int numberOfNights) {
         this.numberOfNights = numberOfNights;
+    }
+
+    public String getRoom() {
+        return room;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
     }
 }

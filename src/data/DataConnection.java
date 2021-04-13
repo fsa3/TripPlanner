@@ -1,6 +1,7 @@
 package data;
 
 import entities.DayTripBooking;
+import entities.HotelBooking;
 import entities.User;
 import javafx.scene.control.Alert;
 
@@ -186,5 +187,25 @@ public class DataConnection {
             throwables.printStackTrace();
         }
         return dayTripBookings;
+    }
+
+    public void createHotelBooking(HotelBooking hotelBooking) {
+        String query = "INSERT INTO HotelBookings(hotel, hotelName, city, checkInDate, roomType, roomTypeId, bookingId, bookingUser, checkOutDate) VALUES(?,?,?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement createHotelBooking = connection.prepareStatement(query);
+            createHotelBooking.setInt(1, -1); // todo setja hotelID
+            createHotelBooking.setString(2, hotelBooking.getHotelName());
+            createHotelBooking.setString(3, hotelBooking.getCity());
+            createHotelBooking.setDate(4, localDateToDate(hotelBooking.getCheckInDate()));
+            createHotelBooking.setString(5, hotelBooking.getRoom());
+            createHotelBooking.setInt(6, -1); // todo setja room id
+            createHotelBooking.setInt(7, hotelBooking.getBookingId());
+            createHotelBooking.setString(8, hotelBooking.getBookingUser().getEmail());
+            createHotelBooking.setDate(9, localDateToDate(hotelBooking.getCheckOutDate()));
+            createHotelBooking.executeUpdate();
+            createHotelBooking.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }
