@@ -83,7 +83,7 @@
                                  <children>
                                     <HBox prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <VBox fx:id="adultsFirstNameVB" prefHeight="47.0" prefWidth="200.0">
+                                          <VBox fx:id="adultsFirstNameVB" prefHeight="47.0" prefWidth="150.0">
                                              <children>
                                                 <Label styleClass="passengerHeader" text="Adults" underline="true">
                                                    <VBox.margin>
@@ -91,10 +91,20 @@
                                                    </VBox.margin></Label>
                                              </children>
                                              <HBox.margin>
-                                                <Insets right="20.0" />
+                                                <Insets right="5.0" />
                                              </HBox.margin>
                                           </VBox>
-                                          <VBox fx:id="adultsLastNameVB" prefHeight="200.0" prefWidth="200.0" />
+                                          <VBox fx:id="adultsLastNameVB" prefHeight="200.0" prefWidth="150.0">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                             <children>
+                                                <Label opacity="0.0" styleClass="passengerHeader" text="Adults" textFill="#393939" underline="true">
+                                                   <padding>
+                                                      <Insets bottom="5.0" />
+                                                   </padding>
+                                                </Label>
+                                             </children></VBox>
                                           <VBox fx:id="flightOutSeat" prefHeight="200.0" prefWidth="70.0">
                                              <children>
                                                 <Label fx:id="fNumOut">
@@ -123,7 +133,12 @@
                                  <children>
                                     <HBox prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <VBox fx:id="childrenVB" prefHeight="47.0" prefWidth="280.0">
+                                          <VBox fx:id="childrenFirstNameVB" prefHeight="47.0" prefWidth="150.0">
+                                             <HBox.margin>
+                                                <Insets right="5.0" />
+                                             </HBox.margin>
+                                          </VBox>
+                                          <VBox fx:id="childrenLastNameVB" prefHeight="47.0" prefWidth="150.0">
                                              <HBox.margin>
                                                 <Insets right="20.0" />
                                              </HBox.margin>

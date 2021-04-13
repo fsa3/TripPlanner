@@ -23,6 +23,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class BookingUiController {
 
@@ -43,7 +44,9 @@ public class BookingUiController {
     @FXML
     private VBox adultsLastNameVB;
     @FXML
-    private VBox childrenVB;
+    private VBox childrenFirstNameVB;
+    @FXML
+    private VBox childrenLastNameVB;
     @FXML
     private Label fNumOut;
     @FXML
@@ -56,6 +59,8 @@ public class BookingUiController {
     private VBox flightOutSeatC;
     @FXML
     private VBox flightInSeatC;
+
+    private ArrayList<DatePicker> dayTripDatesDP = new ArrayList<>();
 
     private User user;
     private TripPackage tripPackage;
@@ -127,6 +132,7 @@ public class BookingUiController {
                     super.updateItem(item, empty);
                     setDisable(item.isAfter(searchResult.getEndDate()) || item.isBefore(searchResult.getStartDate()));
                 }});
+            dayTripDatesDP.add(dayChooser);
             dayChooser.setPrefHeight(10);
             dtHBox.getChildren().addAll(tripLabel, dayChooser);
             dayTripsVB.getChildren().addAll(dtHBox);
@@ -172,10 +178,14 @@ public class BookingUiController {
         flightInSeat.setSpacing(5);
 
         for(int i = 0; i < searchResult.getNumChildren(); i++) {
-            TextField childName = new TextField();
-            childName.setPromptText("Name of child " + (i+1));
-            childName.getStyleClass().add("personName");
-            childrenVB.getChildren().add(childName);
+            TextField childFirstName = new TextField();
+            childFirstName.setPromptText("First name of child " + (i+1));
+            childFirstName.getStyleClass().add("personName");
+            TextField childLastName = new TextField();
+            childLastName.setPromptText("Last name of child " + (i+1));
+            childLastName.getStyleClass().add("personName");
+            childrenFirstNameVB.getChildren().add(childFirstName);
+            childrenLastNameVB.getChildren().add(childLastName);
             if(!tripPackage.getOutFlights().isEmpty()) {
                 ComboBox seatOut = new ComboBox();
                 flightOutSeatC.getChildren().add(seatOut);
@@ -184,8 +194,10 @@ public class BookingUiController {
                 ComboBox seatIn = new ComboBox();
                 flightInSeatC.getChildren().add(seatIn);
             }
+            //todo setja users í fyrsta nafnaboxið
         }
-        childrenVB.setSpacing(5);
+        childrenFirstNameVB.setSpacing(5);
+        childrenLastNameVB.setSpacing(5);
         flightOutSeatC.setSpacing(5);
         flightInSeatC.setSpacing(5);
     }
@@ -207,9 +219,18 @@ public class BookingUiController {
 
     public void payButtonPressed() {
         BookingController bookingController = new BookingController(tripPackage, user, searchResult);
+        bookingController.setDayTripDates(getDayTripDates());
         bookingController.bookPackage();
         goBackToSearch();
         openUserBookings();
+    }
+
+    private ArrayList<LocalDate> getDayTripDates() {
+        ArrayList<LocalDate> dayTripDates = new ArrayList<>();
+        for(DatePicker d : dayTripDatesDP) {
+            dayTripDates.add(d.getValue());
+        }
+        return dayTripDates;
     }
 
     private void openUserBookings() {

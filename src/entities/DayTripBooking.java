@@ -10,13 +10,14 @@ public class DayTripBooking extends Booking {
     private int numHours;
     private boolean familyFriendly;
 
-    public DayTripBooking(DayTrip dayTrip, LocalDate date) {
+    public DayTripBooking(DayTrip dayTrip, LocalDate date, int id) {
         this.dayTrip = dayTrip;
         this.date = date;
         dayTripName = dayTrip.getName();
         city = dayTrip.getCity();
         numHours = dayTrip.getNumHours();
         familyFriendly = dayTrip.isFamilyFriendly();
+        bookingId = id;
     }
 
     public void cancelBooking() {

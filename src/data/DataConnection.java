@@ -1,10 +1,14 @@
 package data;
 
+import entities.DayTripBooking;
 import entities.User;
 import javafx.scene.control.Alert;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 public class DataConnection {
     private Connection connection;
@@ -100,5 +104,76 @@ public class DataConnection {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    public void createDayTripBooking(DayTripBooking dtBooking) {
+        String query = "INSERT INTO DayTripBookings(dayTripName, city, numHours, date, bookingId) values(?,?,?,?,?)";
+        try {
+            PreparedStatement createDayTripBooking = connection.prepareStatement(query);
+            createDayTripBooking.setString(1, dtBooking.getDayTripName());
+            createDayTripBooking.setString(2, dtBooking.getCity());
+            createDayTripBooking.setInt(3, dtBooking.getNumHours());
+            createDayTripBooking.setDate(4, localDateToDate(dtBooking.getDate()));
+            createDayTripBooking.setInt(5, dtBooking.getBookingId());
+            createDayTripBooking.executeUpdate();
+            createDayTripBooking.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    private LocalDate dateToLocalDate(Date dateToConvert) {
+        return dateToConvert.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+    }
+
+    private Date localDateToDate(LocalDate localDate) {
+        return java.sql.Date.valueOf(localDate);
+    }
+
+    public void createBooking(User user, int bookingId, double price, int numAdults, int numChildren) {
+        String query = "INSERT INTO Booking(bookingUser, bookingId, price, numAdults, numChildren) values(?,?,?,?,?)";
+        try {
+            PreparedStatement createBooking = connection.prepareStatement(query);
+            createBooking.setString(1, user.getEmail());
+            createBooking.setInt(2, bookingId);
+            createBooking.setDouble(3, price);
+            createBooking.setInt(4, numAdults);
+            createBooking.setInt(5, numChildren);
+            createBooking.executeUpdate();
+            createBooking.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public String getUserBookings(User user) {
+        String query = "SELECT bookingUser, bookingId, price, numAdults, numChildren FROM Booking WHERE bookingUser = ?";
+        try {
+            PreparedStatement getUserBookings = connection.prepareStatement(query);
+            getUserBookings.setString(1, user.getEmail());
+            ResultSet rs = getUserBookings.executeQuery();
+            StringBuilder result = new StringBuilder();
+            while (rs.next()) {
+                result.append(rs.getString(1)).append(" ");
+                result.append(rs.getInt(2)).append(" ");
+                result.append(rs.getDouble(3)).append(" ");
+                result.append(rs.getInt(4)).append(" ");
+                result.append(rs.getInt(5)).append(" ");
+                result.append(";;;");
+            }
+            return result.toString();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return "Book something";
+        }
+    }
+
+    public ArrayList<DayTripBooking> getDayTripBookings(int bookingId) {
+        ArrayList<DayTripBooking> dayTripBookings = new ArrayList<>();
+        String query = "SELECT * FROM Booking WHERE bookingId = ?";
+        //PreparedStatement getDayTripBookings = connection.prepareStatement(query);
+        return null;
     }
 }
