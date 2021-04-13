@@ -403,7 +403,6 @@ public class SearchUiController implements Initializable {
         Button seemoreButton = new Button("See more");
         seemoreButton.getStyleClass().add("blue-button");
         buttons.getChildren().add(seemoreButton);
-
         Pane spacer = new Pane();
         HBox.setHgrow(spacer, Priority.ALWAYS);
         spacer.setMinSize(20, 1);
