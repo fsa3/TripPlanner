@@ -27,6 +27,18 @@ public class HotelBooking extends Booking{
         this.room = room;
     }
 
+    public HotelBooking(String hotelName, LocalDate checkInDate, LocalDate checkOutDate, int bookingId, User user, String room, String city) {
+        this.hotelName = hotelName;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        Period p = Period.between(checkInDate, checkOutDate);
+        numberOfNights = p.getDays();
+        this.city = city;
+        this.bookingId = bookingId;
+        bookingUser = user;
+        this.room = room;
+    }
+
     public void cancelBooking() {
         // todo
     }

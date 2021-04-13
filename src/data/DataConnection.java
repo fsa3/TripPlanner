@@ -3,6 +3,7 @@ package data;
 import entities.DayTripBooking;
 import entities.HotelBooking;
 import entities.User;
+import hotelSystem.entities.Accommodation;
 import javafx.scene.control.Alert;
 
 import java.sql.*;
@@ -207,5 +208,30 @@ public class DataConnection {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    public ArrayList<HotelBooking> getHotelBookings(User user) {
+        ArrayList<HotelBooking> hotelBookings = new ArrayList<>();
+        String query = "SELECT * FROM HotelBookings WHERE bookingUser = ?";
+        try {
+            PreparedStatement getHotelBookings = connection.prepareStatement(query);
+            getHotelBookings.setString(1, user.getEmail());
+            ResultSet rs = getHotelBookings.executeQuery();
+            while(rs.next()) {
+                int hotelId = rs.getInt(1);
+                String hotelName = rs.getString(2);
+                String city = rs.getString(3);
+                LocalDate checkInDate = dateToLocalDate(rs.getDate(4));
+                String room = rs.getString(5);
+                int roomId = rs.getInt(6);
+                int bookingId = rs.getInt(7);
+                LocalDate checkOutDate = dateToLocalDate(rs.getDate(9));
+                HotelBooking hb = new HotelBooking(hotelName, checkInDate, checkOutDate, bookingId, user, room, city);
+                hotelBookings.add(hb);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return hotelBookings;
     }
 }
