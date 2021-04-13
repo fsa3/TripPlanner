@@ -122,3 +122,24 @@ Button {
 .passengerHeader {
     -fx-font-size: 14;
 }
+
+.radio-button .radio {
+    -fx-border-width: 1px;
+    -fx-border-color: #0D7377;
+    -fx-background-color: #1E1E20;
+    -fx-border-radius: 15px;
+    -fx-padding: 4px;
+}
+.radio-button .dot {
+    -fx-mark-color: #ff8c00;
+}
+
+.check-box .box {
+    -fx-background-color: #1E1E20;
+    -fx-border-color: #0D7377;
+    -fx-border-radius:3px;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: #ff8c00;
+}
