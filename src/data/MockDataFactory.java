@@ -1,18 +1,20 @@
 package data;
 
 import entities.DayTrip;
-import entities.Flight;
+import flightSystem.flightplanner.entities.Airport;
+import flightSystem.flightplanner.entities.Flight;
 import hotelSystem.entities.Accommodation;
 import entities.User;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class MockDataFactory implements Database{
     @Override
     public ArrayList<Flight> getFlights(String depCity, String destCity, LocalDate date) {
         ArrayList<Flight> flights = new ArrayList<>();
-        flights.add(new Flight("FN-6969", date, depCity, destCity));
+        flights.add(new Flight(69, "FN-6969", new Airport(0, "Rey", "Reykjavík Airport", "Reykjavík"), new Airport(1, "AK", "Akureyri Airport", "Akureyri"), LocalDateTime.of(2020, 3, 18, 7, 36), LocalDateTime.of(2020, 3, 18, 10, 36), null));
         return flights;
     }
 

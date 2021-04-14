@@ -1,6 +1,7 @@
-package flightplanner.data;
+package flightSystem.flightplanner.data;
 
-import flightplanner.entities.*;
+
+import flightSystem.flightplanner.entities.*;
 
 import java.sql.SQLException;
 import java.time.LocalDate;

@@ -1,6 +1,4 @@
-package flightplanner.entities;
-
-import flightplanner.entities.Person;
+package flightSystem.flightplanner.entities;
 
 import java.time.LocalDate;
 

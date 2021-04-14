@@ -1,5 +1,6 @@
 package entities;
 
+import flightSystem.flightplanner.entities.Flight;
 import hotelSystem.entities.Accommodation;
 
 import java.util.ArrayList;

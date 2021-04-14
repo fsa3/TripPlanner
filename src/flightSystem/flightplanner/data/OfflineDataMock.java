@@ -1,11 +1,15 @@
-package flightplanner.data;
+package flightSystem.flightplanner.data;
 
-import flightplanner.entities.*;
+
+import flightSystem.flightplanner.entities.Airport;
+import flightSystem.flightplanner.entities.Booking;
+import flightSystem.flightplanner.entities.Flight;
+import flightSystem.flightplanner.entities.Person;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
-public class OfflineDataMock implements FlightDataConnection{
+public class OfflineDataMock implements FlightDataConnection {
     private static FlightDataConnection instance = null;
     private Flight mockSearchFlight;
 

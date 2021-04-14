@@ -1,4 +1,4 @@
-package flightplanner.controllers;
+package flightSystem.flightplanner.controllers;
 
 public class FlightBookingController {
     private static FlightBookingController instance = null;

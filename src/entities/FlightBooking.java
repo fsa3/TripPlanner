@@ -1,21 +1,26 @@
 package entities;
 
-import java.time.LocalDate;
+import flightSystem.flightplanner.entities.Airport;
+import flightSystem.flightplanner.entities.Flight;
+
+import java.time.LocalDateTime;
 
 public class FlightBooking extends Booking {
     private Flight flight;
     private String flightNum;
-    private LocalDate date;
-    private String departureLocation;
-    private String destination;
+    private LocalDateTime departureTime;
+    private LocalDateTime arrivalTime;
+    private Airport departureLocation;
+    private Airport destination;
     private String seat;
 
     public FlightBooking(Flight flight) {
         this.flight = flight;
-        flightNum = flight.getFlightNum();
-        date = flight.getDate();
-        departureLocation = flight.getDepCity();
-        destination = flight.getDestCity();
+        flightNum = flight.getFlightNo();
+        departureTime = flight.getDepartureTime();
+        arrivalTime = flight.getArrivalTime();
+        departureLocation = flight.getDeparture();
+        destination = flight.getArrival();
     }
 
     public void cancelBooking() {
@@ -38,27 +43,27 @@ public class FlightBooking extends Booking {
         this.flightNum = flightNum;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDateTime getDepartureTime() {
+        return departureTime;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setDepartureTime(LocalDateTime departureTime) {
+        this.departureTime = departureTime;
     }
 
     public String getDepartureLocation() {
-        return departureLocation;
+        return departureLocation.toString();
     }
 
-    public void setDepartureLocation(String departureLocation) {
+    public void setDepartureLocation(Airport departureLocation) {
         this.departureLocation = departureLocation;
     }
 
     public String getDestination() {
-        return destination;
+        return destination.toString();
     }
 
-    public void setDestination(String destination) {
+    public void setDestination(Airport destination) {
         this.destination = destination;
     }
 

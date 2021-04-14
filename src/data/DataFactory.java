@@ -1,11 +1,13 @@
 package data;
 
 import entities.DayTrip;
-import entities.Flight;
+import flightSystem.flightplanner.entities.Airport;
+import flightSystem.flightplanner.entities.Flight;
 import hotelSystem.entities.Accommodation;
 import entities.User;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class DataFactory implements Database {
@@ -16,12 +18,12 @@ public class DataFactory implements Database {
     @Override
     public ArrayList<Flight> getFlights(String depCity, String destCity, LocalDate date) {
         ArrayList<Flight> flights = new ArrayList<>();
-        flights.add(new Flight("FN-6969", date, depCity, destCity));
-        flights.add(new Flight("FN-5369", date, depCity, destCity));
-        flights.add(new Flight("FN-2979", date, depCity, destCity));
-        flights.add(new Flight("FN-6968", date, depCity, destCity));
-        flights.add(new Flight("FN-8962", date, depCity, destCity));
-        flights.add(new Flight("FN-5961", date, depCity, destCity));
+        flights.add(new Flight(69, "FN-6969", new Airport(0, "flugv", depCity+" Airport", depCity), new Airport(1, "flugv", destCity+" Airport", destCity), LocalDateTime.of(2020, 3, 18, 7, 36), LocalDateTime.of(2020, 3, 18, 10, 36), null));
+        flights.add(new Flight(70, "FN-6965", new Airport(0, "flugv", depCity+" Airport", depCity), new Airport(1, "flugv", destCity+" Airport", destCity), LocalDateTime.of(2020, 3, 18, 7, 36), LocalDateTime.of(2020, 3, 18, 10, 36), null));
+        flights.add(new Flight(71, "FN-6513", new Airport(0, "flugv", depCity+" Airport", depCity), new Airport(1, "flugv", destCity+" Airport", destCity), LocalDateTime.of(2020, 3, 18, 7, 36), LocalDateTime.of(2020, 3, 18, 10, 36), null));
+        flights.add(new Flight(72, "FN-6513", new Airport(0, "flugv", depCity+" Airport", depCity), new Airport(1, "flugv", destCity+" Airport", destCity), LocalDateTime.of(2020, 3, 18, 7, 36), LocalDateTime.of(2020, 3, 18, 10, 36), null));
+        flights.add(new Flight(73, "FN-0015", new Airport(0, "flugv", depCity+" Airport", depCity), new Airport(1, "flugv", destCity+" Airport", destCity), LocalDateTime.of(2020, 3, 18, 7, 36), LocalDateTime.of(2020, 3, 18, 10, 36), null));
+        flights.add(new Flight(74, "FN-8462", new Airport(0, "flugv", depCity+" Airport", depCity), new Airport(1, "flugv", destCity+" Airport", destCity), LocalDateTime.of(2020, 3, 18, 7, 36), LocalDateTime.of(2020, 3, 18, 10, 36), null));
         return flights;
     }
 

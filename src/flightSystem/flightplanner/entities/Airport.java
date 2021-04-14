@@ -1,4 +1,4 @@
-package flightplanner.entities;
+package flightSystem.flightplanner.entities;
 
 public class Airport {
     private final int ID;

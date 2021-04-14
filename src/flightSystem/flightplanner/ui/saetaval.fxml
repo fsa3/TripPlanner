@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane stylesheets="@../styles/global.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.saetavalController">
+<AnchorPane stylesheets="@../../../ui/styles/global.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="flightSystem.flightplanner.ui.saetavalController">
     <children>
         <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="615.0" style="-fx-background-color: #393939;">
             <AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" />
@@ -88,7 +88,7 @@
          <children>
             <ImageView fitHeight="56.0" fitWidth="200.0" layoutX="14.0" layoutY="4.0">
                <image>
-                  <Image url="@../../img/logolangt.png" />
+                  <Image url="@../../../img/logolangt.png" />
                </image>
             </ImageView>
          </children>

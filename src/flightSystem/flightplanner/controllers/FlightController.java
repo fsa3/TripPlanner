@@ -1,6 +1,7 @@
-package flightplanner.controllers;
+package flightSystem.flightplanner.controllers;
 
-import flightplanner.entities.*;
+
+import flightSystem.flightplanner.entities.Flight;
 
 import java.sql.SQLException;
 

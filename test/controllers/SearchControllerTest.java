@@ -1,6 +1,7 @@
 package controllers;
 
 import entities.*;
+import flightSystem.flightplanner.entities.Flight;
 import hotelSystem.entities.Accommodation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -53,7 +54,7 @@ class SearchControllerTest {
     public void testOutFlightDepLocation() {
         for(TripPackage tPackage : tPackages) {
             for(Flight f : tPackage.getOutFlights()) {
-                assertEquals(dep, f.getDepCity());
+                assertEquals(dep, f.getDeparture());
             }
         }
     }
@@ -62,7 +63,7 @@ class SearchControllerTest {
     public void testOutFlightDestLocation() {
         for(TripPackage tPackage : tPackages) {
             for(Flight f : tPackage.getOutFlights()) {
-                assertEquals(dest, f.getDestCity());
+                assertEquals(dest, f.getArrival());
             }
         }
     }
@@ -71,7 +72,7 @@ class SearchControllerTest {
     public void testInFlightDepLocation() {
         for(TripPackage tPackage : tPackages) {
             for(Flight f : tPackage.getInFlights()) {
-                assertEquals(dest, f.getDepCity());
+                assertEquals(dest, f.getDeparture());
             }
         }
     }
@@ -80,7 +81,7 @@ class SearchControllerTest {
     public void testInFlightDestLocation() {
         for(TripPackage tPackage : tPackages) {
             for(Flight f : tPackage.getInFlights()) {
-                assertEquals(dep, f.getDestCity());
+                assertEquals(dep, f.getArrival());
             }
         }
     }
@@ -89,7 +90,7 @@ class SearchControllerTest {
     public void testInFlightDate() {
         for(TripPackage tPackage : tPackages) {
             for(Flight f : tPackage.getInFlights()) {
-                assertEquals(returnDate, f.getDate());
+                assertEquals(returnDate, f.getDeparture());
             }
         }
     }
@@ -98,7 +99,7 @@ class SearchControllerTest {
     public void testOutFlightDate() {
         for(TripPackage tPackage : tPackages) {
             for(Flight f : tPackage.getOutFlights()) {
-                assertEquals(depDate, f.getDate());
+                assertEquals(depDate, f.getDeparture());
             }
         }
     }

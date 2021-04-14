@@ -2,6 +2,7 @@ package ui.controllers;
 
 import controllers.SearchController;
 import entities.*;
+import flightSystem.flightplanner.entities.Flight;
 import hotelSystem.entities.Accommodation;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

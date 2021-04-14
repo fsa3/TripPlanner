@@ -1,8 +1,6 @@
-package flightplanner.data;
+package flightSystem.flightplanner.data;
 
-import flightplanner.controllers.FlightSearchController;
-import flightplanner.entities.*;
-
+import flightSystem.flightplanner.entities.*;
 import java.io.*;
 import java.sql.*;
 import java.time.LocalDate;

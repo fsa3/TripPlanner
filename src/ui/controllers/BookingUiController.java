@@ -110,7 +110,7 @@ public class BookingUiController {
             flightHBox.setSpacing(5);
             flightHBox.getChildren().addAll(fImg, flightLabel);
             flightsVB.getChildren().add(flightHBox);
-            fNumOut.setText(tripPackage.getOutFlights().get(0).getFlightNum());
+            fNumOut.setText(tripPackage.getOutFlights().get(0).getFlightNo());
         }
         if(!tripPackage.getInFlights().isEmpty()) {
             //in flight
@@ -124,7 +124,7 @@ public class BookingUiController {
             flightHBox2.getChildren().addAll(fImg2, flightLabel);
             flightsVB.getChildren().add(flightHBox2);
             flightsVB.setPrefWidth(350);
-            fNumIn.setText(tripPackage.getInFlights().get(0).getFlightNum());
+            fNumIn.setText(tripPackage.getInFlights().get(0).getFlightNo());
         }
 
         // show day trips

@@ -1,7 +1,7 @@
 package data;
 
 import entities.DayTrip;
-import entities.Flight;
+import flightSystem.flightplanner.entities.Flight;
 import hotelSystem.entities.Accommodation;
 import entities.User;
 

@@ -1,9 +1,10 @@
-package flightplanner.controllers;
+package flightSystem.flightplanner.controllers;
 
-import flightplanner.data.FlDataConnection;
-import flightplanner.data.FlightDataConnection;
-import flightplanner.entities.*;
-
+import flightSystem.flightplanner.data.FlDataConnection;
+import flightSystem.flightplanner.entities.Airport;
+import flightSystem.flightplanner.entities.Booking;
+import flightSystem.flightplanner.entities.Flight;
+import flightSystem.flightplanner.entities.Person;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

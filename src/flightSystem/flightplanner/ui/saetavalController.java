@@ -1,8 +1,8 @@
-package flightplanner.ui;
+package flightSystem.flightplanner.ui;
 
-import flightplanner.data.FlDataConnection;
-import flightplanner.entities.Info;
-import flightplanner.entities.Seat;
+import flightSystem.flightplanner.data.FlDataConnection;
+import flightSystem.flightplanner.entities.Info;
+import flightSystem.flightplanner.entities.Seat;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
