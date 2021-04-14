@@ -125,7 +125,7 @@
                                              <children>
                                                 <Label fx:id="fNumIn1" text="Luggage">
                                                    <VBox.margin>
-                                                      <Insets bottom="5.0" />
+                                                      <Insets bottom="8.0" />
                                                    </VBox.margin>
                                                 </Label>
                                              </children>
@@ -134,7 +134,7 @@
                                              <children>
                                                 <Label fx:id="fNumIn11" text="Insurance">
                                                    <VBox.margin>
-                                                      <Insets bottom="5.0" />
+                                                      <Insets bottom="8.0" />
                                                    </VBox.margin>
                                                 </Label>
                                              </children>

@@ -18,6 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -178,11 +179,11 @@ public class BookingUiController {
             TextField adultLastName = new TextField();
             adultLastName.setPromptText("Last name " + (i+1));
             adultLastName.getStyleClass().add("personName");
-            adultsFirstNameVB.getChildren().add(adultFirstName);
-            adultsLastNameVB.getChildren().add(adultLastName);
+            adultsFirstNameVB.getChildren().addAll(adultFirstName, createSpacer());
+            adultsLastNameVB.getChildren().addAll(adultLastName, createSpacer());
             if(!tripPackage.getOutFlights().isEmpty()) {
                 Button seatOut = new Button("Seat");
-                flightOutSeat.getChildren().add(seatOut);
+                flightOutSeat.getChildren().addAll(seatOut, createSpacer());
                 seatOut.getStyleClass().add("blue-button");
 
                 seatOut.setOnAction((evt) -> {
@@ -191,11 +192,12 @@ public class BookingUiController {
             }
             if(!tripPackage.getInFlights().isEmpty()) {
                 Button seatIn = new Button("Seat");
-                flightInSeat.getChildren().add(seatIn);
+                flightInSeat.getChildren().addAll(seatIn, createSpacer());
                 seatIn.getStyleClass().add("blue-button");
             }
             if(!tripPackage.getOutFlights().isEmpty() || !tripPackage.getInFlights().isEmpty()) {
                 CheckBox luggage = new CheckBox();
+                luggage.setAlignment(Pos.CENTER);
                 adultsLuggageVB.getChildren().add(luggage);
                 adultsLuggageVB.getChildren().add(createSpacer());
                 CheckBox insurance = new CheckBox();
@@ -209,9 +211,7 @@ public class BookingUiController {
         flightOutSeat.setSpacing(5);
         flightInSeat.setSpacing(5);
         adultsLuggageVB.setSpacing(5);
-        adultsLuggageVB.setSpacing(5);
-        adultsLuggageVB.setPadding(new Insets(3,0,0,0));
-        adultsInsuranceVB.setPadding(new Insets(3,0,0,0));
+        adultsInsuranceVB.setSpacing(5);
 
         for(int i = 0; i < searchResult.getNumChildren(); i++) {
             TextField childFirstName = new TextField();
@@ -220,16 +220,16 @@ public class BookingUiController {
             TextField childLastName = new TextField();
             childLastName.setPromptText("Last name of child " + (i+1));
             childLastName.getStyleClass().add("personName");
-            childrenFirstNameVB.getChildren().add(childFirstName);
-            childrenLastNameVB.getChildren().add(childLastName);
+            childrenFirstNameVB.getChildren().addAll(childFirstName, createSpacer());
+            childrenLastNameVB.getChildren().addAll(childLastName, createSpacer());
             if(!tripPackage.getOutFlights().isEmpty()) {
                 Button seatOut = new Button("Seat");
-                flightOutSeatC.getChildren().add(seatOut);
+                flightOutSeatC.getChildren().addAll(seatOut, createSpacer());
                 seatOut.getStyleClass().add("blue-button");
             }
             if(!tripPackage.getInFlights().isEmpty()) {
                 Button seatIn = new Button("Seat");
-                flightInSeatC.getChildren().add(seatIn);
+                flightInSeatC.getChildren().addAll(seatIn, createSpacer());
                 seatIn.getStyleClass().add("blue-button");
             }
             if(!tripPackage.getOutFlights().isEmpty() || !tripPackage.getInFlights().isEmpty()) {
