@@ -50,7 +50,7 @@ public class UserBookingsController {
             Button editBooking = new Button("Cancel booking");
             Pane spacer = new Pane();
             HBox.setHgrow(spacer, Priority.ALWAYS);
-            editBooking.getStyleClass().add("orange-button");
+            editBooking.getStyleClass().add("blue-button");
             bookingHeader.getChildren().addAll(bookingTitle, spacer, editBooking);
             bookingVB.getChildren().add(bookingHeader);
 
