@@ -21,7 +21,10 @@ public class UserInfoController {
     @FXML private TextField firstNameTextField;
     @FXML private TextField lastNameTextField;
     @FXML private TextField phoneTextField;
+
     private User user;
+    private SearchUiController owningSearchController;
+    private BookingUiController owningBookingController;
 
     public void initialize() {
 
@@ -32,6 +35,14 @@ public class UserInfoController {
         updateFields();
     }
 
+    public void setOwningSearchController(SearchUiController owningSearchController) {
+        this.owningSearchController = owningSearchController;
+    }
+
+    public void setOwningBookingController(BookingUiController owningBookingController) {
+        this.owningBookingController = owningBookingController;
+    }
+
     private void updateFields() {
         emailInput.setText(user.getEmail());
         firstNameTextField.setText(user.getFirstName());
@@ -39,7 +50,7 @@ public class UserInfoController {
         phoneTextField.setText(user.getPhoneNumber());
     }
 
-    public void closeWindow(ActionEvent actionEvent) {
+    public void closeWindow() {
         ((Stage) userInfo.getScene().getWindow()).close();
     }
 
@@ -74,6 +85,13 @@ public class UserInfoController {
 
         //todo
 
+    }
+
+    public void logoutClicked(ActionEvent actionEvent) {
+        user = null;
+        if(owningSearchController != null) owningSearchController.setUser(null);
+        if(owningBookingController != null) owningBookingController.setUser(null);
+        closeWindow();
     }
 }
 

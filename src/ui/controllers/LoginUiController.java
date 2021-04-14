@@ -1,23 +1,17 @@
 package ui.controllers;
 
 import controllers.UserController;
-import entities.SearchResult;
 import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -51,7 +45,8 @@ public class LoginUiController implements Initializable {
     private Label signUpErrorLabel;
 
     private User user;
-    private SearchUiController owningController;
+    private SearchUiController owningSearchController;
+    private BookingUiController owningBookingController;
 
 
 
@@ -65,8 +60,12 @@ public class LoginUiController implements Initializable {
         emailInput.setText(this.user.getEmail());
     }
 
-    public void setOwningController(SearchUiController controller) {
-        owningController = controller;
+    public void setOwningSearchController(SearchUiController controller) {
+        owningSearchController = controller;
+    }
+
+    public void setOwningController(BookingUiController controller) {
+        owningBookingController = controller;
     }
 
     public void loginOnClick(ActionEvent actionEvent) {
@@ -77,7 +76,12 @@ public class LoginUiController implements Initializable {
             errorLabel.setVisible(true);
         }
         else {
-            owningController.setUser(user);
+            if(owningSearchController != null) {
+                owningSearchController.setUser(user);
+            }
+            if(owningBookingController != null) {
+                owningBookingController.setUser(user);
+            }
             ((Stage) sceneRoot.getScene().getWindow()).close();
         }
     }

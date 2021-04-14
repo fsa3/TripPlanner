@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
@@ -32,6 +33,8 @@ public class BookingUiController {
 
     @FXML
     private AnchorPane bookRoot;
+    @FXML
+    private Label loginLabel;
     @FXML
     private Label packageTitle;
     @FXML
@@ -84,6 +87,8 @@ public class BookingUiController {
 
     public void setUser(User user) {
         this.user = user;
+        if(user == null && loginLabel != null) loginLabel.setText("Log In");
+        else if(loginLabel != null) loginLabel.setText(user.getFirstName());
     }
 
     public void setTripPackage(TripPackage tPackage) {
@@ -98,7 +103,53 @@ public class BookingUiController {
         this.customPackage = customPackage;
     }
 
+    public void mouseOnLoginLabel(MouseEvent mouseEvent) {
+        loginLabel.setUnderline(true);
+    }
+
+    public void mouseOffLoginLabel(MouseEvent mouseEvent) {
+        loginLabel.setUnderline(false);
+    }
+
+    public void openLogin() throws IOException {
+        Stage bookStage = (Stage) bookRoot.getScene().getWindow();
+
+        if (user == null) {
+            Stage loginStage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/loginUI.fxml"));
+            Region root = loader.load();
+
+            Scene scene = new Scene(root);
+            loginStage.setScene(scene);
+
+            LoginUiController loginUiController = loader.getController();
+            loginUiController.setOwningController(this);
+
+            loginStage.initStyle(StageStyle.UNDECORATED);
+            loginStage.initModality(Modality.WINDOW_MODAL);
+            loginStage.initOwner(bookStage);
+            loginStage.show();
+        } else {
+            Stage userStage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/user.fxml"));
+            Region root = loader.load();
+
+            Scene scene = new Scene(root, 800, 429);
+            userStage.setScene(scene);
+
+            UserUIController userUIController = loader.getController();
+            userUIController.setOwningController(this);
+            userUIController.setUser(user);
+
+            userStage.initStyle(StageStyle.UNDECORATED);
+            userStage.initModality(Modality.WINDOW_MODAL);
+            userStage.initOwner(bookStage);
+            userStage.show();
+        }
+    }
+
     public void updateView() {
+        if(user != null) loginLabel.setText(user.getFirstName());
         packageTitle.setText("Book " + tripPackage.getName());
         packagePrice.setText(String.valueOf(tripPackage.getPrice())+"$");
         if(!tripPackage.getOutFlights().isEmpty()) {
@@ -283,7 +334,11 @@ public class BookingUiController {
         }
     }
 
-    public void payButtonPressed() {
+    public void payButtonPressed() throws IOException {
+        if(user == null) {
+            openLogin();
+            return;
+        }
         BookingController bookingController = new BookingController(tripPackage, user, searchResult);
         bookingController.setDayTripDates(getDayTripDates());
         bookingController.bookPackage();

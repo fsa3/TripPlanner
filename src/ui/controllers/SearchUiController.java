@@ -92,8 +92,7 @@ public class SearchUiController implements Initializable {
             loginStage.setScene(scene);
 
             LoginUiController loginUiController = loader.getController();
-            loginUiController.setOwningController(this);
-            if(user != null) loginUiController.setUser(user);
+            loginUiController.setOwningSearchController(this);
 
             loginStage.initStyle(StageStyle.UNDECORATED);
             loginStage.initModality(Modality.WINDOW_MODAL);
@@ -109,6 +108,7 @@ public class SearchUiController implements Initializable {
             userStage.setScene(scene);
 
             UserUIController userUIController = loader.getController();
+            userUIController.setOwningController(this);
             userUIController.setUser(user);
 
             userStage.initStyle(StageStyle.UNDECORATED);
@@ -316,7 +316,8 @@ public class SearchUiController implements Initializable {
 
     public void setUser(User user) {
         this.user = user;
-        //loginLabel.setText(this.user.getFirstName());
+        if(user == null && loginLabel != null) loginLabel.setText("Log In");
+        else if(loginLabel != null) loginLabel.setText(this.user.getFirstName());
     }
 
     public void mouseOnLoginLabel(MouseEvent mouseEvent) {
