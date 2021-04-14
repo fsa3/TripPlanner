@@ -24,6 +24,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class BookingUiController {
@@ -99,7 +100,6 @@ public class BookingUiController {
     public void updateView() {
         packageTitle.setText("Book " + tripPackage.getName());
         packagePrice.setText(String.valueOf(tripPackage.getPrice())+"$");
-        // todo stinga inn verði á pakka
         if(!tripPackage.getOutFlights().isEmpty()) {
             //out flight
             ImageView fImg = new ImageView();
@@ -107,10 +107,14 @@ public class BookingUiController {
             fImg.setFitHeight(28);
             fImg.setPreserveRatio(true);
             fImg.setRotate(-45);
-            Label flightLabel = new Label(tripPackage.getOutFlights().get(0).toString());
+            Label flightLabel = new Label(displayFlight(tripPackage.getOutFlights().get(0)));
+            Label flightLabel2 = new Label(displayDateTime(tripPackage.getOutFlights().get(0)));
+            flightLabel.setWrapText(true);
+            VBox flightLabels = new VBox();
+            flightLabels.getChildren().addAll(flightLabel, flightLabel2);
             HBox flightHBox = new HBox();
-            flightHBox.setSpacing(5);
-            flightHBox.getChildren().addAll(fImg, flightLabel);
+            flightHBox.setSpacing(10);
+            flightHBox.getChildren().addAll(fImg, flightLabels);
             flightsVB.getChildren().add(flightHBox);
             fNumOut.setText(tripPackage.getOutFlights().get(0).getFlightNo());
         }
@@ -120,10 +124,14 @@ public class BookingUiController {
             fImg2.setImage(new Image("@../../img/landing.png"));
             fImg2.setFitHeight(28);
             fImg2.setPreserveRatio(true);
-            Label flightLabel = new Label(tripPackage.getInFlights().get(0).toString());
+            Label flightLabel = new Label(displayFlight(tripPackage.getInFlights().get(0)));
+            Label flightLabel2 = new Label(displayDateTime(tripPackage.getInFlights().get(0)));
+            flightLabel.setWrapText(true);
+            VBox flightLabels = new VBox();
+            flightLabels.getChildren().addAll(flightLabel,flightLabel2);
             HBox flightHBox2 = new HBox();
-            flightHBox2.setSpacing(5);
-            flightHBox2.getChildren().addAll(fImg2, flightLabel);
+            flightHBox2.setSpacing(10);
+            flightHBox2.getChildren().addAll(fImg2, flightLabels);
             flightsVB.getChildren().add(flightHBox2);
             flightsVB.setPrefWidth(350);
             fNumIn.setText(tripPackage.getInFlights().get(0).getFlightNo());
@@ -330,5 +338,15 @@ public class BookingUiController {
         final Region spacer = new Region();
         VBox.setVgrow(spacer, Priority.ALWAYS);
         return spacer;
+    }
+
+    private String displayFlight(Flight f) {
+        return f.getFlightNo() + " from " + f.getDeparture().getFullName() + " to " + f.getArrival().getFullName();
+    }
+
+    private String displayDateTime(Flight f) {
+        LocalDateTime d = f.getDepartureTime();
+        LocalDateTime a = f.getArrivalTime();
+        return "on "+d.getDayOfMonth()+"."+d.getMonthValue()+"."+d.getYear()+" at "+d.getHour()+":"+d.getMinute()+" - arrival approx. "+a.getHour()+":"+a.getMinute();
     }
 }
