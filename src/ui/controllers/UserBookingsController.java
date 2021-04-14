@@ -8,10 +8,9 @@ import hotelSystem.entities.Accommodation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -35,6 +34,7 @@ public class UserBookingsController {
     }
 
     private void displayBookings() {
+        bookedPackagesView.setSpacing(10);
         // get user bookings
         DataConnection dc = new DataConnection();
         userBookingIds = dc.getUserBookings(user);
@@ -48,12 +48,23 @@ public class UserBookingsController {
             HBox bookingHeader = new HBox();
             Label bookingTitle = new Label("My booking, id " + id);
             Button editBooking = new Button("Cancel booking");
+            Pane spacer = new Pane();
+            HBox.setHgrow(spacer, Priority.ALWAYS);
             editBooking.getStyleClass().add("orange-button");
-            bookingHeader.getChildren().addAll(bookingTitle, editBooking);
+            bookingHeader.getChildren().addAll(bookingTitle, spacer, editBooking);
             bookingVB.getChildren().add(bookingHeader);
 
             // flights and passengers
             HBox fp = new HBox();
+            VBox flightsVB = new VBox();
+            Label flightsHeader = new Label("Flights");
+            flightsVB.getChildren().add(flightsHeader);
+
+            VBox passengersVB = new VBox();
+            Label passengersHeader = new Label("Passengers");
+            passengersVB.getChildren().add(passengersHeader);
+
+            fp.getChildren().addAll(flightsVB, passengersVB);
             bookingVB.getChildren().add(fp);
 
             // hotel
@@ -90,6 +101,7 @@ public class UserBookingsController {
             Label price = new Label("Total price: " + "setja verð");
             bookingVB.getChildren().add(price);
 
+            bookingVB.getStyleClass().add("packageContainer");
             bookedPackagesView.getChildren().add(bookingVB);
         }
 
