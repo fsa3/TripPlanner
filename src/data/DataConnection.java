@@ -234,4 +234,18 @@ public class DataConnection {
         }
         return hotelBookings;
     }
+
+    public Double getBookingPrice(int id) {
+        String query = "SELECT price FROM Booking WHERE bookingId = ?";
+        Double price = null;
+        try {
+            PreparedStatement getBookingPrice = connection.prepareStatement(query);
+            getBookingPrice.setInt(1, id);
+            ResultSet rs = getBookingPrice.executeQuery();
+            if(rs.next()) price = rs.getDouble(1);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return price;
+    }
 }

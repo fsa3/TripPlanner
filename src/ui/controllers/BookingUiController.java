@@ -8,15 +8,14 @@ import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -59,6 +58,14 @@ public class BookingUiController {
     private VBox flightOutSeatC;
     @FXML
     private VBox flightInSeatC;
+    @FXML
+    private VBox adultsLuggageVB;
+    @FXML
+    private VBox childrenLuggageVB;
+    @FXML
+    private VBox adultsInsuranceVB;
+    @FXML
+    private VBox childrenInsuranceVB;
 
     private ArrayList<DatePicker> dayTripDatesDP = new ArrayList<>();
 
@@ -171,11 +178,23 @@ public class BookingUiController {
                 ComboBox seatIn = new ComboBox();
                 flightInSeat.getChildren().add(seatIn);
             }
+            if(!tripPackage.getOutFlights().isEmpty() || !tripPackage.getInFlights().isEmpty()) {
+                CheckBox luggage = new CheckBox();
+                adultsLuggageVB.getChildren().add(luggage);
+                adultsLuggageVB.getChildren().add(createSpacer());
+                CheckBox insurance = new CheckBox();
+                adultsInsuranceVB.getChildren().add(insurance);
+                adultsInsuranceVB.getChildren().add(createSpacer());
+            }
         }
         adultsFirstNameVB.setSpacing(5);
         adultsLastNameVB.setSpacing(5);
         flightOutSeat.setSpacing(5);
         flightInSeat.setSpacing(5);
+        adultsLuggageVB.setSpacing(5);
+        adultsLuggageVB.setSpacing(5);
+        adultsLuggageVB.setPadding(new Insets(3,0,0,0));
+        adultsInsuranceVB.setPadding(new Insets(3,0,0,0));
 
         for(int i = 0; i < searchResult.getNumChildren(); i++) {
             TextField childFirstName = new TextField();
@@ -194,12 +213,24 @@ public class BookingUiController {
                 ComboBox seatIn = new ComboBox();
                 flightInSeatC.getChildren().add(seatIn);
             }
+            if(!tripPackage.getOutFlights().isEmpty() || !tripPackage.getInFlights().isEmpty()) {
+                CheckBox luggage = new CheckBox();
+                childrenLuggageVB.getChildren().add(luggage);
+                childrenLuggageVB.getChildren().add(createSpacer());
+                CheckBox insurance = new CheckBox();
+                childrenInsuranceVB.getChildren().add(insurance);
+                childrenInsuranceVB.getChildren().add(createSpacer());
+            }
+            childrenLuggageVB.setPadding(new Insets(3,0,0,0));
+            childrenInsuranceVB.setPadding(new Insets(3,0,0,0));
             //todo setja users í fyrsta nafnaboxið
         }
         childrenFirstNameVB.setSpacing(5);
         childrenLastNameVB.setSpacing(5);
         flightOutSeatC.setSpacing(5);
         flightInSeatC.setSpacing(5);
+        childrenLuggageVB.setSpacing(5);
+        childrenInsuranceVB.setSpacing(5);
     }
 
     public void goBackToSearchResult(ActionEvent actionEvent) {
@@ -266,5 +297,11 @@ public class BookingUiController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private Node createSpacer() {
+        final Region spacer = new Region();
+        VBox.setVgrow(spacer, Priority.ALWAYS);
+        return spacer;
     }
 }

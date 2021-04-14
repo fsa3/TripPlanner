@@ -40,9 +40,9 @@ public class UserBookingsController {
         userBookingIds = dc.getUserBookings(user);
         dayTripBookings = dc.getDayTripBookings(user);
         hotelBookings = dc.getHotelBookings(user);
-        dc.closeConnection();
 
         for(Integer id : userBookingIds) {
+            Double price = dc.getBookingPrice(id);
             VBox bookingVB = new VBox();
 
             HBox bookingHeader = new HBox();
@@ -98,12 +98,13 @@ public class UserBookingsController {
                 }
             }
 
-            Label price = new Label("Total price: " + "setja verð");
-            bookingVB.getChildren().add(price);
+            Label priceLabel = new Label("Total price: " + price + "$");
+            bookingVB.getChildren().add(priceLabel);
 
             bookingVB.getStyleClass().add("packageContainer");
             bookedPackagesView.getChildren().add(bookingVB);
         }
+        dc.closeConnection();
 
     }
 
