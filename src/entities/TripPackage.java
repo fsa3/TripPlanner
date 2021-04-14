@@ -2,6 +2,7 @@ package entities;
 
 import flightSystem.flightplanner.entities.Flight;
 import hotelSystem.entities.Accommodation;
+import hotelSystem.entities.Room;
 
 import java.util.ArrayList;
 
@@ -10,6 +11,7 @@ public class TripPackage extends SearchResult{
     private double price;
     private SearchResult masterSearch;
     private boolean customPackage = true;
+    private Room room;
 
     public TripPackage(String name, SearchResult search) {
         super(search.getStartDate(), search.getEndDate(), search.getDepCity(), search.getDestCity(), search.getNumAdults(), search.getNumChildren());

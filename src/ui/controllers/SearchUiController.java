@@ -254,7 +254,7 @@ public class SearchUiController implements Initializable {
         // display all hotels
         ToggleGroup hotelsToggleGroup = new ToggleGroup();
         for(Accommodation h : searchResult.getHotels()) {
-            RadioButton hotelRadio = new RadioButton(h.toString());
+            RadioButton hotelRadio = new RadioButton(h.getName()+" - "+h.getRating()+" stars");
             hotelRadio.setToggleGroup(hotelsToggleGroup);
             allHotelsVB.getChildren().add(hotelRadio);
             hotelRadio.selectedProperty().addListener(new ChangeListener<Boolean>() {
