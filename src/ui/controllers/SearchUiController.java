@@ -23,6 +23,7 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class SearchUiController implements Initializable {
@@ -217,7 +218,7 @@ public class SearchUiController implements Initializable {
         // Display all out flights
         ToggleGroup outFlightsToggleGroup = new ToggleGroup();
         for(Flight f : searchResult.getOutFlights()) {
-            RadioButton flightRadio = new RadioButton(f.toString());
+            RadioButton flightRadio = new RadioButton(displayFlight(f));
             flightRadio.setToggleGroup(outFlightsToggleGroup);
             allOutFlightsVB.getChildren().add(flightRadio);
             flightRadio.selectedProperty().addListener(new ChangeListener<Boolean>() {
@@ -235,7 +236,7 @@ public class SearchUiController implements Initializable {
         // display all in flights
         ToggleGroup inFlightsToggleGroup = new ToggleGroup();
         for(Flight f : searchResult.getInFlights()) {
-            RadioButton flightRadio = new RadioButton(f.toString());
+            RadioButton flightRadio = new RadioButton(displayFlight(f));
             flightRadio.setToggleGroup(inFlightsToggleGroup);
             allInFlightsVB.getChildren().add(flightRadio);
             flightRadio.selectedProperty().addListener(new ChangeListener<Boolean>() {
@@ -294,10 +295,10 @@ public class SearchUiController implements Initializable {
     private void displayCustomPackage() {
         selectedFlightsVB.getChildren().clear();
         for(Flight f : customPackage.getOutFlights()) {
-            selectedFlightsVB.getChildren().add(new Label(f.toString()));
+            selectedFlightsVB.getChildren().add(new Label(displayFlight(f)));
         }
         for(Flight f : customPackage.getInFlights()) {
-            selectedFlightsVB.getChildren().add(new Label(f.toString()));
+            selectedFlightsVB.getChildren().add(new Label(displayFlight(f)));
         }
         selectedHotelVB.getChildren().clear();
         for(Accommodation h : customPackage.getHotels()) {
@@ -360,7 +361,9 @@ public class SearchUiController implements Initializable {
         fImg.setPreserveRatio(true);
         //out flight
         fImg.setRotate(-45);
-        Label flightLabel = new Label(tPackage.getOutFlights().get(0).toString());
+        Flight outFlight = tPackage.getOutFlights().get(0);
+        Label flightLabel = new Label(displayFlight(outFlight));
+        flightLabel.setWrapText(true);
         HBox flightHBox = new HBox();
         flightHBox.setSpacing(5);
         flightHBox.getChildren().addAll(fImg, flightLabel);
@@ -370,7 +373,9 @@ public class SearchUiController implements Initializable {
         fImg2.setImage(new Image("@../../img/landing.png"));
         fImg2.setFitHeight(28);
         fImg2.setPreserveRatio(true);
-        flightLabel = new Label(tPackage.getInFlights().get(0).toString());
+        Flight inFlight = tPackage.getInFlights().get(0);
+        flightLabel = new Label(displayFlight(inFlight));
+        flightLabel.setWrapText(true);
         HBox flightHBox2 = new HBox();
         flightHBox2.setSpacing(5);
         flightHBox2.getChildren().addAll(fImg2, flightLabel);
@@ -420,6 +425,14 @@ public class SearchUiController implements Initializable {
         packagesVBox.setSpacing(10);
         packageContainer.getChildren().add(gp);
         packagesVBox.getChildren().add(packageContainer);
+    }
+
+    private String displayFlight(Flight f) {
+        return f.getFlightNo() + " from " + f.getDeparture().getFullName() + " to " + f.getArrival().getFullName() + " on " + displayDateTime(f.getDepartureTime());
+    }
+
+    private String displayDateTime(LocalDateTime d) {
+        return d.getDayOfMonth()+"."+d.getMonthValue()+"."+d.getYear()+" at "+d.getHour()+":"+d.getMinute();
     }
 
     private void book(TripPackage tPackage) {
