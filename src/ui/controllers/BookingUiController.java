@@ -5,12 +5,14 @@ import entities.DayTrip;
 import entities.SearchResult;
 import entities.TripPackage;
 import entities.User;
+import flightSystem.flightplanner.entities.Flight;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -171,12 +173,18 @@ public class BookingUiController {
             adultsFirstNameVB.getChildren().add(adultFirstName);
             adultsLastNameVB.getChildren().add(adultLastName);
             if(!tripPackage.getOutFlights().isEmpty()) {
-                ComboBox seatOut = new ComboBox();
+                Button seatOut = new Button("Seat");
                 flightOutSeat.getChildren().add(seatOut);
+                seatOut.getStyleClass().add("blue-button");
+
+                seatOut.setOnAction((evt) -> {
+                    pickSeat(tripPackage.getOutFlights().get(0));
+                });
             }
             if(!tripPackage.getInFlights().isEmpty()) {
-                ComboBox seatIn = new ComboBox();
+                Button seatIn = new Button("Seat");
                 flightInSeat.getChildren().add(seatIn);
+                seatIn.getStyleClass().add("blue-button");
             }
             if(!tripPackage.getOutFlights().isEmpty() || !tripPackage.getInFlights().isEmpty()) {
                 CheckBox luggage = new CheckBox();
@@ -187,6 +195,7 @@ public class BookingUiController {
                 adultsInsuranceVB.getChildren().add(createSpacer());
             }
         }
+
         adultsFirstNameVB.setSpacing(5);
         adultsLastNameVB.setSpacing(5);
         flightOutSeat.setSpacing(5);
@@ -206,12 +215,14 @@ public class BookingUiController {
             childrenFirstNameVB.getChildren().add(childFirstName);
             childrenLastNameVB.getChildren().add(childLastName);
             if(!tripPackage.getOutFlights().isEmpty()) {
-                ComboBox seatOut = new ComboBox();
+                Button seatOut = new Button("Seat");
                 flightOutSeatC.getChildren().add(seatOut);
+                seatOut.getStyleClass().add("blue-button");
             }
             if(!tripPackage.getInFlights().isEmpty()) {
-                ComboBox seatIn = new ComboBox();
+                Button seatIn = new Button("Seat");
                 flightInSeatC.getChildren().add(seatIn);
+                seatIn.getStyleClass().add("blue-button");
             }
             if(!tripPackage.getOutFlights().isEmpty() || !tripPackage.getInFlights().isEmpty()) {
                 CheckBox luggage = new CheckBox();
@@ -231,6 +242,22 @@ public class BookingUiController {
         flightInSeatC.setSpacing(5);
         childrenLuggageVB.setSpacing(5);
         childrenInsuranceVB.setSpacing(5);
+    }
+
+    private void pickSeat(Flight flight) {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("../../flightSystem/flightplanner/ui/saetaval.fxml"));
+            Stage primaryStage = new Stage();
+            primaryStage.setTitle("BookMaster");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.initStyle(StageStyle.UNDECORATED);
+            primaryStage.show();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void goBackToSearchResult(ActionEvent actionEvent) {
