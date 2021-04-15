@@ -4,6 +4,7 @@ import hotelSystem.storage.DatabaseMock;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Accommodation {
     private int id;
@@ -161,5 +162,13 @@ public class Accommodation {
 
     public String toString() {
         return this.name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Accommodation that = (Accommodation) o;
+        return id == that.id && Double.compare(that.rating, rating) == 0 && Objects.equals(name, that.name) && Objects.equals(location, that.location) && Objects.equals(roomArrayList, that.roomArrayList) && type == that.type && Objects.equals(managerIdArrayList, that.managerIdArrayList) && Objects.equals(reviewArrayList, that.reviewArrayList) && Objects.equals(description, that.description);
     }
 }

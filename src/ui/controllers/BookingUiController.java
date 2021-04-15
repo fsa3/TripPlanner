@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class BookingUiController {
 
@@ -191,9 +192,10 @@ public class BookingUiController {
         // show day trips
         for(Trip dt : tripPackage.getDayTrips()) {
             HBox dtHBox = new HBox();
-            Label tripLabel = new Label(dt.toString());
+            Label tripLabel = new Label(dt.getCategory());
             tripLabel.setPrefWidth(200);
             DatePicker dayChooser = new DatePicker();
+            //todo setja dagsetningar í dayChooser
             dayChooser.setDayCellFactory(d -> new DateCell() {
                 @Override
                 public void updateItem(LocalDate item, boolean empty) {
@@ -305,7 +307,7 @@ public class BookingUiController {
     private void pickSeat(Flight flight) {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("../../flightSystem/flightplanner/ui/saetaval.fxml"));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../flightSystem/flightplanner/ui/saetaval.fxml")));
             Stage primaryStage = new Stage();
             primaryStage.setTitle("BookMaster");
             primaryStage.setScene(new Scene(root));

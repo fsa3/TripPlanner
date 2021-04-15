@@ -1,6 +1,7 @@
 package ui.controllers;
 
 import controllers.SearchController;
+import data.DataConnection;
 import dayTripSystem.Trip;
 import entities.*;
 import flightSystem.flightplanner.entities.Flight;
@@ -25,6 +26,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class SearchUiController implements Initializable {
@@ -232,7 +234,7 @@ public class SearchUiController implements Initializable {
                     }
                 }
             });
-            if(customPackage.getOutFlights().contains(f)) flightRadio.setSelected(true);
+            if(customPackage.getOutFlights().contains(f)) flightRadio.setSelected(true); //todo virkar ekki
         }
         // display all in flights
         ToggleGroup inFlightsToggleGroup = new ToggleGroup();
@@ -250,7 +252,7 @@ public class SearchUiController implements Initializable {
                     }
                 }
             });
-            if(customPackage.getInFlights().contains(f)) flightRadio.setSelected(true);
+            if(customPackage.getInFlights().contains(f)) flightRadio.setSelected(true); //todo virkar ekki
         }
         // display all hotels
         ToggleGroup hotelsToggleGroup = new ToggleGroup();
@@ -271,10 +273,13 @@ public class SearchUiController implements Initializable {
             if(customPackage.getHotels().contains(h)) hotelRadio.setSelected(true);
         }
         // display all day trips
+        ArrayList<String> dtNames = new ArrayList<>();
         for(Trip dt : searchResult.getDayTrips()) {
-           CheckBox dayTripCheck = new CheckBox(dt.toString());
-           allDayTripsVB.getChildren().add(dayTripCheck);
-           dayTripCheck.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            if(dtNames.contains(dt.getCategory())) continue;
+            dtNames.add(dt.getCategory());
+            CheckBox dayTripCheck = new CheckBox(dt.getCategory());
+            allDayTripsVB.getChildren().add(dayTripCheck);
+            dayTripCheck.selectedProperty().addListener(new ChangeListener<Boolean>() {
                @Override
                public void changed(ObservableValue<? extends Boolean> obs, Boolean unchecked, Boolean checked) {
                    if(checked) {
@@ -285,11 +290,11 @@ public class SearchUiController implements Initializable {
                    }
                    displayCustomPackage();
                }
-           });
-           if(customPackage.getDayTrips().contains(dt)) {
+            });
+            if(customPackage.getDayTrips().contains(dt)) {
                customPackage.removeDayTrip(dt);
                dayTripCheck.setSelected(true);
-           }
+            }
         }
     }
 
@@ -307,7 +312,7 @@ public class SearchUiController implements Initializable {
         }
         selectedDayTripsVB.getChildren().clear();
         for(Trip dt : customPackage.getDayTrips()) {
-            selectedDayTripsVB.getChildren().add(new Label(dt.toString()));
+            selectedDayTripsVB.getChildren().add(new Label(dt.getCategory()));
         }
     }
 
@@ -388,7 +393,10 @@ public class SearchUiController implements Initializable {
         VBox dayTrips = new VBox();
         for(Trip dt : tPackage.getDayTrips()) {
             HBox dtHBox = new HBox();
-            dtHBox.getChildren().add(new Label(dt.toString()));
+            Label dayTripLabel = new Label(dt.getCategory() + " on "+displayDate(DataConnection.utilDateToLocalDate(dt.getDate())));
+            dayTripLabel.setMaxWidth(170); // todo skoða þetta
+            dayTripLabel.setWrapText(true);
+            dtHBox.getChildren().add(dayTripLabel);
             dayTrips.getChildren().add(dtHBox);
         }
         gp.add(dayTrips, 1, 1, 2, 1);
@@ -435,6 +443,10 @@ public class SearchUiController implements Initializable {
 
     private String displayDateTime(LocalDateTime d) {
         return d.getDayOfMonth()+"."+d.getMonthValue()+"."+d.getYear()+" at "+d.getHour()+":"+d.getMinute();
+    }
+
+    private String displayDate(LocalDate d) {
+        return d.getDayOfMonth()+"."+d.getMonthValue()+"."+d.getYear();
     }
 
     private void book(TripPackage tPackage) {

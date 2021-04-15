@@ -7,6 +7,7 @@ import hotelSystem.entities.Accommodation;
 import javafx.scene.control.Alert;
 
 import java.sql.*;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -131,6 +132,12 @@ public class DataConnection {
 
     public static Date localDateToDate(LocalDate localDate) {
         return java.sql.Date.valueOf(localDate);
+    }
+
+    public static LocalDate utilDateToLocalDate(java.util.Date dateToConvert) {
+        return Instant.ofEpochMilli(dateToConvert.getTime())
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
     }
 
     public void createBooking(User user, int bookingId, double price, int numAdults, int numChildren) {

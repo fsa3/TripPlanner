@@ -2,6 +2,7 @@ package dayTripSystem;
 
 import java.awt.image.BufferedImage;
 import java.util.Date;
+import java.util.Objects;
 
 public class Trip {
     private String tripID;
@@ -136,6 +137,14 @@ public class Trip {
     public void setPrice(int price) {
         this.price = price;
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Trip trip = (Trip) o;
+        return maxReservations == trip.maxReservations && minReservations == trip.minReservations && isFullyBooked == trip.isFullyBooked && capacity == trip.capacity && canceledTrip == trip.canceledTrip && price == trip.price && Objects.equals(tripID, trip.tripID) && Objects.equals(destination, trip.destination) && Objects.equals(date, trip.date) && Objects.equals(hostEmail, trip.hostEmail) && Objects.equals(category, trip.category) && Objects.equals(schedule, trip.schedule);
     }
 
 }
