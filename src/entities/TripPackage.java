@@ -1,5 +1,6 @@
 package entities;
 
+import dayTripSystem.Trip;
 import flightSystem.flightplanner.entities.Flight;
 import hotelSystem.entities.Accommodation;
 import hotelSystem.entities.Room;
@@ -53,11 +54,11 @@ public class TripPackage extends SearchResult{
         hotels.remove(h);
     }
 
-    public void addDayTrip(DayTrip dt) {
+    public void addDayTrip(Trip dt) {
         dayTrips.add(dt);
     }
 
-    public void removeDayTrip(DayTrip dt) {
+    public void removeDayTrip(Trip dt) {
         dayTrips.remove(dt);
     }
 

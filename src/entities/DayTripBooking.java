@@ -1,46 +1,44 @@
 package entities;
 
+import data.DataConnection;
+import dayTripSystem.Trip;
+
 import java.time.LocalDate;
 
 public class DayTripBooking extends Booking {
-    private DayTrip dayTrip;
+    private Trip dayTrip;
     private String dayTripName;
     private String city;
     private LocalDate date;
-    private int numHours;
-    private boolean familyFriendly;
 
-    public DayTripBooking(DayTrip dayTrip, LocalDate date, int id, User user) {
+    public DayTripBooking(Trip dayTrip, LocalDate date, int id, User user) {
         this.dayTrip = dayTrip;
         this.date = date;
-        dayTripName = dayTrip.getName();
-        city = dayTrip.getCity();
-        numHours = dayTrip.getNumHours();
-        familyFriendly = dayTrip.isFamilyFriendly();
+        dayTripName = dayTrip.getCategory();
+        city = dayTrip.getDestination();
         bookingId = id;
         bookingUser = user;
     }
 
-    public DayTripBooking(String name, String city, int numHours, LocalDate date, int id, User user) {
+    public DayTripBooking(String name, String city, LocalDate date, int id, User user) {
         dayTripName = name;
         this.city = city;
-        this.numHours = numHours;
         this.date = date;
         bookingId = id;
         bookingUser = user;
         // todo fylla í dayTrip attribute
-        dayTrip = new DayTrip(name, city);
+        dayTrip = new Trip("-1", city, DataConnection.localDateToDate(date), "", 30, 0, false, name, null, 30, false, 0/*todo setja verð*/);
     }
 
     public void cancelBooking() {
         // todo
     }
 
-    public DayTrip getDayTrip() {
+    public Trip getDayTrip() {
         return dayTrip;
     }
 
-    public void setDayTrip(DayTrip dayTrip) {
+    public void setDayTrip(Trip dayTrip) {
         this.dayTrip = dayTrip;
     }
 
@@ -68,22 +66,6 @@ public class DayTripBooking extends Booking {
         this.date = date;
     }
 
-    public int getNumHours() {
-        return numHours;
-    }
-
-    public void setNumHours(int numHours) {
-        this.numHours = numHours;
-    }
-
-    public boolean isFamilyFriendly() {
-        return familyFriendly;
-    }
-
-    public void setFamilyFriendly(boolean familyFriendly) {
-        this.familyFriendly = familyFriendly;
-    }
-
     @Override
     public String toString() {
         return "DayTripBooking{" +
@@ -91,7 +73,6 @@ public class DayTripBooking extends Booking {
                 ", dayTripName='" + dayTripName + '\'' +
                 ", city='" + city + '\'' +
                 ", date=" + date +
-                ", numHours=" + numHours +
                 '}';
     }
 }

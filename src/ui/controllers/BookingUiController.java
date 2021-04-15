@@ -1,7 +1,7 @@
 package ui.controllers;
 
 import controllers.BookingController;
-import entities.DayTrip;
+import dayTripSystem.Trip;
 import entities.SearchResult;
 import entities.TripPackage;
 import entities.User;
@@ -19,7 +19,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -190,7 +189,7 @@ public class BookingUiController {
         }
 
         // show day trips
-        for(DayTrip dt : tripPackage.getDayTrips()) {
+        for(Trip dt : tripPackage.getDayTrips()) {
             HBox dtHBox = new HBox();
             Label tripLabel = new Label(dt.toString());
             tripLabel.setPrefWidth(200);

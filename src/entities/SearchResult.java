@@ -1,5 +1,6 @@
 package entities;
 
+import dayTripSystem.Trip;
 import flightSystem.flightplanner.entities.Flight;
 import hotelSystem.entities.Accommodation;
 import javafx.collections.FXCollections;
@@ -20,7 +21,7 @@ public class SearchResult {
     protected ArrayList<Flight> outFlights;
     protected ArrayList<Flight> inFlights;
     protected ArrayList<Accommodation> hotels;
-    protected ArrayList<DayTrip> dayTrips;
+    protected ArrayList<Trip> dayTrips;
 
     public SearchResult(LocalDate startDate, LocalDate endDate, String depCity, String destCity, int numAdults, int numChildren) {
         this.startDate = startDate;
@@ -103,11 +104,11 @@ public class SearchResult {
         this.hotels = hotels;
     }
 
-    public ArrayList<DayTrip> getDayTrips() {
+    public ArrayList<Trip> getDayTrips() {
         return dayTrips;
     }
 
-    public void setDayTrips(ArrayList<DayTrip> dayTrips) {
+    public void setDayTrips(ArrayList<Trip> dayTrips) {
         this.dayTrips = dayTrips;
     }
 
@@ -123,8 +124,8 @@ public class SearchResult {
         oHotels.addAll(hotels);
         return oHotels;
     }
-    public ObservableList<DayTrip> getDayTripsObservable() {
-        ObservableList<DayTrip> oDayTrips = FXCollections.observableArrayList();
+    public ObservableList<Trip> getDayTripsObservable() {
+        ObservableList<Trip> oDayTrips = FXCollections.observableArrayList();
         oDayTrips.addAll(dayTrips);
         return oDayTrips;
     }

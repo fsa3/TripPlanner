@@ -114,7 +114,7 @@ public class DataConnection {
             PreparedStatement createDayTripBooking = connection.prepareStatement(query);
             createDayTripBooking.setString(1, dtBooking.getDayTripName());
             createDayTripBooking.setString(2, dtBooking.getCity());
-            createDayTripBooking.setInt(3, dtBooking.getNumHours());
+            // todo taka numhours úr gagnagrunni
             createDayTripBooking.setDate(4, localDateToDate(dtBooking.getDate()));
             createDayTripBooking.setInt(5, dtBooking.getBookingId());
             createDayTripBooking.setString(6, dtBooking.getBookingUser().getEmail());
@@ -125,11 +125,11 @@ public class DataConnection {
         }
     }
 
-    private LocalDate dateToLocalDate(java.sql.Date dateToConvert) {
+    public static LocalDate dateToLocalDate(java.sql.Date dateToConvert) {
         return dateToConvert.toLocalDate();
     }
 
-    private Date localDateToDate(LocalDate localDate) {
+    public static Date localDateToDate(LocalDate localDate) {
         return java.sql.Date.valueOf(localDate);
     }
 
@@ -176,11 +176,11 @@ public class DataConnection {
             while (rs.next()) {
                 String name = rs.getString(1);
                 String city = rs.getString(2);
-                int numHours = rs.getInt(3);
+                int numHours = rs.getInt(3); // todo taka numhours úr gagnagrunni
                 LocalDate date = dateToLocalDate(rs.getDate(4));
                 int id = rs.getInt(5);
                 User bookingUser = getUserBy("email", rs.getString(6));
-                DayTripBooking dtB = new DayTripBooking(name, city, numHours, date, id, bookingUser);
+                DayTripBooking dtB = new DayTripBooking(name, city, date, id, bookingUser);
                 dayTripBookings.add(dtB);
             }
             rs.close();

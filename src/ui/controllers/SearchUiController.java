@@ -1,6 +1,7 @@
 package ui.controllers;
 
 import controllers.SearchController;
+import dayTripSystem.Trip;
 import entities.*;
 import flightSystem.flightplanner.entities.Flight;
 import hotelSystem.entities.Accommodation;
@@ -270,7 +271,7 @@ public class SearchUiController implements Initializable {
             if(customPackage.getHotels().contains(h)) hotelRadio.setSelected(true);
         }
         // display all day trips
-        for(DayTrip dt : searchResult.getDayTrips()) {
+        for(Trip dt : searchResult.getDayTrips()) {
            CheckBox dayTripCheck = new CheckBox(dt.toString());
            allDayTripsVB.getChildren().add(dayTripCheck);
            dayTripCheck.selectedProperty().addListener(new ChangeListener<Boolean>() {
@@ -305,7 +306,7 @@ public class SearchUiController implements Initializable {
             selectedHotelVB.getChildren().add(new Label(h.toString()));
         }
         selectedDayTripsVB.getChildren().clear();
-        for(DayTrip dt : customPackage.getDayTrips()) {
+        for(Trip dt : customPackage.getDayTrips()) {
             selectedDayTripsVB.getChildren().add(new Label(dt.toString()));
         }
     }
@@ -385,7 +386,7 @@ public class SearchUiController implements Initializable {
         gp.add(flights, 0, 1);
 
         VBox dayTrips = new VBox();
-        for(DayTrip dt : tPackage.getDayTrips()) {
+        for(Trip dt : tPackage.getDayTrips()) {
             HBox dtHBox = new HBox();
             dtHBox.getChildren().add(new Label(dt.toString()));
             dayTrips.getChildren().add(dtHBox);

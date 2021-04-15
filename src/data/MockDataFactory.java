@@ -1,6 +1,6 @@
 package data;
 
-import entities.DayTrip;
+import dayTripSystem.Trip;
 import flightSystem.flightplanner.entities.Airport;
 import flightSystem.flightplanner.entities.Flight;
 import hotelSystem.entities.Accommodation;
@@ -25,9 +25,9 @@ public class MockDataFactory implements Database{
     }
 
     @Override
-    public ArrayList<DayTrip> getDayTrips(String city) {
-        ArrayList<DayTrip> dayTrips = new ArrayList<>();
-        dayTrips.add(new DayTrip("Kúrstund at Fannar's Room!", city));
+    public ArrayList<Trip> getDayTrips(String city) {
+        ArrayList<Trip> dayTrips = new ArrayList<>();
+        dayTrips.add(new Trip("-1", city, DataConnection.localDateToDate(LocalDate.of(2021,3,26)), "", 30, 0, false, "Kúrstund at Fannar's Room", null, 30, false, 0/*todo setja verð*/));
         return dayTrips;
     }
 

@@ -1,6 +1,6 @@
 package data;
 
-import entities.DayTrip;
+import dayTripSystem.Trip;
 import flightSystem.flightplanner.entities.Airport;
 import flightSystem.flightplanner.entities.Flight;
 import hotelSystem.entities.Accommodation;
@@ -41,14 +41,14 @@ public class DataFactory implements Database {
     }
 
     @Override
-    public ArrayList<DayTrip> getDayTrips(String city) {
-        ArrayList<DayTrip> dayTrips = new ArrayList<>();
-        dayTrips.add(new DayTrip("Kúrstund at Fannar's Room!", city));
-        dayTrips.add(new DayTrip("Apple picking", city));
-        dayTrips.add(new DayTrip("Valorant gaming", city));
-        dayTrips.add(new DayTrip("Poop Marathon", city));
-        dayTrips.add(new DayTrip("Wait in traffic", city));
-        dayTrips.add(new DayTrip("Eat bisquits", city));
+    public ArrayList<Trip> getDayTrips(String city) {
+        ArrayList<Trip> dayTrips = new ArrayList<>();
+        dayTrips.add(new Trip("-1", city, DataConnection.localDateToDate(LocalDate.of(2021,3,26)), "", 30, 0, false, "Kúrstund at Fannar's Room", null, 30, false, 0/*todo setja verð*/));
+        dayTrips.add(new Trip("-1", city, DataConnection.localDateToDate(LocalDate.of(2021,3,26)), "", 30, 0, false, "Apple picking", null, 30, false, 0/*todo setja verð*/));
+        dayTrips.add(new Trip("-1", city, DataConnection.localDateToDate(LocalDate.of(2021,3,26)), "", 30, 0, false, "Valorant gaming", null, 30, false, 0/*todo setja verð*/));
+        dayTrips.add(new Trip("-1", city, DataConnection.localDateToDate(LocalDate.of(2021,3,26)), "", 30, 0, false, "Poop Marathon", null, 30, false, 0/*todo setja verð*/));
+        dayTrips.add(new Trip("-1", city, DataConnection.localDateToDate(LocalDate.of(2021,3,26)), "", 30, 0, false, "Wait in traffic", null, 30, false, 0/*todo setja verð*/));
+        dayTrips.add(new Trip("-1", city, DataConnection.localDateToDate(LocalDate.of(2021,3,26)), "", 30, 0, false, "Eat bisquits", null, 30, false, 0/*todo setja verð*/));
         return dayTrips;
     }
 

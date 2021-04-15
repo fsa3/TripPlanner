@@ -1,5 +1,6 @@
 package controllers;
 
+import dayTripSystem.Trip;
 import entities.*;
 import flightSystem.flightplanner.entities.Flight;
 import hotelSystem.entities.Accommodation;
@@ -130,8 +131,8 @@ class SearchControllerTest {
     @Test
     public void testDayTripLocation() {
         for(TripPackage tPackage : tPackages) {
-            for(DayTrip dt : tPackage.getDayTrips()) {
-                assertEquals(dest, dt.getCity());
+            for(Trip dt : tPackage.getDayTrips()) {
+                assertEquals(dest, dt.getDestination());
             }
         }
     }

@@ -1,6 +1,6 @@
 package data;
 
-import entities.DayTrip;
+import dayTripSystem.Trip;
 import flightSystem.flightplanner.entities.Flight;
 import hotelSystem.entities.Accommodation;
 import entities.User;
@@ -13,7 +13,7 @@ public interface Database {
 
     ArrayList<Accommodation> getHotels(String city);
 
-    ArrayList<DayTrip> getDayTrips(String city);
+    ArrayList<Trip> getDayTrips(String city);
 
     ArrayList<User> getUsers();
 }
