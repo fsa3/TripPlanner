@@ -110,15 +110,14 @@ public class DataConnection {
     }
 
     public void createDayTripBooking(DayTripBooking dtBooking) {
-        String query = "INSERT INTO DayTripBookings(dayTripName, city, numHours, date, bookingId, user) values(?,?,?,?,?,?)";
+        String query = "INSERT INTO DayTripBookings(dayTripName, city, date, bookingId, user) values(?,?,?,?,?)";
         try {
             PreparedStatement createDayTripBooking = connection.prepareStatement(query);
             createDayTripBooking.setString(1, dtBooking.getDayTripName());
             createDayTripBooking.setString(2, dtBooking.getCity());
-            // todo taka numhours úr gagnagrunni
-            createDayTripBooking.setDate(4, localDateToDate(dtBooking.getDate()));
-            createDayTripBooking.setInt(5, dtBooking.getBookingId());
-            createDayTripBooking.setString(6, dtBooking.getBookingUser().getEmail());
+            createDayTripBooking.setDate(3, localDateToDate(dtBooking.getDate()));
+            createDayTripBooking.setInt(4, dtBooking.getBookingId());
+            createDayTripBooking.setString(5, dtBooking.getBookingUser().getEmail());
             createDayTripBooking.executeUpdate();
             createDayTripBooking.close();
         } catch (SQLException throwables) {
@@ -183,10 +182,9 @@ public class DataConnection {
             while (rs.next()) {
                 String name = rs.getString(1);
                 String city = rs.getString(2);
-                int numHours = rs.getInt(3); // todo taka numhours úr gagnagrunni
-                LocalDate date = dateToLocalDate(rs.getDate(4));
-                int id = rs.getInt(5);
-                User bookingUser = getUserBy("email", rs.getString(6));
+                LocalDate date = dateToLocalDate(rs.getDate(3));
+                int id = rs.getInt(4);
+                User bookingUser = getUserBy("email", rs.getString(5));
                 DayTripBooking dtB = new DayTripBooking(name, city, date, id, bookingUser);
                 dayTripBookings.add(dtB);
             }
