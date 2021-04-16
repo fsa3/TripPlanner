@@ -1,11 +1,16 @@
 package ui.controllers;
 
 import controllers.BookingController;
+import data.DataConnection;
 import dayTripSystem.Trip;
 import entities.SearchResult;
 import entities.TripPackage;
 import entities.User;
 import flightSystem.flightplanner.entities.Flight;
+import hotelSystem.entities.Accommodation;
+import hotelSystem.entities.Room;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -75,6 +80,7 @@ public class BookingUiController {
     private VBox childrenInsuranceVB;
 
     private ArrayList<DatePicker> dayTripDatesDP = new ArrayList<>();
+    private ArrayList<Room> selectedRooms = new ArrayList<>();
 
     private User user;
     private TripPackage tripPackage;
@@ -216,8 +222,12 @@ public class BookingUiController {
             hotelImg.setFitHeight(40);
             hotelImg.setPreserveRatio(true);
             hotel.getChildren().add(hotelImg);
-            hotel.getChildren().add(new Label(tripPackage.getHotels().get(0).toString()));
-            ComboBox roomType = new ComboBox();
+            Accommodation accommodation = tripPackage.getHotels().get(0);
+            hotel.getChildren().add(new Label(accommodation.toString()));
+            ComboBox<Room> roomType = new ComboBox<Room>();
+            ArrayList<Room> availableRooms = accommodation.getAvailableRooms(DataConnection.localDateToDate(tripPackage.getStartDate()), DataConnection.localDateToDate(tripPackage.getEndDate()));
+            // todo remove duplicates
+            roomType.setItems(FXCollections.observableArrayList(availableRooms));
             hotel.getChildren().add(roomType);
             hotel.setAlignment(Pos.CENTER_LEFT);
             hotel.setPrefWidth(450);

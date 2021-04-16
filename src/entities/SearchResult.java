@@ -147,13 +147,21 @@ public class SearchResult {
         AccommodationSearchController acSearchController = new AccommodationSearchController(hotelData);
         hotels = acSearchController.search(destCity, 0, "");
         rooms = new ArrayList<Room>();
+        ArrayList<Accommodation> unavailableHotels = new ArrayList<>();
         for(Accommodation h : hotels) {
             ArrayList<Room> availableRooms = h.getAvailableRooms(DataConnection.localDateToDate(startDate), DataConnection.localDateToDate(endDate));
-            rooms.addAll(availableRooms);
-            if(availableRooms.isEmpty()) {
-                hotels.remove(h);
+            int availableCapacity = 0;
+            for(Room room : availableRooms) {
+                availableCapacity += room.getCap();
+            }
+            if(availableRooms.isEmpty() || availableCapacity < numAdults+numChildren) {
+                unavailableHotels.add(h);
+            }
+            else {
+                rooms.addAll(availableRooms);
             }
         }
+        hotels.removeAll(unavailableHotels);
 
         dayTrips = dataFactory.getDayTrips(destCity);
     }
