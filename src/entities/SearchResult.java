@@ -109,6 +109,10 @@ public class SearchResult {
         this.hotels = hotels;
     }
 
+    public ArrayList<Room> getRooms() {
+        return rooms;
+    }
+
     public ArrayList<Trip> getDayTrips() {
         return dayTrips;
     }

@@ -21,6 +21,7 @@ public class TripPackage extends SearchResult{
         inFlights = new ArrayList<>();
         hotels = new ArrayList<>();
         dayTrips = new ArrayList<>();
+        rooms = new ArrayList<>();
         /*
         outFlights.addAll(masterSearch.getOutFlights());
         inFlights.addAll(masterSearch.getInFlights());
@@ -51,6 +52,14 @@ public class TripPackage extends SearchResult{
 
     public void removeHotel(Accommodation h) {
         hotels.remove(h);
+    }
+
+    public void addRoom(Room r) {
+        rooms.add(r);
+    }
+
+    public void removeRoom(Room r) {
+        rooms.remove(r);
     }
 
     public void addDayTrip(Trip dt) {

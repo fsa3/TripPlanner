@@ -78,7 +78,7 @@ public class UserBookingsController {
                     Label h3 = new Label("City:");
                     Label h4 = new Label(hb.getCity());
                     Label h5 = new Label("Room:");
-                    Label h6 = new Label(hb.getRoom());
+                    Label h6 = new Label(hb.getRoom().toString());
                     Label h7 = new Label(hb.getNumberOfNights() + " nights");
                     hotelHB.getChildren().addAll(h1,h2,h3,h4,h5,h6,h7);
                     bookingVB.getChildren().add(hotelHB);

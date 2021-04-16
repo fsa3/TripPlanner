@@ -2,8 +2,11 @@ package controllers;
 
 import data.DataConnection;
 import entities.*;
+import hotelSystem.controllers.AccommodationBookingController;
 import hotelSystem.entities.Accommodation;
+import hotelSystem.entities.Room;
 
+import java.awt.print.Book;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,12 +50,18 @@ public class BookingController {
             FlightBooking flightBooking = new FlightBooking(f);
             bookings.add(flightBooking);
         }*/
-        for(Accommodation h : tPackage.getHotels()) {
-            HotelBooking hotelBooking = new HotelBooking(h, searchResult.getStartDate(), searchResult.getEndDate(), bookingId, user, "King room"); //todo setja room
-            DataConnection dc = new DataConnection();
-            dc.createHotelBooking(hotelBooking);
-            dc.closeConnection();
-            bookings.add(hotelBooking);
+        if(!tPackage.getHotels().isEmpty()) {
+            Accommodation h = tPackage.getHotels().get(0);
+            for (Room r : tPackage.getRooms()) {
+                HotelBooking hotelBooking = new HotelBooking(h, tPackage.getStartDate(), tPackage.getEndDate(), bookingId, user, r);
+                hotelSystem.entities.Booking hotelSystemBooking = new hotelSystem.entities.Booking(h, r, DataConnection.localDateToDate(tPackage.getStartDate()), DataConnection.localDateToDate(tPackage.getEndDate()));
+                AccommodationBookingController acBookingController = new AccommodationBookingController();
+                acBookingController.addBooking(hotelSystemBooking);
+                DataConnection dc = new DataConnection();
+                dc.createHotelBooking(hotelBooking);
+                dc.closeConnection();
+                bookings.add(hotelBooking);
+            }
         }
         for(int i = 0; i < tPackage.getDayTrips().toArray().length; i++) {
             DayTripBooking dtBooking = new DayTripBooking(tPackage.getDayTrips().get(i), dayTripDates.get(i), bookingId, user);

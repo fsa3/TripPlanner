@@ -279,6 +279,27 @@ public class DatabaseConnection implements Database {
         return res;
     }
 
+    // eftirfarandi fall viðbót eftir T-hóp
+    public Room getRoomByRoomId(int roomId) throws Exception {
+        getConnection();
+        PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Room WHERE id = ?");
+        pstmt.setInt(1, roomId);
+        ResultSet rs = pstmt.executeQuery();
+        Room room = null;
+        if (rs.next()) {
+            room = new Room(
+                    rs.getInt("id"),
+                    rs.getDouble("price"),
+                    RoomType.valueOf(rs.getString("roomType")),
+                    rs.getInt("cap")
+            );
+        }
+        pstmt.close();
+        rs.close();
+        closeConnection();
+        return room;
+    }
+
     public void createOccupancy(int roomId, Date from, Date to) throws Exception {
         getConnection();
         String q = "INSERT INTO Occupancy "

@@ -4,6 +4,8 @@ import entities.DayTripBooking;
 import entities.HotelBooking;
 import entities.User;
 import hotelSystem.entities.Accommodation;
+import hotelSystem.entities.Room;
+import hotelSystem.storage.DatabaseConnection;
 import javafx.scene.control.Alert;
 
 import java.sql.*;
@@ -203,8 +205,8 @@ public class DataConnection {
             createHotelBooking.setString(2, hotelBooking.getHotelName());
             createHotelBooking.setString(3, hotelBooking.getCity());
             createHotelBooking.setDate(4, localDateToDate(hotelBooking.getCheckInDate()));
-            createHotelBooking.setString(5, hotelBooking.getRoom());
-            createHotelBooking.setInt(6, -1); // todo setja room id
+            createHotelBooking.setString(5, hotelBooking.getRoom().toString());
+            createHotelBooking.setInt(6, hotelBooking.getRoom().getRoomId());
             createHotelBooking.setInt(7, hotelBooking.getBookingId());
             createHotelBooking.setString(8, hotelBooking.getBookingUser().getEmail());
             createHotelBooking.setDate(9, localDateToDate(hotelBooking.getCheckOutDate()));
@@ -223,12 +225,18 @@ public class DataConnection {
             getHotelBookings.setString(1, user.getEmail());
             ResultSet rs = getHotelBookings.executeQuery();
             while(rs.next()) {
-                int hotelId = rs.getInt(1);
+                int hotelId = rs.getInt(1); // todo skoða að sækja alvöru hótel
                 String hotelName = rs.getString(2);
                 String city = rs.getString(3);
                 LocalDate checkInDate = dateToLocalDate(rs.getDate(4));
-                String room = rs.getString(5);
                 int roomId = rs.getInt(6);
+                DatabaseConnection hotelDataConnection = new DatabaseConnection();
+                Room room = null;
+                try {
+                    room = hotelDataConnection.getRoomByRoomId(roomId);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 int bookingId = rs.getInt(7);
                 LocalDate checkOutDate = dateToLocalDate(rs.getDate(9));
                 HotelBooking hb = new HotelBooking(hotelName, checkInDate, checkOutDate, bookingId, user, room, city);

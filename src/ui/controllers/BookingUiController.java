@@ -9,6 +9,8 @@ import entities.User;
 import flightSystem.flightplanner.entities.Flight;
 import hotelSystem.entities.Accommodation;
 import hotelSystem.entities.Room;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -80,7 +82,6 @@ public class BookingUiController {
     private VBox childrenInsuranceVB;
 
     private ArrayList<DatePicker> dayTripDatesDP = new ArrayList<>();
-    private ArrayList<Room> selectedRooms = new ArrayList<>();
 
     private User user;
     private TripPackage tripPackage;
@@ -232,6 +233,16 @@ public class BookingUiController {
             hotel.setAlignment(Pos.CENTER_LEFT);
             hotel.setPrefWidth(450);
             hotelVB.getChildren().add(hotel);
+
+            roomType.valueProperty().addListener(new ChangeListener<Room>() {
+                @Override
+                public void changed(ObservableValue<? extends Room> observableValue, Room previousSelectedRoom, Room selectedRoom) {
+                    if(tripPackage.getRooms().contains(previousSelectedRoom)) {
+                        tripPackage.removeRoom(previousSelectedRoom);
+                    }
+                    tripPackage.addRoom(selectedRoom);
+                }
+            });
         }
 
         for(int i = 0; i < searchResult.getNumAdults(); i++) {
