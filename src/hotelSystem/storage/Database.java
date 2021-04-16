@@ -2,14 +2,17 @@ package hotelSystem.storage;
 
 import hotelSystem.entities.Accommodation;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
-public interface Database  {
-    ArrayList<Accommodation> getAllHotels();
-    ArrayList<Accommodation> getHotelsByLocation(String location);
-    ArrayList<Accommodation> getHotelsByTimePeriod(Date from, Date to);
-    ArrayList<Accommodation> getHotelsByRating(double minRating);
-    ArrayList<Accommodation> getHotelsByName(String name);
+
+public interface Database {
+    ArrayList<Accommodation> getAllHotels() throws Exception;
+
+    ArrayList<Accommodation> getHotelsByLocation(String location) throws Exception;
+
+    ArrayList<Accommodation> getHotelsByRating(double minRating) throws Exception;
+
+    ArrayList<Accommodation> getHotelsByName(String name) throws Exception;
+
 }
 

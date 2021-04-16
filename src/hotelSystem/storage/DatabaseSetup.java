@@ -1,16 +1,16 @@
 package hotelSystem.storage;
 
+
 import hotelSystem.entities.Accommodation;
 import hotelSystem.entities.Room;
 import hotelSystem.entities.RoomType;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
-public class DataFactory implements Database {
-    public DataFactory() {
+public class DatabaseSetup {
+    public DatabaseSetup() {
     }
-    public ArrayList<Accommodation> getAllHotels() {
+    public ArrayList<Accommodation> pumpIntoDatabase() {
         DatabaseConnection db = new DatabaseConnection();
         try {
             db.initializeDatabase();
@@ -18,14 +18,13 @@ public class DataFactory implements Database {
             System.err.println(e.getMessage());
         }
 
-
         ArrayList<Accommodation> accommodations = new ArrayList<>();
         ArrayList<String> managerIds = new ArrayList<>();
         managerIds.add("1");
         managerIds.add("2");
         ArrayList<Room> rooms = new ArrayList<>();
-        Room room1 = new Room(1, 10000, RoomType.Single, 1);
-        Room room2 = new Room(2, 10000, RoomType.Single, 1);
+        Room room1 = new Room(40, RoomType.Single, 1);
+        Room room2 = new Room(40, RoomType.Single, 1);
         rooms.add(room1);
         rooms.add(room2);
         Accommodation acc1 = new Accommodation(1, "Hilton", "Reykjavik", rooms, managerIds, 5.0);
@@ -43,8 +42,8 @@ public class DataFactory implements Database {
         }
 
         ArrayList<Room> rooms2 = new ArrayList<>();
-        Room room3 = new Room(3, 13000, RoomType.Double, 2);
-        Room room4 = new Room(4, 15000, RoomType.Triple, 3);
+        Room room3 = new Room(100, RoomType.Double, 2);
+        Room room4 = new Room(120, RoomType.Triple, 3);
         rooms2.add(room3);
         rooms2.add(room4);
         Accommodation acc2 = new Accommodation(2, "Kea", "Akureyri", rooms2, managerIds, 2.5);
@@ -62,8 +61,8 @@ public class DataFactory implements Database {
 
 
         ArrayList<Room> rooms3 = new ArrayList<>();
-        Room room5 = new Room(5, 130, RoomType.Twin, 2);
-        Room room6 = new Room(6, 13243, RoomType.Quad, 4);
+        Room room5 = new Room(130, RoomType.Twin, 2);
+        Room room6 = new Room(140, RoomType.Quad, 4);
         rooms3.add(room5);
         rooms3.add(room6);
         Accommodation acc3 = new Accommodation(3, "Hotel Selfoss", "Selfoss", rooms3, managerIds, 3.9);
@@ -82,10 +81,10 @@ public class DataFactory implements Database {
 
         ArrayList<Room> rooms4 = new ArrayList<>();
 
-        Room room7 = new Room(7, 13000, RoomType.King, 5);
-        Room room8 = new Room(8, 15000, RoomType.Queen, 3);
-        Room room9 = new Room(21, 13000, RoomType.King, 5);
-        Room room10 = new Room(22, 15000, RoomType.Queen, 3);
+        Room room7 = new Room(180, RoomType.King, 3);
+        Room room8 = new Room(160, RoomType.Queen, 3);
+        Room room9 = new Room(230, RoomType.Quad, 5);
+        Room room10 = new Room(160, RoomType.Queen, 3);
         rooms4.add(room7);
         rooms4.add(room8);
         rooms4.add(room9);
@@ -110,8 +109,8 @@ public class DataFactory implements Database {
 
         ArrayList<Room> rooms5 = new ArrayList<>();
 
-        Room room11 = new Room(9, 200, RoomType.Studio, 1);
-        Room room12 = new Room(10, 13232, RoomType.Triple, 3);
+        Room room11 = new Room(200, RoomType.Studio, 1);
+        Room room12 = new Room(139, RoomType.Triple, 3);
         rooms5.add(room11);
         rooms5.add(room12);
         Accommodation acc5 = new Accommodation(5, "Kjarnalundur", "Akureyri", rooms5, managerIds, 0.1);
@@ -130,8 +129,8 @@ public class DataFactory implements Database {
 
         ArrayList<Room> rooms6 = new ArrayList<>();
 
-        Room room13 = new Room(11, 1303400, RoomType.Single, 2);
-        Room room14 = new Room(12, 150005, RoomType.King, 3);
+        Room room13 = new Room(5, RoomType.Single, 2);
+        Room room14 = new Room(20, RoomType.King, 3);
         rooms6.add(room13);
         rooms6.add(room14);
         Accommodation acc6 = new Accommodation(6, "Hotel Cabin", "Reykjavik", rooms6, managerIds, 0.6);
@@ -150,8 +149,8 @@ public class DataFactory implements Database {
 
         ArrayList<Room> rooms7 = new ArrayList<>();
 
-        Room room15 = new Room(13, 13000, RoomType.Double, 2);
-        Room room16 = new Room(14, 123400, RoomType.Studio, 3);
+        Room room15 = new Room(200, RoomType.Double, 2);
+        Room room16 = new Room(420, RoomType.Studio, 3);
 
         rooms7.add(room15);
         rooms7.add(room16);
@@ -170,8 +169,8 @@ public class DataFactory implements Database {
         }
 
         ArrayList<Room> rooms8 = new ArrayList<>();
-        Room room17 = new Room(15, 130500, RoomType.Double, 2);
-        Room room18 = new Room(16, 150300, RoomType.Triple, 3);
+        Room room17 = new Room(99, RoomType.Double, 2);
+        Room room18 = new Room(120, RoomType.Triple, 3);
         rooms8.add(room17);
         rooms8.add(room18);
         Accommodation acc8 = new Accommodation(8, "Midgardur", "Reykjavik", rooms8, managerIds, 2.8);
@@ -190,8 +189,8 @@ public class DataFactory implements Database {
 
         ArrayList<Room> rooms9 = new ArrayList<>();
 
-        Room room19 = new Room(17, 100, RoomType.Single, 1);
-        Room room20 = new Room(18, 100, RoomType.Single, 1);
+        Room room19 = new Room(100, RoomType.Single, 1);
+        Room room20 = new Room(100, RoomType.Single, 1);
         rooms9.add(room19);
         rooms9.add(room20);
         Accommodation acc9 = new Accommodation(9, "201 Hotel", "Reykjavik", rooms9, managerIds, 4.6);
@@ -209,11 +208,11 @@ public class DataFactory implements Database {
         }
 
         ArrayList<Room> rooms10 = new ArrayList<>();
-        Room room21 = new Room(19, 1300, RoomType.Double, 2);
-        Room room22 = new Room(20, 150500, RoomType.Triple, 3);
+        Room room21 = new Room(200, RoomType.Double, 2);
+        Room room22 = new Room(300, RoomType.Triple, 3);
         rooms10.add(room21);
         rooms10.add(room22);
-        Accommodation acc10 = new Accommodation(10, "Alda", "Reykjavik", rooms10, managerIds, 4.3);
+        Accommodation acc10 = new Accommodation(10, "Alda", "Reykjavik", rooms10, managerIds, 4.5);
 
         try {
             db.createAcc(acc10);
@@ -227,6 +226,110 @@ public class DataFactory implements Database {
             System.err.println(e.getMessage());
         }
 
+        /////////////////
+        ArrayList<Room> rooms11 = new ArrayList<>();
+        Room room23 = new Room(85, RoomType.Single, 1);
+        Room room24 = new Room(121, RoomType.Triple, 3);
+        rooms11.add(room23);
+        rooms11.add(room24);
+        Accommodation acc11 = new Accommodation(11, "Hótel Ísafjörður", "Ísafjörður", rooms11, managerIds, 3.1);
+
+        try {
+            db.createAcc(acc11);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        try {
+            db.createRoom(room23, acc11.getId());
+            db.createRoom(room24, acc11.getId());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        ////////////////
+
+        /////////////////
+        ArrayList<Room> rooms12 = new ArrayList<>();
+        Room room25 = new Room(130, RoomType.Double, 2);
+        Room room26 = new Room(200, RoomType.Triple, 3);
+        Room room27 = new Room(190, RoomType.Queen, 2);
+        Room room28 = new Room(200, RoomType.Studio, 3);
+        rooms12.add(room25);
+        rooms12.add(room26);
+        rooms12.add(room27);
+        rooms12.add(room28);
+        Accommodation acc12 = new Accommodation(12, "Fisherman Hotel Westfjords", "Ísafjörður", rooms12, managerIds, 4.0);
+
+        try {
+            db.createAcc(acc12);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        try {
+            db.createRoom(room25, acc12.getId());
+            db.createRoom(room26, acc12.getId());
+            db.createRoom(room27, acc12.getId());
+            db.createRoom(room28, acc12.getId());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        ////////////////
+        ArrayList<Room> rooms13 = new ArrayList<>();
+        Room room29 = new Room(90, RoomType.Single, 1);
+        Room room30 = new Room(150, RoomType.Triple, 3);
+        Room room31 = new Room(140, RoomType.Queen, 2);
+        Room room32 = new Room(130, RoomType.Twin, 3);
+        rooms13.add(room29);
+        rooms13.add(room30);
+        rooms13.add(room31);
+        rooms13.add(room32);
+        Accommodation acc13 = new Accommodation(13, "Hotel Hérað", "Egilsstaðir", rooms13, managerIds, 3.0);
+
+        try {
+            db.createAcc(acc13);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        try {
+            db.createRoom(room29, acc13.getId());
+            db.createRoom(room30, acc13.getId());
+            db.createRoom(room31, acc13.getId());
+            db.createRoom(room32, acc13.getId());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        ////////////////
+        ArrayList<Room> rooms14 = new ArrayList<>();
+        Room room34 = new Room(89, RoomType.Single, 1);
+        Room room35 = new Room(140, RoomType.Triple, 3);
+        Room room36 = new Room(130, RoomType.Queen, 2);
+        Room room37 = new Room(120, RoomType.Twin, 3);
+        Room room38 = new Room(210, RoomType.Studio, 4);
+        rooms14.add(room34);
+        rooms14.add(room35);
+        rooms14.add(room36);
+        rooms14.add(room37);
+        rooms14.add(room38);
+        Accommodation acc14 = new Accommodation(14, "Hotel Egilsstaðir", "Egilsstaðir", rooms14, managerIds, 4.2);
+
+        try {
+            db.createAcc(acc14);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        try {
+            db.createRoom(room34, acc14.getId());
+            db.createRoom(room35, acc14.getId());
+            db.createRoom(room36, acc14.getId());
+            db.createRoom(room37, acc14.getId());
+            db.createRoom(room38, acc14.getId());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        ////////////////
+
+
+        
+
         accommodations.add(acc1);
         accommodations.add(acc2);
         accommodations.add(acc3);
@@ -237,31 +340,15 @@ public class DataFactory implements Database {
         accommodations.add(acc8);
         accommodations.add(acc9);
         accommodations.add(acc10);
+        accommodations.add(acc11);
+        accommodations.add(acc12);
+        accommodations.add(acc13);
+        accommodations.add(acc14);
         return accommodations;
     }
 
-    public ArrayList<Accommodation> getHotelsByLocation(String location) {
-        System.out.println("bara til að vera legal");
-        return new ArrayList<Accommodation>();
-    }
-
-    @Override
-    public ArrayList<Accommodation> getHotelsByName(String name) {
-        return null;
-    }
-
-    @Override
-    public ArrayList<Accommodation> getHotelsByRating(double minRating) {
-        return null;
-    }
-
-    @Override
-    public ArrayList<Accommodation> getHotelsByTimePeriod(Date from, Date to) {
-        return new ArrayList<>();
-    }
-
     public static void main(String[] args) {
-        DataFactory df = new DataFactory();
-        df.getAllHotels();
+        DatabaseSetup df = new DatabaseSetup();
+        df.pumpIntoDatabase();
     }
 }

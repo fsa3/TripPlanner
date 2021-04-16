@@ -1,6 +1,8 @@
 package hotelSystem.entities;
 
+import hotelSystem.controllers.AccommodationSearchController;
 import hotelSystem.storage.DatabaseMock;
+import hotelSystem.storage.DatabaseSetup;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -166,9 +168,49 @@ public class Accommodation {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Accommodation that = (Accommodation) o;
-        return id == that.id && Double.compare(that.rating, rating) == 0 && Objects.equals(name, that.name) && Objects.equals(location, that.location) && Objects.equals(roomArrayList, that.roomArrayList) && type == that.type && Objects.equals(managerIdArrayList, that.managerIdArrayList) && Objects.equals(reviewArrayList, that.reviewArrayList) && Objects.equals(description, that.description);
+        // self check
+        if (this == o)
+            return true;
+
+        // null check
+        if (o == null)
+            return false;
+
+        // type check and cast
+        if(getClass() != o.getClass())
+            return false;
+        // field comparison
+        return Objects.equals(id, ((Accommodation) o).id) && ((Accommodation) o).getName().equals(name);
+
+    }
+
+    public static void main(String[] args) {
+        DatabaseMock data = new DatabaseMock(new DatabaseSetup().pumpIntoDatabase());
+        AccommodationSearchController searchController = new AccommodationSearchController(data);
+
+        Accommodation hotelPig = data.getAllHotels().get(2);
+        ArrayList<Room> roomsOfHotel = hotelPig.getAllRooms();
+        Room roomPig = roomsOfHotel.get(3);
+
+        long now = System.currentTimeMillis();
+        Date sqlDateFrom = new Date(now);
+        Date sqlDateTo = new Date(now + (1000 * 60 * 60 * 24 * 7));
+        System.out.println(sqlDateFrom);
+        System.out.println(sqlDateTo);
+
+
+        System.out.println(roomPig);
+        System.out.println(roomsOfHotel);
+        System.out.println(hotelPig);
+
+        Date bookFrom = new Date(now + (1000 * 60 * 60 * 24 * 8));
+        Date bookTo = new Date(now + (1000 * 60 * 60 * 24 * 10));
+
+        roomPig.addOccupancy(new Occupancy(bookFrom, bookTo));
+        ArrayList<Room> availableRooms = hotelPig.getAvailableRooms(sqlDateFrom, sqlDateTo);
+
+        System.out.println(availableRooms);
+
+        System.out.println(hotelPig.isOccupied(roomPig.getOccupancies(), sqlDateFrom, sqlDateTo));
     }
 }

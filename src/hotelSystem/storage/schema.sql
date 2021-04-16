@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS Accommodation (
      id INTEGER PRIMARY KEY AUTOINCREMENT
-    ,name VARCHAR(128) NOT NULL
+    ,name VARCHAR(128) UNIQUE NOT NULL
     ,location VARCHAR(128) NOT NULL
     ,rating DECIMAL(1,1)
     ,description VARCHAR(2048)
