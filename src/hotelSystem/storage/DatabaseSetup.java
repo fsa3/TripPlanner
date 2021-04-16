@@ -27,7 +27,7 @@ public class DatabaseSetup {
         Room room2 = new Room(40, RoomType.Single, 1);
         rooms.add(room1);
         rooms.add(room2);
-        Accommodation acc1 = new Accommodation(1, "Hilton", "Reykjavik", rooms, managerIds, 5.0);
+        Accommodation acc1 = new Accommodation(1, "Hilton", "Reykjavík", rooms, managerIds, 5.0);
         try {
             db.createAcc(acc1);
         } catch (Exception e) {
@@ -90,7 +90,7 @@ public class DatabaseSetup {
         rooms4.add(room9);
         rooms4.add(room10);
 
-        Accommodation acc4 = new Accommodation(4, "Grand", "Reykjavik", rooms4, managerIds, 4.6);
+        Accommodation acc4 = new Accommodation(4, "Grand", "Reykjavík", rooms4, managerIds, 4.6);
 
         try {
             db.createAcc(acc4);
@@ -133,7 +133,7 @@ public class DatabaseSetup {
         Room room14 = new Room(20, RoomType.King, 3);
         rooms6.add(room13);
         rooms6.add(room14);
-        Accommodation acc6 = new Accommodation(6, "Hotel Cabin", "Reykjavik", rooms6, managerIds, 0.6);
+        Accommodation acc6 = new Accommodation(6, "Hotel Cabin", "Reykjavík", rooms6, managerIds, 0.6);
 
         try {
             db.createAcc(acc6);
@@ -154,7 +154,7 @@ public class DatabaseSetup {
 
         rooms7.add(room15);
         rooms7.add(room16);
-        Accommodation acc7 = new Accommodation(7, "Nordica", "Reykjavik", rooms7, managerIds, 4.8);
+        Accommodation acc7 = new Accommodation(7, "Nordica", "Reykjavík", rooms7, managerIds, 4.8);
 
         try {
             db.createAcc(acc7);
@@ -173,7 +173,7 @@ public class DatabaseSetup {
         Room room18 = new Room(120, RoomType.Triple, 3);
         rooms8.add(room17);
         rooms8.add(room18);
-        Accommodation acc8 = new Accommodation(8, "Midgardur", "Reykjavik", rooms8, managerIds, 2.8);
+        Accommodation acc8 = new Accommodation(8, "Midgardur", "Reykjavík", rooms8, managerIds, 2.8);
 
         try {
             db.createAcc(acc8);
@@ -193,7 +193,7 @@ public class DatabaseSetup {
         Room room20 = new Room(100, RoomType.Single, 1);
         rooms9.add(room19);
         rooms9.add(room20);
-        Accommodation acc9 = new Accommodation(9, "201 Hotel", "Reykjavik", rooms9, managerIds, 4.6);
+        Accommodation acc9 = new Accommodation(9, "201 Hotel", "Reykjavík", rooms9, managerIds, 4.6);
 
         try {
             db.createAcc(acc9);
@@ -212,7 +212,7 @@ public class DatabaseSetup {
         Room room22 = new Room(300, RoomType.Triple, 3);
         rooms10.add(room21);
         rooms10.add(room22);
-        Accommodation acc10 = new Accommodation(10, "Alda", "Reykjavik", rooms10, managerIds, 4.5);
+        Accommodation acc10 = new Accommodation(10, "Alda", "Reykjavík", rooms10, managerIds, 4.5);
 
         try {
             db.createAcc(acc10);
