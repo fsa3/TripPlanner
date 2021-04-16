@@ -12,7 +12,6 @@ public class TripPackage extends SearchResult{
     private double price;
     private SearchResult masterSearch;
     private boolean customPackage = true;
-    private ArrayList<Room> room;
 
     public TripPackage(String name, SearchResult search) {
         super(search.getStartDate(), search.getEndDate(), search.getDepCity(), search.getDestCity(), search.getNumAdults(), search.getNumChildren());
