@@ -1,8 +1,12 @@
 package entities;
 
+import data.DataConnection;
 import dayTripSystem.Trip;
 import flightSystem.flightplanner.entities.Flight;
+import hotelSystem.controllers.AccommodationSearchController;
 import hotelSystem.entities.Accommodation;
+import hotelSystem.entities.Room;
+import hotelSystem.storage.DatabaseConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import data.DataFactory;
@@ -21,6 +25,7 @@ public class SearchResult {
     protected ArrayList<Flight> outFlights;
     protected ArrayList<Flight> inFlights;
     protected ArrayList<Accommodation> hotels;
+    protected ArrayList<Room> rooms;
     protected ArrayList<Trip> dayTrips;
 
     public SearchResult(LocalDate startDate, LocalDate endDate, String depCity, String destCity, int numAdults, int numChildren) {
@@ -136,7 +141,20 @@ public class SearchResult {
 
         outFlights = dataFactory.getFlights(depCity, destCity, startDate);
         inFlights = dataFactory.getFlights(destCity, depCity, endDate);
-        hotels = dataFactory.getHotels(destCity);
+
+        // Find hotels
+        DatabaseConnection hotelData = new DatabaseConnection();
+        AccommodationSearchController acSearchController = new AccommodationSearchController(hotelData);
+        hotels = acSearchController.search(destCity, 0, "");
+        rooms = new ArrayList<Room>();
+        for(Accommodation h : hotels) {
+            ArrayList<Room> availableRooms = h.getAvailableRooms(DataConnection.localDateToDate(startDate), DataConnection.localDateToDate(endDate));
+            rooms.addAll(availableRooms);
+            if(availableRooms.isEmpty()) {
+                hotels.remove(h);
+            }
+        }
+
         dayTrips = dataFactory.getDayTrips(destCity);
     }
 }
