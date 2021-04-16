@@ -13,6 +13,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("../ui/views/searchUI.fxml"));
         primaryStage.setTitle("BookMaster");
         primaryStage.setScene(new Scene(root, 1200, 650));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 

@@ -87,10 +87,6 @@ public class HotelBooking extends Booking{
         return numberOfNights;
     }
 
-    public void setNumberOfNights(int numberOfNights) {
-        this.numberOfNights = numberOfNights;
-    }
-
     public String getRoom() {
         return room;
     }
