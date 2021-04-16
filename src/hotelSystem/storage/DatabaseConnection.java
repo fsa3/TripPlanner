@@ -73,7 +73,7 @@ public class DatabaseConnection implements Database {
             String currDir = System.getProperty("user.dir");
             // til að þetta sé óhátt stýrikerfi
             String fileName = "hotel.db"; // viljum kannski breyta seinna
-            String dbDir = currDir + File.separator + "src" + File.separator + "storage" + File.separator;
+            String dbDir = currDir + File.separator + "src" + File.separator + "hotelSystem" + File.separator + "storage" + File.separator;
             //String dbDir2 = dbDir.replace(File.separator, "/");
             //String dbName = dbDir2 + fileName;
             String dbName = currDir + File.separator + fileName;
