@@ -1,10 +1,12 @@
 package entities;
 
+import data.DataConnection;
 import dayTripSystem.Trip;
 import flightSystem.flightplanner.entities.Flight;
 import hotelSystem.entities.Accommodation;
 import hotelSystem.entities.Room;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 
 public class TripPackage extends SearchResult{
@@ -107,6 +109,15 @@ public class TripPackage extends SearchResult{
         // todo
     }
 
+    public void testPackage() {
+        outFlights.add(masterSearch.getOutFlights().get(0));
+        inFlights.add(masterSearch.getInFlights().get(0));
+        hotels.add(masterSearch.getHotels().get(0));
+        rooms.add(hotels.get(0).getAvailableRooms(DataConnection.localDateToDate(startDate), DataConnection.localDateToDate(endDate)).get(0));
+        dayTrips.addAll(masterSearch.getDayTrips());
+        calculatePrice();
+    }
+
     public void emptyPackage() {
         outFlights.clear();
         inFlights.clear();
@@ -124,5 +135,22 @@ public class TripPackage extends SearchResult{
 
     public void clearRooms() {
         rooms.clear();
+    }
+
+    public void calculatePrice() {
+        int p = 0;
+        for(Flight f : outFlights) {
+            // todo sækja verð á flugi
+        }
+        for(Flight f : inFlights) {
+            // todo sækja verð á flugi
+        }
+        for(Room r : rooms) {
+            p += r.getPrice();
+        }
+        for(Trip t : dayTrips) {
+            p += t.getPrice();
+        }
+        price = p;
     }
 }

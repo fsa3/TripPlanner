@@ -73,6 +73,7 @@ public class SearchUiController implements Initializable {
     private TripPackage customPackage;
 
     public SearchResult searchResult;
+    public SearchController searchController;
 
 
     @Override
@@ -144,7 +145,9 @@ public class SearchUiController implements Initializable {
                     LocalDate.of(2021, 5, 8),
                     "Reykjavík", "Reykjavík", 4, 1
             );
-
+            searchResult.search();
+            searchController = new SearchController(searchResult);
+            searchController.createTripPackages();
             updateSearchView();
 
         } catch (IOException e) {
@@ -153,7 +156,6 @@ public class SearchUiController implements Initializable {
     }
 
     public void updateSearchView() {
-        searchResult.search();
         backToSearch = (Button) sceneRoot.lookup("#backToSearch");
 
         backToSearch.setOnAction((evt) -> {
@@ -170,11 +172,11 @@ public class SearchUiController implements Initializable {
         resultScrollPane.applyCss();
         resultScrollPane.layout();
         packagesVBox = (VBox) resultScrollPane.lookup("#packagesVBox");
-/*
-        displayTripPackage(createTestPackage(), packagesVBox);
-        displayTripPackage(createTestPackage(), packagesVBox);
-        displayTripPackage(createTestPackage(), packagesVBox);
-*/
+
+        for(TripPackage tripPackage : searchController.getPackages()) {
+            displayTripPackage(tripPackage, packagesVBox);
+        }
+
         allOutFlightsVB = (VBox) resultScrollPane.lookup("#allOutFlightsVB");
         allInFlightsVB = (VBox) resultScrollPane.lookup("#allInFlightsVB");
         allHotelsVB = (VBox) resultScrollPane.lookup("#allHotelsVB");
