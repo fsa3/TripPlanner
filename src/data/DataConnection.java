@@ -201,7 +201,7 @@ public class DataConnection {
         String query = "INSERT INTO HotelBookings(hotel, hotelName, city, checkInDate, roomType, roomTypeId, bookingId, bookingUser, checkOutDate) VALUES(?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement createHotelBooking = connection.prepareStatement(query);
-            createHotelBooking.setInt(1, -1); // todo setja hotelID
+            createHotelBooking.setInt(1, hotelBooking.getHotel().getId());
             createHotelBooking.setString(2, hotelBooking.getHotelName());
             createHotelBooking.setString(3, hotelBooking.getCity());
             createHotelBooking.setDate(4, localDateToDate(hotelBooking.getCheckInDate()));
@@ -224,13 +224,19 @@ public class DataConnection {
             PreparedStatement getHotelBookings = connection.prepareStatement(query);
             getHotelBookings.setString(1, user.getEmail());
             ResultSet rs = getHotelBookings.executeQuery();
+            DatabaseConnection hotelDataConnection = new DatabaseConnection();
             while(rs.next()) {
-                int hotelId = rs.getInt(1); // todo skoða að sækja alvöru hótel
+                int hotelId = rs.getInt(1);
+                Accommodation hotel = null;
+                try {
+                    hotel = hotelDataConnection.getHotelById(hotelId);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 String hotelName = rs.getString(2);
                 String city = rs.getString(3);
                 LocalDate checkInDate = dateToLocalDate(rs.getDate(4));
                 int roomId = rs.getInt(6);
-                DatabaseConnection hotelDataConnection = new DatabaseConnection();
                 Room room = null;
                 try {
                     room = hotelDataConnection.getRoomByRoomId(roomId);
@@ -239,7 +245,9 @@ public class DataConnection {
                 }
                 int bookingId = rs.getInt(7);
                 LocalDate checkOutDate = dateToLocalDate(rs.getDate(9));
-                HotelBooking hb = new HotelBooking(hotelName, checkInDate, checkOutDate, bookingId, user, room, city);
+                HotelBooking hb;
+                if(hotel != null) hb = new HotelBooking(hotel, checkInDate, checkOutDate, bookingId, user, room);
+                else hb = new HotelBooking(hotelName, checkInDate, checkOutDate, bookingId, user, room, city);
                 hotelBookings.add(hb);
             }
         } catch (SQLException throwables) {

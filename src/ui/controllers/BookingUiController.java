@@ -227,7 +227,7 @@ public class BookingUiController {
             hotel.getChildren().add(new Label(accommodation.toString()));
             ComboBox<Room> roomType = new ComboBox<Room>();
             ArrayList<Room> availableRooms = accommodation.getAvailableRooms(DataConnection.localDateToDate(tripPackage.getStartDate()), DataConnection.localDateToDate(tripPackage.getEndDate()));
-            // todo remove duplicates
+            availableRooms = removeDuplicates(availableRooms);
             roomType.setItems(FXCollections.observableArrayList(availableRooms));
             hotel.getChildren().add(roomType);
             hotel.setAlignment(Pos.CENTER_LEFT);
@@ -323,6 +323,24 @@ public class BookingUiController {
         flightInSeatC.setSpacing(5);
         childrenLuggageVB.setSpacing(5);
         childrenInsuranceVB.setSpacing(5);
+    }
+
+    private ArrayList<Room> removeDuplicates(ArrayList<Room> list) {
+        ArrayList<Room> newList = new ArrayList<>();
+
+        for(Room r : list) {
+            if(!roomInList(r, newList)) {
+                newList.add(r);
+            }
+        }
+        return newList;
+    }
+
+    private boolean roomInList(Room room, ArrayList<Room> newList) {
+        for(Room r : newList) {
+            if(r.getRoomType().equals(room.getRoomType()) && r.getPrice() == room.getPrice()) return true;
+        }
+        return false;
     }
 
     private void pickSeat(Flight flight) {
