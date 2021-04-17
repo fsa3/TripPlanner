@@ -26,7 +26,11 @@ class SearchControllerTest {
     @BeforeEach
     void setUp() {
         SearchResult sResult = new SearchResult(depDate, returnDate, dep, dest, adults, children);
-        sResult.search();
+        try {
+            sResult.search();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         searchController = new SearchController(sResult);
         searchController.createTripPackages();
         tPackages = searchController.getPackages();

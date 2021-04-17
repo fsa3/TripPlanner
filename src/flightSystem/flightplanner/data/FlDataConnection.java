@@ -74,7 +74,7 @@ public class FlDataConnection {
             // the application, the getResourceAsStream method is used
             scriptStream = Thread.currentThread().getContextClassLoader().
                     getResourceAsStream("META-INF/initialize.sql");
-            BufferedReader scriptReader = new BufferedReader(new FileReader(current + "/src/flightplanner/data/database.sql"));
+            BufferedReader scriptReader = new BufferedReader(new FileReader(current + "/src/flightSystem/flightplanner/data/database.sql"));
             String nextLine;
             StringBuffer nextStatement = new StringBuffer();
 
@@ -144,7 +144,7 @@ public class FlDataConnection {
 
     public Airport getAirportByName(String name) throws Exception{
         getConnection();
-        PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Airport WHERE mame = ?");
+        PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Airport WHERE name = ?");
         pstmt.setString(1, name);
         ResultSet rs = pstmt.executeQuery();
         Airport ret = new Airport(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));

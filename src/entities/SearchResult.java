@@ -3,6 +3,8 @@ package entities;
 import data.DataConnection;
 import dayTripSystem.SearchController;
 import dayTripSystem.Trip;
+import flightSystem.flightplanner.controllers.FlightSearchController;
+import flightSystem.flightplanner.entities.Airport;
 import flightSystem.flightplanner.entities.Flight;
 import hotelSystem.controllers.AccommodationSearchController;
 import hotelSystem.entities.Accommodation;
@@ -140,12 +142,24 @@ public class SearchResult {
         return oDayTrips;
     }
 
-    public void search() {
+    public void search() throws Exception {
         // todo
         Database dataFactory = new DataFactory();
 
-        outFlights = dataFactory.getFlights(depCity, destCity, startDate);
-        inFlights = dataFactory.getFlights(destCity, depCity, endDate);
+        // Find flights
+        outFlights = new ArrayList<>();
+        inFlights = new ArrayList<>();
+
+        FlightSearchController flightSearchController = FlightSearchController.getInstance();
+        ArrayList<Airport> departureAirports = flightSearchController.getAirportByCity(depCity);
+        ArrayList<Airport> destinationAirports = flightSearchController.getAirportByCity(destCity);
+
+        for(Airport departureAirport : departureAirports) {
+            for(Airport destinationAirport : destinationAirports) {
+                outFlights.addAll(flightSearchController.searchFlightsByFilter(departureAirport, destinationAirport, startDate, startDate.plusDays(1)));
+                inFlights.addAll(flightSearchController.searchFlightsByFilter(destinationAirport, departureAirport, endDate, endDate.plusDays(1)));
+            }
+        }
 
         // Find hotels
         DatabaseConnection hotelData = new DatabaseConnection();
@@ -188,6 +202,45 @@ public class SearchResult {
             tmp = tmp.plusDays(1);
         }
         return ret;
+    }
+
+    public static void main(String[] args) throws Exception {
+        ArrayList<Flight> outFlights = new ArrayList<>();
+        ArrayList<Flight> inFlights = new ArrayList<>();
+
+        String depCity = "Akureyri";
+        String destCity = "Reykjavík";
+
+        LocalDate startDate = LocalDate.of(2021, 4, 6);
+        LocalDate endDate = LocalDate.of(2021, 4, 8);
+
+        FlightSearchController flightSearchController = FlightSearchController.getInstance();
+        ArrayList<Airport> departureAirports = flightSearchController.getAirportByCity(depCity);
+        ArrayList<Airport> destinationAirports = flightSearchController.getAirportByCity(destCity);
+
+        for(Airport departureAirport : departureAirports) {
+            for(Airport destinationAirport : destinationAirports) {
+                outFlights.addAll(flightSearchController.searchFlightsByFilter(departureAirport, destinationAirport, startDate, startDate.plusDays(1)));
+                inFlights.addAll(flightSearchController.searchFlightsByFilter(destinationAirport, departureAirport, endDate, endDate.plusDays(1)));
+            }
+        }
+
+        System.out.println("departure airports");
+        for(Airport a : departureAirports) {
+            System.out.println(a.getFullName());
+        }
+        System.out.println("destination airport");
+        for(Airport a : destinationAirports) {
+            System.out.println(a.getFullName());
+        }
+        System.out.println("out flights");
+        for(Flight f : outFlights) {
+            System.out.println(f);
+        }
+        System.out.println("in flights");
+        for(Flight f : inFlights) {
+            System.out.println(f);
+        }
     }
 
 }

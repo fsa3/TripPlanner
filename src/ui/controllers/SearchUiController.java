@@ -130,7 +130,7 @@ public class SearchUiController implements Initializable {
         this.customPackage = customPackage;
     }
 
-    public void searchButtonClicked() {
+    public void searchButtonClicked() throws Exception {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/searchresultsUI.fxml"));
             AnchorPane resultRoot = loader.load();
@@ -141,9 +141,9 @@ public class SearchUiController implements Initializable {
             sceneRoot.getChildren().setAll(resultRoot);
 
             // todo sækja uppsl úr inputtum og smíða search result með því
-            searchResult = new SearchResult(LocalDate.of(2021, 5, 4),
-                    LocalDate.of(2021, 5, 8),
-                    "Reykjavík", "Reykjavík", 4, 1
+            searchResult = new SearchResult(LocalDate.of(2021, 4, 6),
+                    LocalDate.of(2021, 4, 8),
+                    "Akureyri", "Reykjavík", 4, 1
             );
             searchResult.search();
             searchController = new SearchController(searchResult);
@@ -336,18 +336,6 @@ public class SearchUiController implements Initializable {
         loginLabel.setUnderline(false);
     }
 
-    // todo eyða falli
-    public TripPackage createTestPackage() {
-        SearchResult searchResult = new SearchResult(LocalDate.of(2021, 5, 4),
-                LocalDate.of(2021, 5, 8),
-                "Reykjavík", "Reykjavík", 2, 1
-        );
-        searchResult.search();
-        SearchController searchController = new SearchController(searchResult);
-        searchController.createTripPackages();
-        return searchController.getPackages().get(0);
-    }
-
     private void displayTripPackage(TripPackage tPackage, VBox packagesVBox) {
         AnchorPane packageContainer = new AnchorPane();
         packageContainer.getStyleClass().add("packageContainer");
@@ -369,28 +357,32 @@ public class SearchUiController implements Initializable {
         fImg.setFitHeight(28);
         fImg.setPreserveRatio(true);
         //out flight
-        fImg.setRotate(-45);
-        Flight outFlight = tPackage.getOutFlights().get(0);
-        Label flightLabel = new Label(displayFlight(outFlight));
-        flightLabel.setWrapText(true);
-        HBox flightHBox = new HBox();
-        flightHBox.setSpacing(5);
-        flightHBox.getChildren().addAll(fImg, flightLabel);
-        flights.getChildren().add(flightHBox);
+        if(!tPackage.getOutFlights().isEmpty()) {
+            fImg.setRotate(-45);
+            Flight outFlight = tPackage.getOutFlights().get(0);
+            Label flightLabel = new Label(displayFlight(outFlight));
+            flightLabel.setWrapText(true);
+            HBox flightHBox = new HBox();
+            flightHBox.setSpacing(5);
+            flightHBox.getChildren().addAll(fImg, flightLabel);
+            flights.getChildren().add(flightHBox);
+        }
         //in flight
-        ImageView fImg2 = new ImageView();
-        fImg2.setImage(new Image("@../../img/landing.png"));
-        fImg2.setFitHeight(28);
-        fImg2.setPreserveRatio(true);
-        Flight inFlight = tPackage.getInFlights().get(0);
-        flightLabel = new Label(displayFlight(inFlight));
-        flightLabel.setWrapText(true);
-        HBox flightHBox2 = new HBox();
-        flightHBox2.setSpacing(5);
-        flightHBox2.getChildren().addAll(fImg2, flightLabel);
-        flights.getChildren().add(flightHBox2);
-        flights.setPrefWidth(350);
-        gp.add(flights, 0, 1);
+        if(!tPackage.getInFlights().isEmpty()) {
+            ImageView fImg2 = new ImageView();
+            fImg2.setImage(new Image("@../../img/landing.png"));
+            fImg2.setFitHeight(28);
+            fImg2.setPreserveRatio(true);
+            Flight inFlight = tPackage.getInFlights().get(0);
+            Label flightLabel = new Label(displayFlight(inFlight));
+            flightLabel.setWrapText(true);
+            HBox flightHBox2 = new HBox();
+            flightHBox2.setSpacing(5);
+            flightHBox2.getChildren().addAll(fImg2, flightLabel);
+            flights.getChildren().add(flightHBox2);
+            flights.setPrefWidth(350);
+            gp.add(flights, 0, 1);
+        }
 
         VBox dayTrips = new VBox();
         for(Trip dt : tPackage.getDayTrips()) {

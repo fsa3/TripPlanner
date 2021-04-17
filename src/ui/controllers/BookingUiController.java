@@ -239,7 +239,7 @@ public class BookingUiController {
             hotelHB.getChildren().add(roomType);
             updateAvailableRooms(roomType);
             updateRoomList(roomType);
-            Button addRoom = new Button("Select room");
+            Button addRoom = new Button("Add room");
             addRoom.getStyleClass().add("blue-button");
             hotelHB.getChildren().add(addRoom);
             hotelHB.setAlignment(Pos.CENTER_LEFT);
@@ -425,6 +425,8 @@ public class BookingUiController {
             searchUiController.setCustomPackage(customPackage);
             searchUiController.searchButtonClicked();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
