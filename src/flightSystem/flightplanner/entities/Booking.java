@@ -2,7 +2,6 @@ package flightSystem.flightplanner.entities;
 
 import java.time.format.DateTimeFormatter;
 
-
 public class Booking {
     private int ID;
     private Passenger passenger;

@@ -1,18 +1,18 @@
 package flightSystem.flightplanner.controllers;
 
 import flightSystem.flightplanner.data.FlDataConnection;
-import flightSystem.flightplanner.entities.Airport;
-import flightSystem.flightplanner.entities.Booking;
-import flightSystem.flightplanner.entities.Flight;
-import flightSystem.flightplanner.entities.Person;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
+import flightSystem.flightplanner.entities.*;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class FlightSearchController{
     private static FlightSearchController instance = null;
-    private FlDataConnection dataConnection = null;
+    private FlDataConnection connection;
+    private Info information;
     private FlightSearchController(){
+        connection = FlDataConnection.getInstance();
+        information = Info.getInstance();
     }
 
     public static FlightSearchController getInstance(){
@@ -22,22 +22,39 @@ public class FlightSearchController{
         return instance;
     }
 
-    public void setConnection(FlDataConnection dataConnection){
-        this.dataConnection = dataConnection;
-    }
-
     public Flight searchFlightById(int id) throws Exception{
-        return dataConnection.getFlightById(id);
+        return connection.getFlightById(id);
     }
     public Person searchPerson(int userId) throws Exception{
-        return dataConnection.getPerson(userId);
+        return connection.getPerson(userId);
     }
 
     public Booking searchBooking(int id) throws Exception{
-        return dataConnection.getBooking(id);
+        return connection.getBooking(id);
     }
 
-    public ArrayList<Airport> searchAirports() throws Exception{
-        return dataConnection.getAirports();
+    public ArrayList<Airport> getAirports() {
+        ArrayList<Airport> airports = null;
+        try {
+            airports = connection.getAirports();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return airports;
+    }
+    public ArrayList<Airport> getAirportByCity(String cityName) throws Exception{
+        return connection.getAirportCityName(cityName);
+    }
+
+    public ArrayList<Flight> getAllFlights() throws Exception{
+        return connection.getAllFlights();
+    }
+
+    public ArrayList<Flight> searchFlightsByFilter(Airport departure, Airport destination, LocalDate fromTime, LocalDate toTime) throws Exception{
+        return connection.getFlightsByFilter(departure, destination, fromTime, toTime);
+    }
+
+    public ArrayList<Booking> getBookingsForUser() throws Exception{
+        return connection.getBookings(information.getUser().getID());
     }
 }
