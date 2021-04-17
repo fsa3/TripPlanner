@@ -55,8 +55,6 @@ public class SearchController {
     public ObservableList<Trip> getTripsByDestinationAndDate(String destination, Date date) {
         ObservableList<Trip> returnList = FXCollections.observableArrayList();
         for (Trip t : DB.getAllTrips()) {
-            System.out.println(t.getDate() + " - " + date + " == " + t.getDate().equals(date));
-            System.out.println(t.getDate().getYear());
             if (t.getDestination().compareTo(destination) == 0 && t.getDate().compareTo(date) == 0) {
                 returnList.add(t);
             }

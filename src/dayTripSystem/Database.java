@@ -55,9 +55,11 @@ public class Database {
         int[] verd = {50, 100, 150, 200, 250, 300};
 
         // For lykkja sem byr til 30 random Trip hluti
-        for (int i = 0; i < 30; i++) {
-            AddTrip(new Trip(String.valueOf(i), stadsetning[i % 4], dags[i % 31],
-                    host[i % 5], max, min, false, flokkur[i % 5], null, max, false, verd[i % 6]));
+        for(int j = 0; j < 31; j++) {
+            for (int i = 0; i < 8; i++) {
+                AddTrip(new Trip(String.valueOf(i), stadsetning[i % 4], dags[j],
+                        host[i % 5], max, min, false, flokkur[i % 5], null, max, false, verd[i % 6]));
+            }
         }
 
 

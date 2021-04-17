@@ -204,11 +204,19 @@ public class BookingUiController {
             tripLabel.setPrefWidth(200);
             DatePicker dayChooser = new DatePicker();
             //todo setja dagsetningar í dayChooser
+            //dayChooser.setValue(DataConnection.utilDateToLocalDate(dt.getDate()));
+            ArrayList<LocalDate> availableDates = new ArrayList<>();
+            for(Trip resultTrip : searchResult.getDayTrips()) {
+                if(resultTrip.getCategory().equals(dt.getCategory())) {
+                    availableDates.add(DataConnection.utilDateToLocalDate(resultTrip.getDate()));
+                }
+            }
             dayChooser.setDayCellFactory(d -> new DateCell() {
                 @Override
                 public void updateItem(LocalDate item, boolean empty) {
                     super.updateItem(item, empty);
-                    setDisable(item.isAfter(searchResult.getEndDate()) || item.isBefore(searchResult.getStartDate()));
+                    //setDisable(item.isAfter(searchResult.getEndDate()) || item.isBefore(searchResult.getStartDate()));
+                    setDisable(!availableDates.contains(item));
                 }});
             dayTripDatesDP.add(dayChooser);
             dayChooser.setPrefHeight(10);
