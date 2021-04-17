@@ -12,7 +12,6 @@ import hotelSystem.entities.Room;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -52,6 +51,8 @@ public class BookingUiController {
     private VBox dayTripsVB;
     @FXML
     private VBox hotelVB;
+    @FXML
+    private VBox roomsVB;
     @FXML
     private VBox adultsFirstNameVB;
     @FXML
@@ -217,32 +218,29 @@ public class BookingUiController {
 
         if(!tripPackage.getHotels().isEmpty()){
             // show hotel
-            HBox hotel = new HBox();
+            HBox hotelHB = new HBox();
             ImageView hotelImg = new ImageView();
             hotelImg.setImage(new Image("@../../img/hotel.png"));
             hotelImg.setFitHeight(40);
             hotelImg.setPreserveRatio(true);
-            hotel.getChildren().add(hotelImg);
+            hotelHB.getChildren().add(hotelImg);
             Accommodation accommodation = tripPackage.getHotels().get(0);
-            hotel.getChildren().add(new Label(accommodation.toString()));
+            hotelHB.getChildren().add(new Label(accommodation.toString()));
             ComboBox<Room> roomType = new ComboBox<Room>();
-            roomType.getStyleClass().add("combobox-style");
-            ArrayList<Room> availableRooms = accommodation.getAvailableRooms(DataConnection.localDateToDate(tripPackage.getStartDate()), DataConnection.localDateToDate(tripPackage.getEndDate()));
-            availableRooms = removeDuplicates(availableRooms);
-            roomType.setItems(FXCollections.observableArrayList(availableRooms));
-            hotel.getChildren().add(roomType);
-            hotel.setAlignment(Pos.CENTER_LEFT);
-            hotel.setPrefWidth(450);
-            hotelVB.getChildren().add(hotel);
+            hotelHB.getChildren().add(roomType);
+            updateAvailableRooms(roomType);
+            Button addRoom = new Button("Select room");
+            hotelHB.getChildren().add(addRoom);
+            hotelHB.setAlignment(Pos.CENTER_LEFT);
+            hotelHB.setPrefWidth(450);
+            hotelVB.getChildren().add(hotelHB);
 
-            roomType.valueProperty().addListener(new ChangeListener<Room>() {
-                @Override
-                public void changed(ObservableValue<? extends Room> observableValue, Room previousSelectedRoom, Room selectedRoom) {
-                    if(tripPackage.getRooms().contains(previousSelectedRoom)) {
-                        tripPackage.removeRoom(previousSelectedRoom);
-                    }
-                    tripPackage.addRoom(selectedRoom);
-                }
+            addRoom.setOnAction((evt) -> {
+                Room r = roomType.getValue();
+                if(r == null) return;
+                tripPackage.addRoom(r);
+                updateRoomList();
+                updateAvailableRooms(roomType);
             });
         }
 
@@ -324,6 +322,33 @@ public class BookingUiController {
         flightInSeatC.setSpacing(5);
         childrenLuggageVB.setSpacing(5);
         childrenInsuranceVB.setSpacing(5);
+    }
+
+    private void updateRoomList() {
+        roomsVB.getChildren().clear();
+        Label header = new Label("Selected rooms:");
+        roomsVB.getChildren().add(header);
+        for(Room r : tripPackage.getRooms()) {
+            HBox roomEntry = new HBox();
+            Region region = new Region();
+            Label roomTitle = new Label(r.getRoomType().name());
+            Label capacity = new Label(r.getCap() + " people");
+            Label price = new Label(r.getPrice() + "$");
+            Hyperlink removeRoom = new Hyperlink("Remove room");
+            roomEntry.getChildren().addAll(roomTitle, capacity, price, removeRoom);
+            roomEntry.setSpacing(10);
+            roomsVB.getChildren().add(roomEntry);
+        }
+    }
+
+    private void updateAvailableRooms(ComboBox<Room> roomSelector) {
+        Accommodation accommodation = tripPackage.getHotels().get(0);
+        ArrayList<Room> availableRooms = accommodation.getAvailableRooms(DataConnection.localDateToDate(tripPackage.getStartDate()), DataConnection.localDateToDate(tripPackage.getEndDate()));
+        for(Room r : tripPackage.getRooms()) {
+            availableRooms.remove(r);
+        }
+        availableRooms = removeDuplicates(availableRooms);
+        roomSelector.setItems(FXCollections.observableArrayList(availableRooms));
     }
 
     private ArrayList<Room> removeDuplicates(ArrayList<Room> list) {
