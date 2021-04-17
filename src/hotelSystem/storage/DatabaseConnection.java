@@ -279,7 +279,7 @@ public class DatabaseConnection implements Database {
         return res;
     }
 
-    // eftirfarandi fall viðbót eftir T-hóp
+    // following fuction an addition by T-group
     public Room getRoomByRoomId(int roomId) throws Exception {
         getConnection();
         PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Room WHERE id = ?");
@@ -298,6 +298,28 @@ public class DatabaseConnection implements Database {
         rs.close();
         closeConnection();
         return room;
+    }
+
+    // following function an addition by T-group
+    public Accommodation getHotelById(int id) throws Exception {
+        getConnection();
+        PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Accommodation WHERE id = ?");
+        pstmt.setInt(1, id);
+        ResultSet rs = pstmt.executeQuery();
+        Accommodation hotel = null;
+        if (rs.next()) {
+            ArrayList<Room> rooms = getRoomsByAccId(rs.getInt("id"));
+            hotel = new Accommodation(
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("location"),
+                    rooms,
+                    rs.getDouble("rating")
+            );
+        }
+        rs.close();
+        closeConnection();
+        return hotel;
     }
 
     public void createOccupancy(int roomId, Date from, Date to) throws Exception {
