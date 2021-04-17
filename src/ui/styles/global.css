@@ -182,3 +182,30 @@ Button {
 .combo-box .label {
     -fx-text-fill: #FFFFFF;
 }
+
+.combobox-style{
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #1E1E20;
+    -fx-background-radius: 5, 5, 4, 3;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-padding: 0;
+    -fx-focus-color: white;
+    -fx-unfocus-color: white;
+
+}
+
+.comboboxUser{
+    -fx-background-color:  #393939 ;
+}
+.ratingSlider{
+    -fx-control-inner-background: #393939;
+}
+.slider .track{
+    -fx-background-color:  #393939 ;
+}
+.slider .thumb{
+    -fx-background-color: #FF8C00FF!important;
+
+
+
+}

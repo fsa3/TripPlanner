@@ -226,6 +226,7 @@ public class BookingUiController {
             Accommodation accommodation = tripPackage.getHotels().get(0);
             hotel.getChildren().add(new Label(accommodation.toString()));
             ComboBox<Room> roomType = new ComboBox<Room>();
+            roomType.getStyleClass().add("combobox-style");
             ArrayList<Room> availableRooms = accommodation.getAvailableRooms(DataConnection.localDateToDate(tripPackage.getStartDate()), DataConnection.localDateToDate(tripPackage.getEndDate()));
             // todo remove duplicates
             roomType.setItems(FXCollections.observableArrayList(availableRooms));
