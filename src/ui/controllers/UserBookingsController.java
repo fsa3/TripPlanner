@@ -104,6 +104,7 @@ public class UserBookingsController {
             }
 
             Label priceLabel = new Label("Total price: " + price + "$");
+            priceLabel.getStyleClass().add("title2");
             bookingVB.getChildren().add(priceLabel);
 
             bookingVB.getStyleClass().add("packageContainer");

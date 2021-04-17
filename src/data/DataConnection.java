@@ -141,6 +141,10 @@ public class DataConnection {
                 .toLocalDate();
     }
 
+    public static java.util.Date localDateToUtilDate(LocalDate date) {
+        return Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    }
+
     public void createBooking(User user, int bookingId, double price, int numAdults, int numChildren) {
         String query = "INSERT INTO Booking(bookingUser, bookingId, price, numAdults, numChildren) values(?,?,?,?,?)";
         try {
