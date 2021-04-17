@@ -4,8 +4,10 @@ import data.DataConnection;
 import dayTripSystem.SearchController;
 import dayTripSystem.Trip;
 import flightSystem.flightplanner.controllers.FlightSearchController;
+import flightSystem.flightplanner.data.FlDataConnection;
 import flightSystem.flightplanner.entities.Airport;
 import flightSystem.flightplanner.entities.Flight;
+import flightSystem.flightplanner.entities.Seat;
 import hotelSystem.controllers.AccommodationSearchController;
 import hotelSystem.entities.Accommodation;
 import hotelSystem.entities.Room;
@@ -240,6 +242,12 @@ public class SearchResult {
         System.out.println("in flights");
         for(Flight f : inFlights) {
             System.out.println(f);
+        }
+
+        System.out.println("Seats");
+        FlDataConnection connection = new FlDataConnection();
+        for(Seat s : connection.getSeatsForFlight(outFlights.get(0).getID())) {
+            System.out.println(s);
         }
     }
 

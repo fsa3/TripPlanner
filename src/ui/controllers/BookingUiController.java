@@ -7,6 +7,7 @@ import entities.SearchResult;
 import entities.TripPackage;
 import entities.User;
 import flightSystem.flightplanner.entities.Flight;
+import flightSystem.flightplanner.entities.Info;
 import flightSystem.flightplanner.entities.Passenger;
 import hotelSystem.entities.Accommodation;
 import hotelSystem.entities.Room;
@@ -276,7 +277,7 @@ public class BookingUiController {
                 seatOut.getStyleClass().add("blue-button");
 
                 seatOut.setOnAction((evt) -> {
-                    pickSeat(tripPackage.getOutFlights().get(0));
+                    pickSeat(tripPackage.getOutFlights().get(0), seatOut);
                 });
             }
             if(!tripPackage.getInFlights().isEmpty()) {
@@ -408,8 +409,11 @@ public class BookingUiController {
         return false;
     }
 
-    private void pickSeat(Flight flight) {
+    private void pickSeat(Flight flight, Button seatOut) {
         Parent root = null;
+        Info information = Info.getInstance();
+        information.setFlight(flight);
+        information.setSeatButton(seatOut);
         try {
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../flightSystem/flightplanner/ui/saetaval.fxml")));
             Stage primaryStage = new Stage();
@@ -417,8 +421,6 @@ public class BookingUiController {
             primaryStage.setScene(new Scene(root));
             primaryStage.initStyle(StageStyle.UNDECORATED);
             primaryStage.show();
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
