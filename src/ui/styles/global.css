@@ -68,6 +68,11 @@ Button {
 .date-picker-popup {
     -fx-control-inner-background: #393939;
 }
+.title1-bookings{
+    -fx-font-size: 14pt ;
+    -fx-font-family: "SansSerif";
+    -fx-font-weight: bold ;
+}
 .title1{
     -fx-font-size: 20pt ;
     -fx-font-family: "SansSerif";
@@ -181,6 +186,7 @@ Button {
     -fx-background-radius: 5, 5, 4, 3;
     -fx-background-insets: 0 0 -1 0, 0, 1, 2;
     -fx-padding: 0;
+
 }
 
 .combo-box .label {
