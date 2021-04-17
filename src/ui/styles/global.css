@@ -205,7 +205,7 @@ Button {
 }
 .slider .thumb{
     -fx-background-color: #FF8C00FF!important;
-
-
-
+}
+.rrHyperlink{
+    -fx-text-fill: #0D7377;
 }

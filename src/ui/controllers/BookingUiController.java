@@ -335,6 +335,7 @@ public class BookingUiController {
             Label capacity = new Label(r.getCap() + " people");
             Label price = new Label(r.getPrice() + "$");
             Hyperlink removeRoom = new Hyperlink("Remove room");
+            removeRoom.getStyleClass().add("rrHyperlink");
             roomEntry.getChildren().addAll(roomTitle, capacity, price, removeRoom);
             roomEntry.setSpacing(10);
             roomsVB.getChildren().add(roomEntry);
