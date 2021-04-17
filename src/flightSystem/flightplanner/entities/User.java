@@ -1,5 +1,7 @@
 package flightSystem.flightplanner.entities;
 
+import flightSystem.flightplanner.entities.Person;
+
 import java.time.LocalDate;
 
 public class User extends Person {

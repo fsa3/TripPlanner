@@ -1,6 +1,5 @@
 package flightSystem.flightplanner.data;
 
-
 import flightSystem.flightplanner.entities.*;
 
 import java.sql.SQLException;

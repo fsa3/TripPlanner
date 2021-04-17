@@ -1,5 +1,7 @@
 package flightSystem.flightplanner.entities;
 
+import flightSystem.flightplanner.controllers.FlightSearchController;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
