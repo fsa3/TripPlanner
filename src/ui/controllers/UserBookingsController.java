@@ -47,6 +47,7 @@ public class UserBookingsController {
 
             HBox bookingHeader = new HBox();
             Label bookingTitle = new Label("My booking, id " + id);
+            bookingTitle.getStyleClass().add("title1-bookings");
             Button editBooking = new Button("Cancel booking");
             Pane spacer = new Pane();
             HBox.setHgrow(spacer, Priority.ALWAYS);
@@ -58,10 +59,12 @@ public class UserBookingsController {
             HBox fp = new HBox();
             VBox flightsVB = new VBox();
             Label flightsHeader = new Label("Flights");
+            flightsHeader.getStyleClass().add("title2");
             flightsVB.getChildren().add(flightsHeader);
 
             VBox passengersVB = new VBox();
             Label passengersHeader = new Label("Passengers");
+            passengersHeader.getStyleClass().add("title2");
             passengersVB.getChildren().add(passengersHeader);
 
             fp.getChildren().addAll(flightsVB, passengersVB);
@@ -69,6 +72,7 @@ public class UserBookingsController {
 
             // hotel
             Label hotelHeader = new Label("Hotel");
+            hotelHeader.getStyleClass().add("title2");
             bookingVB.getChildren().add(hotelHeader);
             for(HotelBooking hb : hotelBookings) {
                 if(hb.getBookingId() == id) {
@@ -86,6 +90,7 @@ public class UserBookingsController {
             }
 
             Label dtHeader = new Label("Day Trips");
+            dtHeader.getStyleClass().add("title2");
             bookingVB.getChildren().add(dtHeader);
             for(DayTripBooking dtB : dayTripBookings) {
                 if(dtB.getBookingId() == id) {
