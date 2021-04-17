@@ -140,8 +140,8 @@ public class SearchUiController implements Initializable {
             sceneRoot.getChildren().setAll(resultRoot);
 
             // todo sækja uppsl úr inputtum og smíða search result með því
-            searchResult = new SearchResult(LocalDate.of(2021, 3, 23),
-                    LocalDate.of(2021, 3, 28),
+            searchResult = new SearchResult(LocalDate.of(2021, 5, 4),
+                    LocalDate.of(2021, 5, 8),
                     "Reykjavík", "Reykjavík", 4, 1
             );
 
@@ -170,11 +170,11 @@ public class SearchUiController implements Initializable {
         resultScrollPane.applyCss();
         resultScrollPane.layout();
         packagesVBox = (VBox) resultScrollPane.lookup("#packagesVBox");
-
+/*
         displayTripPackage(createTestPackage(), packagesVBox);
         displayTripPackage(createTestPackage(), packagesVBox);
         displayTripPackage(createTestPackage(), packagesVBox);
-
+*/
         allOutFlightsVB = (VBox) resultScrollPane.lookup("#allOutFlightsVB");
         allInFlightsVB = (VBox) resultScrollPane.lookup("#allInFlightsVB");
         allHotelsVB = (VBox) resultScrollPane.lookup("#allHotelsVB");
@@ -336,8 +336,8 @@ public class SearchUiController implements Initializable {
 
     // todo eyða falli
     public TripPackage createTestPackage() {
-        SearchResult searchResult = new SearchResult(LocalDate.of(2021, 3, 23),
-                LocalDate.of(2021, 3, 28),
+        SearchResult searchResult = new SearchResult(LocalDate.of(2021, 5, 4),
+                LocalDate.of(2021, 5, 8),
                 "Reykjavík", "Reykjavík", 2, 1
         );
         searchResult.search();

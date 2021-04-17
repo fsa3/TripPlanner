@@ -1,6 +1,7 @@
 package entities;
 
 import data.DataConnection;
+import dayTripSystem.SearchController;
 import dayTripSystem.Trip;
 import flightSystem.flightplanner.entities.Flight;
 import hotelSystem.controllers.AccommodationSearchController;
@@ -167,6 +168,26 @@ public class SearchResult {
         }
         hotels.removeAll(unavailableHotels);
 
-        dayTrips = dataFactory.getDayTrips(destCity);
+        System.out.println(startDate);
+        System.out.println(endDate);
+        // Find day trips
+        dayTrips = new ArrayList<>();
+        for(LocalDate date : getDateRange(startDate, endDate)) {
+            SearchController dayTripSearchController = new SearchController();
+            ObservableList<Trip> trips = dayTripSearchController.getTripsByDestinationAndDate(depCity, DataConnection.localDateToUtilDate(date));
+            dayTrips.addAll(trips);
+        }
+
     }
+
+    private ArrayList<LocalDate> getDateRange(LocalDate start, LocalDate end) {
+        ArrayList<LocalDate> ret = new ArrayList<>();
+        LocalDate tmp = start;
+        while(tmp.isBefore(end) || tmp.equals(end)) {
+            ret.add(tmp);
+            tmp = tmp.plusDays(1);
+        }
+        return ret;
+    }
+
 }

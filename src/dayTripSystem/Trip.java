@@ -87,7 +87,7 @@ public class Trip {
     }
 
     public boolean getIsFullyBooked() {
-        return isFullyBooked;
+        return isFullyBooked == true;
     }
 
     public void setFullyBooked(boolean fullyBooked) {
@@ -142,9 +142,37 @@ public class Trip {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Trip)) return false;
         Trip trip = (Trip) o;
-        return maxReservations == trip.maxReservations && minReservations == trip.minReservations && isFullyBooked == trip.isFullyBooked && capacity == trip.capacity && canceledTrip == trip.canceledTrip && price == trip.price && Objects.equals(tripID, trip.tripID) && Objects.equals(destination, trip.destination) && Objects.equals(date, trip.date) && Objects.equals(hostEmail, trip.hostEmail) && Objects.equals(category, trip.category) && Objects.equals(schedule, trip.schedule);
+        return getMaxReservations() == trip.getMaxReservations() &&
+                getMinReservations() == trip.getMinReservations() &&
+                isFullyBooked == trip.isFullyBooked &&
+                getCapacity() == trip.getCapacity() &&
+                isCanceledTrip() == trip.isCanceledTrip() &&
+                getPrice() == trip.getPrice() &&
+                Objects.equals(getTripID(), trip.getTripID()) &&
+                Objects.equals(getDestination(), trip.getDestination()) &&
+                Objects.equals(getDate(), trip.getDate()) &&
+                Objects.equals(getHostEmail(), trip.getHostEmail()) &&
+                Objects.equals(getCategory(), trip.getCategory()) &&
+                Objects.equals(getSchedule(), trip.getSchedule());
     }
 
+    @Override
+    public String toString() {
+        return "Trip{" +
+                "tripID='" + tripID + '\'' +
+                ", destination='" + destination + '\'' +
+                ", date=" + date +
+                ", hostEmail='" + hostEmail + '\'' +
+                ", maxReservations=" + maxReservations +
+                ", minReservations=" + minReservations +
+                ", isFullyBooked=" + isFullyBooked +
+                ", category='" + category + '\'' +
+                ", schedule=" + schedule +
+                ", capacity=" + capacity +
+                ", canceledTrip=" + canceledTrip +
+                ", price=" + price +
+                '}';
+    }
 }
