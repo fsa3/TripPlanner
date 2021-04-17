@@ -1,6 +1,7 @@
 package flightSystem.flightplanner.entities;
 
 import flightSystem.flightplanner.controllers.FlightSearchController;
+import javafx.scene.control.Button;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class Info {
     private Flight flight;
     private Seat seat;
     private Passenger currentPassenger;
+    private Button seatButton;
 
     private Info(){
 
@@ -56,4 +58,11 @@ public class Info {
         this.currentPassenger = currentPassenger;
     }
 
+    public Button getSeatButton() {
+        return seatButton;
+    }
+
+    public void setSeatButton(Button seatButton) {
+        this.seatButton = seatButton;
+    }
 }

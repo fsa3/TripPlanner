@@ -110,10 +110,13 @@ public class TripPackage extends SearchResult{
     }
 
     public void testPackage() {
-        outFlights.add(masterSearch.getOutFlights().get(0));
-        inFlights.add(masterSearch.getInFlights().get(0));
-        hotels.add(masterSearch.getHotels().get(0));
-        rooms.add(hotels.get(0).getAvailableRooms(DataConnection.localDateToDate(startDate), DataConnection.localDateToDate(endDate)).get(0));
+        if(!masterSearch.getOutFlights().isEmpty()) outFlights.add(masterSearch.getOutFlights().get(0));
+        if(!masterSearch.getInFlights().isEmpty()) inFlights.add(masterSearch.getInFlights().get(0));
+        if(!masterSearch.getHotels().isEmpty()) {
+            hotels.add(masterSearch.getHotels().get(0));
+            ArrayList<Room> availableRooms = hotels.get(0).getAvailableRooms(DataConnection.localDateToDate(startDate), DataConnection.localDateToDate(endDate));
+            if(!availableRooms.isEmpty()) rooms.add(availableRooms.get(0));
+        }
         dayTrips.addAll(masterSearch.getDayTrips());
         calculatePrice();
     }

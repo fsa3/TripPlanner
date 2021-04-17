@@ -2,6 +2,7 @@ package controllers;
 
 import data.DataConnection;
 import entities.*;
+import flightSystem.flightplanner.entities.Passenger;
 import hotelSystem.controllers.AccommodationBookingController;
 import hotelSystem.entities.Accommodation;
 import hotelSystem.entities.Room;
@@ -17,6 +18,7 @@ public class BookingController {
     private User user;
     private SearchResult searchResult;
     private int bookingId;
+    private ArrayList<Passenger> passengers;
     private ArrayList<LocalDate> dayTripDates;
 
     public BookingController(TripPackage tPackage, User user, SearchResult searchResult) {
@@ -74,5 +76,9 @@ public class BookingController {
 
     public void getPackageFromBookings() {
         // todo
+    }
+
+    public void setPassengers(ArrayList<Passenger> passengers) {
+        this.passengers = passengers;
     }
 }

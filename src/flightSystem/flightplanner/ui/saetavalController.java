@@ -31,6 +31,19 @@ public class saetavalController implements Initializable {
         information = Info.getInstance();
     }
 
+    //-----------------------------------------------------------------------------
+    // Inserted by T-team to integrate the seat picker UI
+    public void goBack(ActionEvent event) {
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.close();
+    }
+
+    public void confirmSelection(ActionEvent event) {
+        information.getSeatButton().setText(information.getSeat().toString());
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.close();
+    }
+    //-----------------------------------------------------------------------------
 
     public void changeBookButtonPushed(ActionEvent event) throws IOException {
         Parent upplParent = FXMLLoader.load(getClass().getResource("upplysingar.fxml"));

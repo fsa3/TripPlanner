@@ -7,6 +7,8 @@ import entities.SearchResult;
 import entities.TripPackage;
 import entities.User;
 import flightSystem.flightplanner.entities.Flight;
+import flightSystem.flightplanner.entities.Info;
+import flightSystem.flightplanner.entities.Passenger;
 import hotelSystem.entities.Accommodation;
 import hotelSystem.entities.Room;
 import javafx.beans.value.ChangeListener;
@@ -30,6 +32,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.net.PasswordAuthentication;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -97,6 +100,10 @@ public class BookingUiController {
         this.user = user;
         if(user == null && loginLabel != null) loginLabel.setText("Log In");
         else if(loginLabel != null) loginLabel.setText(user.getFirstName());
+        try {
+            setUserAsFirstPassenger();
+        }
+        catch (Exception ignored) {}
     }
 
     public void setTripPackage(TripPackage tPackage) {
@@ -239,7 +246,7 @@ public class BookingUiController {
             hotelHB.getChildren().add(roomType);
             updateAvailableRooms(roomType);
             updateRoomList(roomType);
-            Button addRoom = new Button("Select room");
+            Button addRoom = new Button("Add room");
             addRoom.getStyleClass().add("blue-button");
             hotelHB.getChildren().add(addRoom);
             hotelHB.setAlignment(Pos.CENTER_LEFT);
@@ -270,7 +277,7 @@ public class BookingUiController {
                 seatOut.getStyleClass().add("blue-button");
 
                 seatOut.setOnAction((evt) -> {
-                    pickSeat(tripPackage.getOutFlights().get(0));
+                    pickSeat(tripPackage.getOutFlights().get(0), seatOut);
                 });
             }
             if(!tripPackage.getInFlights().isEmpty()) {
@@ -287,6 +294,7 @@ public class BookingUiController {
                 adultsInsuranceVB.getChildren().add(insurance);
                 adultsInsuranceVB.getChildren().add(createSpacer());
             }
+            if(i == 0 && user != null) setUserAsFirstPassenger();
         }
 
         adultsFirstNameVB.setSpacing(5);
@@ -325,7 +333,6 @@ public class BookingUiController {
             }
             childrenLuggageVB.setPadding(new Insets(3,0,0,0));
             childrenInsuranceVB.setPadding(new Insets(3,0,0,0));
-            //todo setja users í fyrsta nafnaboxið
         }
         childrenFirstNameVB.setSpacing(5);
         childrenLastNameVB.setSpacing(5);
@@ -333,6 +340,11 @@ public class BookingUiController {
         flightInSeatC.setSpacing(5);
         childrenLuggageVB.setSpacing(5);
         childrenInsuranceVB.setSpacing(5);
+    }
+
+    private void setUserAsFirstPassenger() {
+        ((TextField)adultsFirstNameVB.getChildren().get(1)).setText(user.getFirstName());
+        ((TextField)adultsLastNameVB.getChildren().get(1)).setText(user.getLastName());
     }
 
     private void updateRoomList(ComboBox<Room> roomSelector) {
@@ -397,8 +409,11 @@ public class BookingUiController {
         return false;
     }
 
-    private void pickSeat(Flight flight) {
+    private void pickSeat(Flight flight, Button seatOut) {
         Parent root = null;
+        Info information = Info.getInstance();
+        information.setFlight(flight);
+        information.setSeatButton(seatOut);
         try {
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../flightSystem/flightplanner/ui/saetaval.fxml")));
             Stage primaryStage = new Stage();
@@ -406,8 +421,6 @@ public class BookingUiController {
             primaryStage.setScene(new Scene(root));
             primaryStage.initStyle(StageStyle.UNDECORATED);
             primaryStage.show();
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -426,6 +439,8 @@ public class BookingUiController {
             searchUiController.searchButtonClicked();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -435,10 +450,29 @@ public class BookingUiController {
             return;
         }
         BookingController bookingController = new BookingController(tripPackage, user, searchResult);
-        bookingController.setDayTripDates(getDayTripDates());
+        bookingController.setDayTripDates(getDayTripDates()); //todo taka þetta út
+        ArrayList<Passenger> passengers = getPassengers();
+        bookingController.setPassengers(passengers);
         bookingController.bookPackage();
         goBackToSearch();
         openUserBookings();
+    }
+
+    private ArrayList<Passenger> getPassengers() {
+        ArrayList<Passenger> passengers = new ArrayList<>();
+        for(int i = 0; i < tripPackage.getNumAdults(); i++) {
+            Passenger p = new Passenger(-1, ((TextField)adultsFirstNameVB.getChildren().get(2*i+1)).getText(), ((TextField)adultsLastNameVB.getChildren().get(2*i+1)).getText(), "", user.getEmail(), "");
+            p.setLuggage(((CheckBox)adultsLuggageVB.getChildren().get(2*i+1)).isSelected());
+            p.setInsurance(((CheckBox)adultsLuggageVB.getChildren().get(2*i+1)).isSelected());
+            passengers.add(p);
+        }
+        for(int i = 0; i < tripPackage.getNumChildren(); i++) {
+            Passenger p = new Passenger(-1, ((TextField)childrenFirstNameVB.getChildren().get(2*i)).getText(), ((TextField)childrenLastNameVB.getChildren().get(2*i)).getText(), "", user.getEmail(), "");
+            p.setLuggage(((CheckBox)childrenLuggageVB.getChildren().get(2*i)).isSelected());
+            p.setInsurance(((CheckBox)childrenInsuranceVB.getChildren().get(2*i)).isSelected());
+            passengers.add(p);
+        }
+        return passengers;
     }
 
     private ArrayList<LocalDate> getDayTripDates() {
