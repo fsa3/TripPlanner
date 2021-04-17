@@ -94,7 +94,7 @@ public class Room {
     }
 
     public String toString() {
-        return roomType.toString() + ", $USD " + getPrice();
+        return roomType.toString() + ", $USD " + getPrice() + ", " + cap + " pers.";
     }
 
     public static void main(String[] args) {

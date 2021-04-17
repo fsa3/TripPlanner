@@ -219,17 +219,19 @@ public class BookingUiController {
         if(!tripPackage.getHotels().isEmpty()){
             // show hotel
             HBox hotelHB = new HBox();
+            hotelHB.setSpacing(10);
             ImageView hotelImg = new ImageView();
             hotelImg.setImage(new Image("@../../img/hotel.png"));
             hotelImg.setFitHeight(40);
             hotelImg.setPreserveRatio(true);
             hotelHB.getChildren().add(hotelImg);
             Accommodation accommodation = tripPackage.getHotels().get(0);
-            hotelHB.getChildren().add(new Label(accommodation.toString()));
+            hotelHB.getChildren().add(new Label(accommodation.toString() + " - " + accommodation.getRating()));
             ComboBox<Room> roomType = new ComboBox<Room>();
             hotelHB.getChildren().add(roomType);
             updateAvailableRooms(roomType);
             Button addRoom = new Button("Select room");
+            addRoom.getStyleClass().add("blue-button");
             hotelHB.getChildren().add(addRoom);
             hotelHB.setAlignment(Pos.CENTER_LEFT);
             hotelHB.setPrefWidth(450);
@@ -239,7 +241,7 @@ public class BookingUiController {
                 Room r = roomType.getValue();
                 if(r == null) return;
                 tripPackage.addRoom(r);
-                updateRoomList();
+                updateRoomList(roomType);
                 updateAvailableRooms(roomType);
             });
         }
@@ -324,20 +326,35 @@ public class BookingUiController {
         childrenInsuranceVB.setSpacing(5);
     }
 
-    private void updateRoomList() {
+    private void updateRoomList(ComboBox<Room> roomSelector) {
         roomsVB.getChildren().clear();
-        Label header = new Label("Selected rooms:");
-        roomsVB.getChildren().add(header);
+        if(!tripPackage.getRooms().isEmpty()) {
+            Label header = new Label("Selected rooms:");
+            header.getStyleClass().add("packageTitle");
+            roomsVB.getChildren().add(header);
+        }
         for(Room r : tripPackage.getRooms()) {
             HBox roomEntry = new HBox();
-            Region region = new Region();
             Label roomTitle = new Label(r.getRoomType().name());
             Label capacity = new Label(r.getCap() + " people");
             Label price = new Label(r.getPrice() + "$");
             Hyperlink removeRoom = new Hyperlink("Remove room");
+            removeRoom.getStyleClass().add("rrHyperlink");
+            roomTitle.setMinHeight(20);
+            roomTitle.setMinWidth(50);
+            capacity.setMinHeight(20);
+            capacity.setMinWidth(30);
+            price.setMinHeight(20);
+            price.setMinWidth(30);
             roomEntry.getChildren().addAll(roomTitle, capacity, price, removeRoom);
             roomEntry.setSpacing(10);
             roomsVB.getChildren().add(roomEntry);
+
+            removeRoom.setOnAction((evt) -> {
+                tripPackage.removeRoom(r);
+                updateAvailableRooms(roomSelector);
+                updateRoomList(roomSelector);
+            });
         }
     }
 
@@ -364,7 +381,9 @@ public class BookingUiController {
 
     private boolean roomInList(Room room, ArrayList<Room> newList) {
         for(Room r : newList) {
-            if(r.getRoomType().equals(room.getRoomType()) && r.getPrice() == room.getPrice()) return true;
+            if(r.getRoomType().equals(room.getRoomType()) && r.getPrice() == room.getPrice() && r.getCap() == room.getCap()) {
+                return true;
+            }
         }
         return false;
     }
@@ -393,6 +412,7 @@ public class BookingUiController {
             bookRoot.getChildren().setAll(resultRoot);
             searchUiController.setUser(user);
             searchUiController.setSearchResult(searchResult);
+            customPackage.clearRooms();
             searchUiController.setCustomPackage(customPackage);
             searchUiController.searchButtonClicked();
         } catch (IOException e) {

@@ -121,4 +121,8 @@ public class TripPackage extends SearchResult{
     public double getPrice() {
         return price;
     }
+
+    public void clearRooms() {
+        rooms.clear();
+    }
 }
