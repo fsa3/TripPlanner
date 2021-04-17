@@ -381,7 +381,9 @@ public class BookingUiController {
 
     private boolean roomInList(Room room, ArrayList<Room> newList) {
         for(Room r : newList) {
-            if(r.getRoomType().equals(room.getRoomType()) && r.getPrice() == room.getPrice()) return true;
+            if(r.getRoomType().equals(room.getRoomType()) && r.getPrice() == room.getPrice() && r.getCap() == room.getCap()) {
+                return true;
+            }
         }
         return false;
     }
@@ -410,6 +412,7 @@ public class BookingUiController {
             bookRoot.getChildren().setAll(resultRoot);
             searchUiController.setUser(user);
             searchUiController.setSearchResult(searchResult);
+            customPackage.clearRooms();
             searchUiController.setCustomPackage(customPackage);
             searchUiController.searchButtonClicked();
         } catch (IOException e) {
