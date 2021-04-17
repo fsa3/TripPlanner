@@ -15,13 +15,16 @@ public class SearchController {
 
     public void createTripPackages() {
         TripPackage package1 = new TripPackage("Best Value", searchResult);
-        package1.bestValue();
+        package1.testPackage();
         TripPackage package2 = new TripPackage("High End", searchResult);
-        package1.highEnd();
+        package2.testPackage();
+        TripPackage package3 = new TripPackage("Luxury", searchResult);
+        package3.testPackage();
 
         tPackages = new ArrayList<>();
         tPackages.add(package1);
-        //tPackages.add(package2);
+        tPackages.add(package2);
+        tPackages.add(package3);
     }
 
     public ArrayList<TripPackage> getPackages() {

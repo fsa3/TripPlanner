@@ -238,6 +238,7 @@ public class BookingUiController {
             ComboBox<Room> roomType = new ComboBox<Room>();
             hotelHB.getChildren().add(roomType);
             updateAvailableRooms(roomType);
+            updateRoomList(roomType);
             Button addRoom = new Button("Select room");
             addRoom.getStyleClass().add("blue-button");
             hotelHB.getChildren().add(addRoom);
