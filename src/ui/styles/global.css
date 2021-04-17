@@ -171,6 +171,10 @@ Button {
     -fx-text-fill: #000000;
 }
 
+.combo-box .cell:selected {
+    -fx-text-fill: #ffffff;
+}
+
 .combo-box-base
 {
     -fx-background-color: #1E1E20;
