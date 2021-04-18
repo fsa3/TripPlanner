@@ -284,6 +284,10 @@ public class BookingUiController {
                 Button seatIn = new Button("Seat");
                 flightInSeat.getChildren().addAll(seatIn, createSpacer());
                 seatIn.getStyleClass().add("blue-button");
+
+                seatIn.setOnAction((evt) -> {
+                    pickSeat(tripPackage.getOutFlights().get(0), seatIn);
+                });
             }
             if(!tripPackage.getOutFlights().isEmpty() || !tripPackage.getInFlights().isEmpty()) {
                 CheckBox luggage = new CheckBox();
@@ -317,11 +321,19 @@ public class BookingUiController {
                 Button seatOut = new Button("Seat");
                 flightOutSeatC.getChildren().addAll(seatOut, createSpacer());
                 seatOut.getStyleClass().add("blue-button");
+
+                seatOut.setOnAction((evt) -> {
+                    pickSeat(tripPackage.getOutFlights().get(0), seatOut);
+                });
             }
             if(!tripPackage.getInFlights().isEmpty()) {
                 Button seatIn = new Button("Seat");
                 flightInSeatC.getChildren().addAll(seatIn, createSpacer());
                 seatIn.getStyleClass().add("blue-button");
+
+                seatIn.setOnAction((evt) -> {
+                    pickSeat(tripPackage.getOutFlights().get(0), seatIn);
+                });
             }
             if(!tripPackage.getOutFlights().isEmpty() || !tripPackage.getInFlights().isEmpty()) {
                 CheckBox luggage = new CheckBox();
