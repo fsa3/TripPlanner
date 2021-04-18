@@ -1,5 +1,8 @@
 package dayTripSystem;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class PaymentInfo {
 
     private String userID;
@@ -47,7 +50,22 @@ public class PaymentInfo {
     }
 
     public boolean validate() {
-        //todo skrifa eh sem validatear payment infoið
-        return false;
+        Pattern kortanr = Pattern.compile("\\b[0-9]{16}\\b");
+        Matcher kortanrTekk = kortanr.matcher(getCardNumber());
+        boolean kortnrTF = kortanrTekk.find();
+        Pattern cvvReg = Pattern.compile("\\b([0-9]{3})\\b");
+        Matcher cvvTekk = cvvReg.matcher(getCvv());
+        boolean cvvTF = cvvTekk.find();
+        Pattern expDate = Pattern.compile("[0-9]+");
+        Matcher expDateTekk = expDate.matcher(getExpDate());
+        boolean expDateTF = expDateTekk.find();
+
+        if(kortnrTF && cvvTF && expDateTF) {
+            return true;
+        }
+
+        else{
+            return false;
+        }
     }
 }
