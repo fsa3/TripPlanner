@@ -2,6 +2,7 @@ package ui.controllers;
 
 import controllers.BookingController;
 import data.DataConnection;
+import dayTripSystem.PaymentInfo;
 import dayTripSystem.Trip;
 import entities.SearchResult;
 import entities.TripPackage;
@@ -85,6 +86,18 @@ public class BookingUiController {
     private VBox adultsInsuranceVB;
     @FXML
     private VBox childrenInsuranceVB;
+    @FXML
+    private TextField paymentName;
+    @FXML
+    private TextField cardNum;
+    @FXML
+    private TextField expiryMonth;
+    @FXML
+    private TextField expiryYear;
+    @FXML
+    private TextField cvv;
+    @FXML
+    private Label paymentError;
 
     private ArrayList<DatePicker> dayTripDatesDP = new ArrayList<>();
 
@@ -258,7 +271,6 @@ public class BookingUiController {
                     tripPrice.setText(newTrip.getPrice() + "$");
                 }
                 else dayChooser.setValue(oldDate);
-                System.out.println(tripPackage);
             }));
             dayTripDatesDP.add(dayChooser);
             dayChooser.setPrefHeight(10);
@@ -502,9 +514,16 @@ public class BookingUiController {
             openLogin();
             return;
         }
-        BookingController bookingController = new BookingController(tripPackage, user, searchResult);
-        ArrayList<Passenger> passengers = getPassengers();
-        bookingController.setPassengers(passengers);
+        PaymentInfo paymentInfo = new PaymentInfo("-1", expiryMonth.getText()+"/"+expiryYear.getText().substring(2), cardNum.getText(), cvv.getText());
+        if(!paymentInfo.validate()) {
+            paymentError.setText("Payment error"); // todo setja réttan texta hér
+            return;
+        }
+        BookingController bookingController = new BookingController(tripPackage, user, searchResult, paymentInfo);
+        if(!tripPackage.getOutFlights().isEmpty() || !tripPackage.getInFlights().isEmpty()) {
+            ArrayList<Passenger> passengers = getPassengers();
+            bookingController.setPassengers(passengers);
+        }
         bookingController.bookPackage();
         goBackToSearch();
         openUserBookings();
