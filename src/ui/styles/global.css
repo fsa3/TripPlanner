@@ -94,7 +94,7 @@ Button {
 .date-picker-popup > * > .selected {
     -fx-background-color: #ff8c00;
 }
-
+.date-picker-popup > * > .
 .date-picker-popup > * > .day-name-cell,
 .date-picker-popup > * > .week-number-cell {
     -fx-background-color: #343434;
@@ -219,6 +219,9 @@ Button {
 .rrHyperlink{
     -fx-text-fill: #0D7377;
 }
-.veljaSaetiGrid{
-
+.prev-selected-seat{
+    -fx-background-color: dark blue;
+}
+.prev-selected-seat:disabled {
+    background: dark blue;
 }
