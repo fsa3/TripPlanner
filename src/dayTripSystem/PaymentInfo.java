@@ -9,12 +9,14 @@ public class PaymentInfo {
     private String expDate;
     private String cardNumber;
     private String cvv;
+    private String paymentName;
 
-    public PaymentInfo(String userID, String expDate, String cardNumber, String ccv) {
+    public PaymentInfo(String userID, String expDate, String cardNumber, String ccv, String paymentName) {
         this.userID = userID;
         this.expDate = expDate;
         this.cardNumber = cardNumber;
         this.cvv = ccv;
+        this.paymentName = paymentName;
     }
 
     public String getUserID() {
@@ -49,6 +51,10 @@ public class PaymentInfo {
         this.cvv = cvv;
     }
 
+    public String getPaymentName() {
+        return paymentName;
+    }
+
     public boolean validate() {
         Pattern kortanr = Pattern.compile("\\b[0-9]{16}\\b");
         Matcher kortanrTekk = kortanr.matcher(getCardNumber());
@@ -59,8 +65,11 @@ public class PaymentInfo {
         Pattern expDate = Pattern.compile("[0-9]+");
         Matcher expDateTekk = expDate.matcher(getExpDate());
         boolean expDateTF = expDateTekk.find();
+        Pattern kortNafn = Pattern.compile("([A-Za-z áæóíúýþöÁÆÓÍÚÞÖðé]+)\\s([A-Za-z áæóíúýþöÁÆÓÍÚÞÖðé]+)");
+        Matcher kortNafnTekk = kortNafn.matcher(getPaymentName());
+        boolean kortNafnTF = kortNafnTekk.find();
 
-        if(kortnrTF && cvvTF && expDateTF) {
+        if(kortnrTF && cvvTF && expDateTF && kortNafnTF) {
             return true;
         }
 

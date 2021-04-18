@@ -515,10 +515,10 @@ public class BookingUiController {
             openLogin();
             return;
         }
-        PaymentInfo paymentInfo = new PaymentInfo("-1", expiryMonth.getText()+"/"+expiryYear.getText().substring(2), cardNum.getText(), cvv.getText());
+        PaymentInfo paymentInfo = new PaymentInfo("-1", expiryMonth.getText()+"/"+expiryYear.getText().substring(2), cardNum.getText(), cvv.getText(), paymentName.getText());
         if(!paymentInfo.validate()) {
             paymentError.setText("Payment error"); // todo setja réttan texta hér
-            //return; todo taka út
+            return;
         }
         BookingController bookingController = new BookingController(tripPackage, user, searchResult, paymentInfo);
         if(!tripPackage.getOutFlights().isEmpty() || !tripPackage.getInFlights().isEmpty()) {
