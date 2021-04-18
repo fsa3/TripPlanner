@@ -18,12 +18,12 @@ public class DataFactory implements Database {
     @Override
     public ArrayList<Flight> getFlights(String depCity, String destCity, LocalDate date) {
         ArrayList<Flight> flights = new ArrayList<>();
-        flights.add(new Flight(69, "FN-6969", new Airport(0, "flugv", depCity+" Airport", depCity), new Airport(1, "flugv", destCity+" Airport", destCity), LocalDateTime.of(2020, 3, 18, 7, 36), LocalDateTime.of(2020, 3, 18, 10, 36), null));
-        flights.add(new Flight(70, "FN-6965", new Airport(0, "flugv", depCity+" Airport", depCity), new Airport(1, "flugv", destCity+" Airport", destCity), LocalDateTime.of(2020, 3, 18, 7, 36), LocalDateTime.of(2020, 3, 18, 10, 36), null));
-        flights.add(new Flight(71, "FN-6513", new Airport(0, "flugv", depCity+" Airport", depCity), new Airport(1, "flugv", destCity+" Airport", destCity), LocalDateTime.of(2020, 3, 18, 7, 36), LocalDateTime.of(2020, 3, 18, 10, 36), null));
-        flights.add(new Flight(72, "FN-6513", new Airport(0, "flugv", depCity+" Airport", depCity), new Airport(1, "flugv", destCity+" Airport", destCity), LocalDateTime.of(2020, 3, 18, 7, 36), LocalDateTime.of(2020, 3, 18, 10, 36), null));
-        flights.add(new Flight(73, "FN-0015", new Airport(0, "flugv", depCity+" Airport", depCity), new Airport(1, "flugv", destCity+" Airport", destCity), LocalDateTime.of(2020, 3, 18, 7, 36), LocalDateTime.of(2020, 3, 18, 10, 36), null));
-        flights.add(new Flight(74, "FN-8462", new Airport(0, "flugv", depCity+" Airport", depCity), new Airport(1, "flugv", destCity+" Airport", destCity), LocalDateTime.of(2020, 3, 18, 7, 36), LocalDateTime.of(2020, 3, 18, 10, 36), null));
+        flights.add(new Flight(69, "FN-6969", new Airport(0, "flugv", depCity+" Airport", depCity), new Airport(1, "flugv", destCity+" Airport", destCity), LocalDateTime.of(2020, 3, 18, 7, 36), LocalDateTime.of(2020, 3, 18, 10, 36), null, 100));
+        flights.add(new Flight(70, "FN-6965", new Airport(0, "flugv", depCity+" Airport", depCity), new Airport(1, "flugv", destCity+" Airport", destCity), LocalDateTime.of(2020, 3, 18, 7, 36), LocalDateTime.of(2020, 3, 18, 10, 36), null, 100));
+        flights.add(new Flight(71, "FN-6513", new Airport(0, "flugv", depCity+" Airport", depCity), new Airport(1, "flugv", destCity+" Airport", destCity), LocalDateTime.of(2020, 3, 18, 7, 36), LocalDateTime.of(2020, 3, 18, 10, 36), null, 100));
+        flights.add(new Flight(72, "FN-6513", new Airport(0, "flugv", depCity+" Airport", depCity), new Airport(1, "flugv", destCity+" Airport", destCity), LocalDateTime.of(2020, 3, 18, 7, 36), LocalDateTime.of(2020, 3, 18, 10, 36), null, 100));
+        flights.add(new Flight(73, "FN-0015", new Airport(0, "flugv", depCity+" Airport", depCity), new Airport(1, "flugv", destCity+" Airport", destCity), LocalDateTime.of(2020, 3, 18, 7, 36), LocalDateTime.of(2020, 3, 18, 10, 36), null, 100));
+        flights.add(new Flight(74, "FN-8462", new Airport(0, "flugv", depCity+" Airport", depCity), new Airport(1, "flugv", destCity+" Airport", destCity), LocalDateTime.of(2020, 3, 18, 7, 36), LocalDateTime.of(2020, 3, 18, 10, 36), null, 100));
         return flights;
     }
 

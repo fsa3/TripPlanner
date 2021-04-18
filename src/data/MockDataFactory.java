@@ -14,7 +14,7 @@ public class MockDataFactory implements Database{
     @Override
     public ArrayList<Flight> getFlights(String depCity, String destCity, LocalDate date) {
         ArrayList<Flight> flights = new ArrayList<>();
-        flights.add(new Flight(69, "FN-6969", new Airport(0, "Rey", "Reykjavík Airport", "Reykjavík"), new Airport(1, "AK", "Akureyri Airport", "Akureyri"), LocalDateTime.of(2020, 3, 18, 7, 36), LocalDateTime.of(2020, 3, 18, 10, 36), null));
+        flights.add(new Flight(69, "FN-6969", new Airport(0, "Rey", "Reykjavík Airport", "Reykjavík"), new Airport(1, "AK", "Akureyri Airport", "Akureyri"), LocalDateTime.of(2020, 3, 18, 7, 36), LocalDateTime.of(2020, 3, 18, 10, 36), null, 100));
         return flights;
     }
 
