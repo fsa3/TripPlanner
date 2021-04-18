@@ -198,7 +198,7 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField promptText="Full Name">
+                  <TextField fx:id="paymentName" promptText="Full Name">
                      <VBox.margin>
                         <Insets bottom="25.0" />
                      </VBox.margin>
@@ -208,7 +208,7 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField promptText="xxxx xxxx xxxx xxxx">
+                  <TextField fx:id="cardNum" promptText="xxxx xxxx xxxx xxxx">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
@@ -225,7 +225,7 @@
                   </HBox>
                   <HBox prefHeight="28.0" prefWidth="302.0">
                      <children>
-                        <TextField prefHeight="25.0" prefWidth="95.0" promptText="12">
+                        <TextField fx:id="expiryMonth" prefHeight="25.0" prefWidth="95.0" promptText="12">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -233,7 +233,7 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </TextField>
-                        <TextField prefHeight="25.0" prefWidth="95.0" promptText="2021">
+                        <TextField fx:id="expiryYear" prefHeight="25.0" prefWidth="95.0" promptText="2021">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -241,7 +241,7 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </TextField>
-                        <TextField prefHeight="25.0" prefWidth="100.0" promptText="253" />
+                        <TextField fx:id="cvv" prefHeight="25.0" prefWidth="100.0" promptText="253" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="10.0" />
@@ -265,6 +265,7 @@
                </font>
             </Button>
             <Button layoutX="325.0" layoutY="540.0" mnemonicParsing="false" onAction="#goBackToSearchResult" styleClass="back-button" text="Back" />
+            <Label fx:id="paymentError" alignment="CENTER" layoutX="42.0" layoutY="378.0" prefHeight="15.0" prefWidth="292.0" textAlignment="CENTER" />
          </children>
       </AnchorPane>
    </children>
