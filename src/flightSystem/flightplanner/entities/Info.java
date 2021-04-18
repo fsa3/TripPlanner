@@ -96,4 +96,9 @@ public class Info {
         }
         return false;
     }
+
+    public void clearSeatLists() {
+        selectedSeatsOut.clear();
+        selectedSeatsIn.clear();
+    }
 }

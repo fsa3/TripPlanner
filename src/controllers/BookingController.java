@@ -1,6 +1,9 @@
 package controllers;
 
 import data.DataConnection;
+import dayTripSystem.Account;
+import dayTripSystem.PaymentInfo;
+import dayTripSystem.Trip;
 import entities.*;
 import flightSystem.flightplanner.entities.Passenger;
 import hotelSystem.controllers.AccommodationBookingController;
@@ -18,12 +21,14 @@ public class BookingController {
     private User user;
     private SearchResult searchResult;
     private int bookingId;
+    private PaymentInfo paymentInfo;
     private ArrayList<Passenger> passengers;
 
-    public BookingController(TripPackage tPackage, User user, SearchResult searchResult) {
+    public BookingController(TripPackage tPackage, User user, SearchResult searchResult, PaymentInfo paymentInfo) {
         this.tPackage = tPackage;
         this.user = user;
         this.searchResult = searchResult;
+        this.paymentInfo = paymentInfo;
         bookingId = Integer.parseInt(String.valueOf(new Date().getTime()).substring(10) + user.getSsNum().substring(5));
         System.out.println(bookingId);
     }
@@ -60,12 +65,16 @@ public class BookingController {
                 bookings.add(hotelBooking);
             }
         }
-        for(int i = 0; i < tPackage.getDayTrips().toArray().length; i++) {
-            /*DayTripBooking dtBooking = new DayTripBooking(tPackage.getDayTrips().get(i), dayTripDates.get(i), bookingId, user);
-            DataConnection dc = new DataConnection();
-            dc.createDayTripBooking(dtBooking);
-            dc.closeConnection();
-            bookings.add(dtBooking);*/
+        for(Trip t : tPackage.getDayTrips()) {
+            DayTripBooking dtBooking = new DayTripBooking(t, DataConnection.utilDateToLocalDate(t.getDate()), bookingId, user);
+            Account dayTripAccount = new Account("-1", user.getFirstName(), user.getLastName(), user.getPassword(), user.getEmail(), user.getPhoneNumber(), paymentInfo, null);
+            dayTripSystem.Booking dayTripSystemBooking = new dayTripSystem.Booking(t, dayTripAccount, true/*todo setja pickup valmöguleika?*/, 0, false, tPackage.getNumAdults()+tPackage.getNumChildren());
+            if(dayTripSystemBooking.book()) {
+                DataConnection dc = new DataConnection();
+                dc.createDayTripBooking(dtBooking);
+                dc.closeConnection();
+                bookings.add(dtBooking);
+            }
         }
     }
 

@@ -45,4 +45,9 @@ public class PaymentInfo {
     public void setCvv(String cvv) {
         this.cvv = cvv;
     }
+
+    public boolean validate() {
+        //todo skrifa eh sem validatear payment infoið
+        return false;
+    }
 }

@@ -193,7 +193,11 @@ public class SearchResult {
             ObservableList<Trip> trips = dayTripSearchController.getTripsByDestinationAndDate(destCity, DataConnection.localDateToUtilDate(date));
             dayTrips.addAll(trips);
         }
-
+        ArrayList<Trip> dayTripsToRemove = new ArrayList<>();
+        for(Trip t : dayTrips) {
+            if(t.getCapacity() < numAdults+numChildren) dayTripsToRemove.add(t);
+        }
+        dayTrips.removeAll(dayTripsToRemove); // todo ekki hugmynd hvort þetta virkar??
     }
 
     private ArrayList<LocalDate> getDateRange(LocalDate start, LocalDate end) {
