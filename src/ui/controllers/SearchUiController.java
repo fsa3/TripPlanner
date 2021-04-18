@@ -141,8 +141,8 @@ public class SearchUiController implements Initializable {
             sceneRoot.getChildren().setAll(resultRoot);
 
             // todo sækja uppsl úr inputtum og smíða search result með því
-            searchResult = new SearchResult(LocalDate.of(2021, 4, 6),
-                    LocalDate.of(2021, 4, 8),
+            searchResult = new SearchResult(LocalDate.of(2021, 5, 6),
+                    LocalDate.of(2021, 5, 8),
                     "Akureyri", "Reykjavík", 4, 1
             );
             searchResult.search();

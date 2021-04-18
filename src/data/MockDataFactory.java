@@ -27,7 +27,7 @@ public class MockDataFactory implements Database{
     @Override
     public ArrayList<Trip> getDayTrips(String city) {
         ArrayList<Trip> dayTrips = new ArrayList<>();
-        dayTrips.add(new Trip("-1", city, DataConnection.localDateToDate(LocalDate.of(2021,3,26)), "", 30, 0, false, "Kúrstund at Fannar's Room", null, 30, false, 0/*todo setja verð*/));
+        dayTrips.add(new Trip("-1", city, DataConnection.localDateToDate(LocalDate.of(2021,3,26)), "", 30, 0, false, "Kúrstund at Fannar's Room", null,  false, 0/*todo setja verð*/));
         return dayTrips;
     }
 

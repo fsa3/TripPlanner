@@ -5,7 +5,15 @@ package dayTripSystem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Random;
+
+//import javafx.collections.ObservableList;
+
+//import javafx.collections.ObservableList;
 
 public class Database {
     private ObservableList<Trip> allTrips;
@@ -14,12 +22,13 @@ public class Database {
     //private ObservableList<PaymentInfo> allPaymentInfo;
 
     private static Database DBSingleton = null;
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    private static final Date invalidDate = new Date(0);
 
     private Database() {
         this.allTrips = getTrip();
         this.allAccounts = getAccount();
         this.allBookings = getBooking();
-        GenerateData();
         //this.allPaymentInfo = getPaymentInfo();
     }
 
@@ -38,29 +47,36 @@ public class Database {
     //Notkun GenerateData();
     //Fyrir: Ekkert
     //Eftir: Gögn verda til i Database klasanum
-    public void GenerateData() {
+    public void generateData() {
 
         //Buum til TripData
-        String[] stadsetning = {"Reykjavík", "Akureyri", "Egilsstadir", "Isafjordur"};
+        String[] stadsetning = {"Reykjavík", "Akureyri", "Egilsstaðir", "Ísafjörður"};
         String[] host = {"abc@abc.com", "ballibumba@bumbuferdir.is", "visiticeland@icelandtrips.is",
                 "niceland@niceland.is", "mosi@mositrips.is"};
-        //ATH????
         Date[] dags = new Date[31];
-        for(int i = 1; i <= 31; i++) {
-            dags[i-1] = new GregorianCalendar(2021, Calendar.MAY, i).getTime();
+        for (int i = 0; i < 31; i++) {
+            dags[i] = fromStringToDate(i + 1 + "/05/2021");
         }
         String[] flokkur = {"Hiking", "Sailing", "Skiing", "Biking", "City Tour"};
-        int max = 40;
-        int min = 10;
+        int max = 10;
+        int min = 3;
         int[] verd = {50, 100, 150, 200, 250, 300};
 
         // For lykkja sem byr til 30 random Trip hluti
-        for(int j = 0; j < 31; j++) {
-            for (int i = 0; i < 8; i++) {
-                AddTrip(new Trip(String.valueOf(i), stadsetning[i % 4], dags[j],
-                        host[i % 5], max, min, false, flokkur[i % 5], null, max, false, verd[i % 6]));
+        int cnt = 0;
+        for (Date d : dags) {
+            for (String stadur : stadsetning) {
+                for (String ferd : flokkur) {
+                    if (Math.random() < 0.6) {
+                        AddTrip(new Trip(String.valueOf(cnt), stadur, d, host[cnt % 5], max, min, false, flokkur[cnt % 5], null, false, verd[cnt % 6]));
+                        cnt++;
+                    }
+                }
             }
         }
+
+        //AddTrip(new Trip(String.valueOf(i), stadsetning[i % 4], dags[i % 10],
+        //                    host[i % 5], max, min, false, flokkur[i % 5], null, max, false, verd[i % 6]));
 
 
         //Buum til AccountData:
@@ -81,7 +97,7 @@ public class Database {
         //For-lykkja sem byr til 5 Account hluti:
         for (int i = 0; i < 5; i++) {
             AddAccount(new Account(kennitala[i], fornafn[i], eftirnafn[i], lykilord[i], netfang[i],
-                    simi[i], kortaupp[i], /*kerra[i]*/null));
+                    simi[i], kortaupp[i], null));
         }
 
 
@@ -89,13 +105,21 @@ public class Database {
         float[] afslattur = {100, 10, 20};
         int[] saeti = {1, 2, 3, 4};
         Random rn = new Random();
-/*
+
         //For-lykkja sem byr til 30 random bokanir:
-        for (int i = 0; i < 30; i++) {
+       /* for (int i = 0; i < 30; i++) {
             AddBooking(new Booking(allTrips.get(i), allAccounts.get(i), rn.nextBoolean(),
                     afslattur[i % 3], rn.nextBoolean(), saeti[i % 4]));
+        }*/
+
+    }
+
+    private Date fromStringToDate(String s) {
+        try {
+            return sdf.parse(s);
+        } catch (ParseException e) {
+            return invalidDate;
         }
-*/
     }
 
     public void AddTrip(Trip t) {
@@ -183,10 +207,25 @@ public class Database {
     }
 
     public static void main(String[] args) {
-        Database db = Database.getInstance();
-        for(Trip t : db.allTrips) {
+        Database data = Database.getInstance();
+        data.generateData();
+        for (Trip t : data.getAllTrips()) {
             System.out.println(t.toString());
         }
-    }
+        Account adgangur = data.getAllAccounts().get(0);
+        adgangur.setPayInfo(new PaymentInfo(adgangur.getUserID(), "08/22", "1111222255556666", "808"));
+        Trip triptobook = data.getAllTrips().get(0);
+        Booking bokun = new Booking(triptobook, adgangur, true, 10, true, 10);
+        if (bokun.book()) {
+            System.out.println("Booking confirmed");
+        } else
+            System.out.println("Booking failed");
 
+
+        Booking bokun2 = new Booking(triptobook, adgangur, true, 10, true, 50);
+        if (bokun2.book()) {
+            System.out.println("Booking confirmed");
+        } else
+            System.out.println("Booking failed");
+    }
 }

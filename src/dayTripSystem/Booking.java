@@ -21,6 +21,7 @@ public class Booking {
         this.discount = discount;
         this.paymentConfirmed = paymentConfirmed;
         this.nmbRes = nmbRes;
+        this.paymentInfo = accountUnit.getPayInfo();
     }
 
     public Trip getTripUnit() {
@@ -31,21 +32,21 @@ public class Booking {
         return this.accountUnit;
     }
 
-    /*public float setPrice(float f) {
-        f = price;
-        return f;
-    }*/
-
     public float setDiscount(float f) {
         float price = tripUnit.getPrice();
         return (f / 100) * price;
     }
 
-    public void setNmbRes(int t) {
-        //Event listener her ?
-        if (tripUnit.getIsFullyBooked()) {
-            tripUnit.setCapacity(tripUnit.getCapacity() - t);
-        } else System.out.println("Sold Out");
+    //tekur frá pláss í ferðinni, minnkar capacity
+    //skilar true ef það tóks, false ef það voru ekki nægilega mörg laus pláss
+    public boolean reserveSpot() {
+        if (nmbRes > tripUnit.getCapacity()) {
+            return false;
+        }
+        if (!tripUnit.getIsFullyBooked()) {
+            tripUnit.setCapacity(tripUnit.getCapacity() - nmbRes);
+            return true;
+        } else return false;
     }
 
     public int getNmbRes() {
@@ -59,7 +60,7 @@ public class Booking {
 
     }*/
 
-    public boolean setPaymentConfirmed() {
+    public boolean isPaymentConfirmed() {
         String regex = "^[0-9]{3}$";
         Pattern p = Pattern.compile(regex);
         String str = paymentInfo.getCvv();
@@ -79,5 +80,9 @@ public class Booking {
         return false;
     }
 
+    //Bókar ferð, skilar true ef það tókst
+    public boolean book() {
+        return isPaymentConfirmed() && reserveSpot();
+    }
 
 }
