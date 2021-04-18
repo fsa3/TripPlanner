@@ -9,7 +9,7 @@ public class Account {
     private String password;
     private String email;
     private String phoneNumber;
-    private PaymentInfo payInfo;// = new PaymentInfo(); //meikar þetta sens hér?
+    private PaymentInfo payInfo;
     private ArrayList cart;
 
 
@@ -25,10 +25,6 @@ public class Account {
         this.payInfo = payInfo;
         this.cart = cart;
 
-    }
-
-    public Account(PaymentInfo payInfo) {
-        this.payInfo = payInfo;
     }
 
     public String getUserID() {

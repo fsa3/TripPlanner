@@ -22,7 +22,7 @@ public class Trip {
 
     public Trip(String tripID, String destination, Date date, String hostEmail,
                 int maxReservations, int minReservations, boolean isFullyBooked,
-                String category, BufferedImage schedule, int capacity,
+                String category, BufferedImage schedule,
                 boolean canceledTrip, int price) {
         this.tripID = tripID;
         this.destination = destination;
@@ -33,7 +33,7 @@ public class Trip {
         this.isFullyBooked = isFullyBooked;
         this.category = category;
         this.schedule = schedule;
-        this.capacity = capacity;
+        this.capacity = maxReservations;
         this.canceledTrip = canceledTrip;
         this.price = price;
     }
@@ -115,11 +115,10 @@ public class Trip {
     }
 
     public void setCapacity(int capacity) {
-        if (capacity < maxReservations) {
-            isFullyBooked = false;
-            this.capacity = capacity;
-        } else isFullyBooked = true;
-        this.capacity = 0;
+        this.capacity = capacity;
+        if (this.capacity <= 0) {
+            isFullyBooked = true;
+        }
     }
 
     public boolean isCanceledTrip() {

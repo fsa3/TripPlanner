@@ -23,7 +23,7 @@ public class TripController {
 
     // Geyma aðeins
     public Trip createTrip(String tripID, String destination, Date date, String hostEmail, int maxReservations, int minReservations, boolean isFullyBooked, String category, BufferedImage schedule, int capacity, boolean canceledTrip, int price) {
-        trip = new Trip(tripID, destination, date, hostEmail, maxReservations, minReservations, isFullyBooked, category, schedule, capacity, canceledTrip, price);
+        trip = new Trip(tripID, destination, date, hostEmail, maxReservations, minReservations, isFullyBooked, category, schedule, canceledTrip, price);
         return trip;
     }
 
