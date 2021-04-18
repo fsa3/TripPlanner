@@ -79,11 +79,11 @@ public class saetavalController implements Initializable {
                 if (e.isBooked()) {
                     btn.setStyle("-fx-background-color: Red");
                 } else {
-                    btn.setStyle("-fx-background-color: Lightblue");
+                    btn.setStyle("-fx-background-color: #0D7377");
                 }
                 btn.setOnAction(event -> {
                     if ("-fx-background-color: Green".equals(btn.getStyle())) {
-                        btn.setStyle("-fx-background-color: Lightblue");
+                        btn.setStyle("-fx-background-color: #0D7377");
                         information.setSeat(null);
                     } else {
                         Seat oldSeat = information.getSeat();
@@ -94,7 +94,7 @@ public class saetavalController implements Initializable {
                             oldcol = oldcol - 65;
                             int oldrow = Integer.parseInt(oldseatNum.substring(0, oldseatNum.length() - 1)) - 1;
                             Node node = getNodeFromGridPane(gridPane, oldcol, oldrow);
-                            if (node != null) node.setStyle("-fx-background-color: Lightblue");
+                            if (node != null) node.setStyle("-fx-background-color: #0D7377");
                         }
                         try {
                             information.setSeat(connection.getSeat(information.getFlight().getID(), btn.getText()));
