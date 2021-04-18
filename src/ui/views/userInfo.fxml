@@ -3,17 +3,15 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -59,7 +57,7 @@
                               <Insets bottom="23.5" top="12.0" />
                            </VBox.margin>
                         </Label>
-                        <Label text="First Name:" textFill="#f5f5f5">
+                        <Label text="First Name" textFill="#f5f5f5">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -80,35 +78,36 @@
                               <Font size="14.0" />
                            </font>
                            <VBox.margin>
-                              <Insets bottom="15.0" />
+                              <Insets bottom="23.5" />
                            </VBox.margin>
                         </Label>
-                        <Label layoutX="24.0" layoutY="142.0" prefWidth="49.0" text="Favorite" textFill="#f5f5f5">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="24.0" layoutY="182.0" text="Activity" textFill="#f5f5f5">
+                        <Label text="yolo heh" textFill="#f5f5f5">
                            <font>
                               <Font size="14.0" />
                            </font>
                            <VBox.margin>
-                              <Insets bottom="13.0" />
+                              <Insets bottom="23.5" />
                            </VBox.margin>
                         </Label>
-                        <Label layoutX="42.0" layoutY="198.0" text="Min Hotel" textFill="#f5f5f5">
+                        <Label text="blablabla" textFill="#f5f5f5">
                            <font>
                               <Font size="14.0" />
                            </font>
+                           <VBox.margin>
+                              <Insets bottom="23.5" />
+                           </VBox.margin>
                         </Label>
-                        <Label layoutX="42.0" layoutY="214.0" text="Rating" textFill="#f5f5f5">
+                        <Label layoutX="31.0" layoutY="200.0" text="blablabla" textFill="#f5f5f5">
                            <font>
                               <Font size="14.0" />
                            </font>
+                           <VBox.margin>
+                              <Insets bottom="23.5" />
+                           </VBox.margin>
                         </Label>
                      </children>
                   </VBox>
-                  <VBox fx:id="inputs" layoutX="80.0" layoutY="61.0" prefHeight="264.0" prefWidth="178.0">
+                  <VBox fx:id="inputs" layoutX="80.0" layoutY="61.0" prefHeight="277.0" prefWidth="178.0">
                      <children>
                         <TextField fx:id="emailInput" accessibleText="email" style="-fx-background-color: #393939;">
                            <font>
@@ -142,17 +141,27 @@
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </TextField>
-                        <ComboBox prefHeight="30.0" prefWidth="178.0" styleClass="comboboxUser">
+                        <TextField accessibleText="social security number" layoutX="10.0" layoutY="162.0" style="-fx-background-color: #393939;">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                        <TextField accessibleText="social security number" prefWidth="178.0" style="-fx-background-color: #393939;">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
                            <VBox.margin>
-                              <Insets bottom="18.0" />
+                              <Insets top="10.0" />
                            </VBox.margin>
-                        </ComboBox>
-                        <HBox prefHeight="28.0" prefWidth="178.0">
-                           <children>
-                              <Slider prefHeight="14.0" prefWidth="169.0" />
-                              <Label prefHeight="15.0" prefWidth="16.0" text="0" />
-                           </children>
-                        </HBox>
+                        </TextField>
+                        <TextField accessibleText="social security number" prefWidth="178.0" style="-fx-background-color: #393939;">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </TextField>
                      </children>
                   </VBox>
                   <Label layoutX="423.0" layoutY="154.0" prefHeight="32.0" prefWidth="151.0" styleClass="userlabel" text="Change your password" textFill="WHITE">
@@ -187,6 +196,7 @@
                      </cursor>
                   </Button>
                   <Label fx:id="changeSuccessful" layoutX="265.0" layoutY="357.0" prefHeight="17.0" prefWidth="159.0" />
+                  <CheckBox layoutX="269.0" layoutY="307.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="75.0" text="NSFW?" textFill="#fbfbfb" />
                </children>
             </AnchorPane>
             <VBox id="userl" alignment="TOP_RIGHT" layoutX="461.0" layoutY="83.0" prefHeight="135.0" prefWidth="136.0" styleClass="userlabel">
