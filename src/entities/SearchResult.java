@@ -190,7 +190,7 @@ public class SearchResult {
         dayTrips = new ArrayList<>();
         for(LocalDate date : getDateRange(startDate, endDate)) {
             SearchController dayTripSearchController = new SearchController();
-            ObservableList<Trip> trips = dayTripSearchController.getTripsByDestinationAndDate(depCity, DataConnection.localDateToUtilDate(date));
+            ObservableList<Trip> trips = dayTripSearchController.getTripsByDestinationAndDate(destCity, DataConnection.localDateToUtilDate(date));
             dayTrips.addAll(trips);
         }
 
