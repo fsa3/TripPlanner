@@ -3,6 +3,7 @@ package data;
 import entities.DayTripBooking;
 import entities.HotelBooking;
 import entities.User;
+import flightSystem.flightplanner.data.FlDataConnection;
 import hotelSystem.entities.Accommodation;
 import hotelSystem.entities.Room;
 import hotelSystem.storage.DatabaseConnection;
@@ -51,8 +52,10 @@ public class DataConnection {
         String lastName = rs.getString(4);
         String phoneNum = rs.getString(5);
         String ssNum = rs.getString(6);
+        int id = rs.getInt(7);
         getUser.close();
-        return new User(userEmail, firstName, lastName, userPw, phoneNum, ssNum);
+        System.out.println("user id "+id);
+        return new User(userEmail, firstName, lastName, userPw, phoneNum, ssNum, id);
     }
 
     private void databaseError() {
@@ -75,18 +78,38 @@ public class DataConnection {
     }
 
     public void createUser(ArrayList<String> userInfo) {
-        String query = "INSERT INTO Users(email, password, firstName, lastName, phoneNumber, ssNum) values(?,?,?,?,?,?)";
+        int id = createFlightUser(userInfo);
+        String query = "INSERT INTO Users(email, password, firstName, lastName, phoneNumber, ssNum, id) values(?,?,?,?,?,?,?)";
         try {
             PreparedStatement createUser = connection.prepareStatement(query);
             for(int i = 0; i < 6; i++) {
                 createUser.setString(i+1, userInfo.get(i));
             }
+            createUser.setInt(7, id);
             createUser.executeUpdate();
             createUser.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             databaseError();
         }
+    }
+
+    private int createFlightUser(ArrayList<String> userInfo) {
+        flightSystem.flightplanner.entities.User flightUser = new flightSystem.flightplanner.entities.User("user", -1, userInfo.get(2), userInfo.get(3), userInfo.get(5), userInfo.get(0), userInfo.get(4));
+        flightUser.setPassword(userInfo.get(1));
+        FlDataConnection flightData = FlDataConnection.getInstance();
+        try {
+            flightData.createUser(flightUser);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                flightUser = flightData.getUser(userInfo.get(0), userInfo.get(1));
+            } catch (Exception e) {
+                e.printStackTrace();
+            };
+        }
+        return flightUser.getID();
     }
 
     public void updateUser(String email, String attribute, String value) {

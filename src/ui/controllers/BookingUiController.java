@@ -10,6 +10,7 @@ import entities.User;
 import flightSystem.flightplanner.entities.Flight;
 import flightSystem.flightplanner.entities.Info;
 import flightSystem.flightplanner.entities.Passenger;
+import flightSystem.flightplanner.entities.Seat;
 import hotelSystem.entities.Accommodation;
 import hotelSystem.entities.Room;
 import javafx.beans.value.ChangeListener;
@@ -337,7 +338,7 @@ public class BookingUiController {
                 seatIn.getStyleClass().add("blue-button");
 
                 seatIn.setOnAction((evt) -> {
-                    pickSeat(tripPackage.getOutFlights().get(0), seatIn);
+                    pickSeat(tripPackage.getInFlights().get(0), seatIn);
                 });
             }
             if(!tripPackage.getOutFlights().isEmpty() || !tripPackage.getInFlights().isEmpty()) {
@@ -385,7 +386,7 @@ public class BookingUiController {
                 seatIn.getStyleClass().add("blue-button");
 
                 seatIn.setOnAction((evt) -> {
-                    pickSeat(tripPackage.getOutFlights().get(0), seatIn);
+                    pickSeat(tripPackage.getInFlights().get(0), seatIn);
                 });
             }
             if(!tripPackage.getOutFlights().isEmpty() || !tripPackage.getInFlights().isEmpty()) {
@@ -474,11 +475,11 @@ public class BookingUiController {
         return false;
     }
 
-    private void pickSeat(Flight flight, Button seatOut) {
+    private void pickSeat(Flight flight, Button seatButton) {
         Parent root = null;
         Info information = Info.getInstance();
         information.setFlight(flight);
-        information.setSeatButton(seatOut);
+        information.setSeatButton(seatButton);
         try {
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../../flightSystem/flightplanner/ui/saetaval.fxml")));
             Stage primaryStage = new Stage();
@@ -517,22 +518,78 @@ public class BookingUiController {
         PaymentInfo paymentInfo = new PaymentInfo("-1", expiryMonth.getText()+"/"+expiryYear.getText().substring(2), cardNum.getText(), cvv.getText());
         if(!paymentInfo.validate()) {
             paymentError.setText("Payment error"); // todo setja réttan texta hér
-            return;
+            //return; todo taka út
         }
         BookingController bookingController = new BookingController(tripPackage, user, searchResult, paymentInfo);
         if(!tripPackage.getOutFlights().isEmpty() || !tripPackage.getInFlights().isEmpty()) {
             ArrayList<Passenger> passengers = getPassengers();
+            ArrayList<Seat> outSeats = getOutSeats();
+            ArrayList<Seat> inSeats = getInSeats();
             bookingController.setPassengers(passengers);
+            bookingController.setOutSeats(outSeats);
+            bookingController.setInSeats(inSeats);
         }
         bookingController.bookPackage();
         goBackToSearch();
         openUserBookings();
     }
 
+    private ArrayList<Seat> getInSeats() {
+        ArrayList<Seat> seats = new ArrayList<>();
+        Info information = Info.getInstance();
+        for(int i = 0; i < tripPackage.getNumAdults(); i++) {
+            String seatNr = ((Button)flightInSeat.getChildren().get(2*i+1)).getText();
+            for(Seat s : information.getSelectedSeatsIn()){
+                if(seatNr.equals(s.getSeatNumber())) {
+                    seats.add(s);
+                    System.out.println(s.getSeatNumber());
+                }
+            }
+        }
+        for(int i = 0; i < tripPackage.getNumChildren(); i++) {
+            String seatNr = ((Button)flightInSeatC.getChildren().get(2*i)).getText();
+            for(Seat s : information.getSelectedSeatsIn()){
+                if(seatNr.equals(s.getSeatNumber())) {
+                    seats.add(s);
+                    System.out.println(s.getSeatNumber());
+                }
+            }
+        }
+        return seats;
+    }
+
+    private ArrayList<Seat> getOutSeats() {
+        ArrayList<Seat> seats = new ArrayList<>();
+        Info information = Info.getInstance();
+        for(int i = 0; i < tripPackage.getNumAdults(); i++) {
+            String seatNr = ((Button)flightOutSeat.getChildren().get(2*i+1)).getText();
+            for(Seat s : information.getSelectedSeatsOut()){
+                if(seatNr.equals(s.getSeatNumber())) {
+                    seats.add(s);
+                    System.out.println(s.getSeatNumber());
+                }
+            }
+        }
+        for(int i = 0; i < tripPackage.getNumChildren(); i++) {
+            String seatNr = ((Button)flightOutSeatC.getChildren().get(2*i)).getText();
+            for(Seat s : information.getSelectedSeatsOut()){
+                if(seatNr.equals(s.getSeatNumber())) {
+                    seats.add(s);
+                    System.out.println(s.getSeatNumber());
+                }
+            }
+        }
+        return seats;
+    }
+
     private ArrayList<Passenger> getPassengers() {
         ArrayList<Passenger> passengers = new ArrayList<>();
         for(int i = 0; i < tripPackage.getNumAdults(); i++) {
-            Passenger p = new Passenger(-1, ((TextField)adultsFirstNameVB.getChildren().get(2*i+1)).getText(), ((TextField)adultsLastNameVB.getChildren().get(2*i+1)).getText(), "", user.getEmail(), "");
+            String kennitala = "";
+            if(((TextField)adultsFirstNameVB.getChildren().get(2*i+1)).getText().equals(user.getFirstName())) {
+                kennitala = user.getSsNum();
+            }
+            Passenger p = new Passenger(-1, ((TextField)adultsFirstNameVB.getChildren().get(2*i+1)).getText(), ((TextField)adultsLastNameVB.getChildren().get(2*i+1)).getText(), kennitala, user.getEmail(), "");
             p.setLuggage(((CheckBox)adultsLuggageVB.getChildren().get(2*i+1)).isSelected());
             p.setInsurance(((CheckBox)adultsLuggageVB.getChildren().get(2*i+1)).isSelected());
             passengers.add(p);

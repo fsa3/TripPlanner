@@ -56,8 +56,8 @@ public class DataFactory implements Database {
     @Override
     public ArrayList<User> getUsers() {
         ArrayList<User> users = new ArrayList<>();
-        users.add(new User("bbm5@hi.is", "Björn Borgar", "Magnússon", "samur", "5540817", "1234"));
-        users.add(new User("ahs33@hi.is", "Ágúst Heiðar", "Sveinbjörnsson", "kallijons", "8975115", "5678"));
+        users.add(new User("bbm5@hi.is", "Björn Borgar", "Magnússon", "samur", "5540817", "1234", -1));
+        users.add(new User("ahs33@hi.is", "Ágúst Heiðar", "Sveinbjörnsson", "kallijons", "8975115", "5678", -1));
         return users;
     }
 }

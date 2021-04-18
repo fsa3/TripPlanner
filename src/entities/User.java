@@ -1,6 +1,7 @@
 package entities;
 
 public class User {
+    private int ID;
     private String email;
     private String firstName;
     private String lastName;
@@ -8,14 +9,15 @@ public class User {
     private String phoneNumber;
     private String ssNum;
 
-    public User(String email, String firstName, String lastName, String password, String phoneNumber, String ssNum) {
+    public User(String email, String firstName, String lastName, String password, String phoneNumber, String ssNum, int id) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.ssNum = ssNum;
-    }//commit test
+        this.ID = id;
+    }
 
     public String getEmail() {
         return email;
@@ -68,5 +70,9 @@ public class User {
     @Override
     public String toString() {
         return firstName + " " + lastName;
+    }
+
+    public int getId() {
+        return ID;
     }
 }

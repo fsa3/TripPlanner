@@ -556,7 +556,7 @@ public class FlDataConnection {
         getConnection();
         String insertStatement = "INSERT INTO Person "
                 + "(firstName, lastName, kennitala, email, phoneNumber, role, password)"
-                + " VALUES (?,?,?,?,?,?)";
+                + " VALUES (?,?,?,?,?,?,?)";
         PreparedStatement pstmt = conn.prepareStatement(insertStatement);
         pstmt.setString(1, user.getFirstName());
         pstmt.setString(2, user.getLastName());
