@@ -273,6 +273,7 @@ public class BookingUiController {
             adultsLastNameVB.getChildren().addAll(adultLastName, createSpacer());
             if(!tripPackage.getOutFlights().isEmpty()) {
                 Button seatOut = new Button("Seat");
+                seatOut.getStyleClass().add("seat-out-button");
                 flightOutSeat.getChildren().addAll(seatOut, createSpacer());
                 seatOut.getStyleClass().add("blue-button");
 
@@ -282,6 +283,7 @@ public class BookingUiController {
             }
             if(!tripPackage.getInFlights().isEmpty()) {
                 Button seatIn = new Button("Seat");
+                seatIn.getStyleClass().add("seat-in-button");
                 flightInSeat.getChildren().addAll(seatIn, createSpacer());
                 seatIn.getStyleClass().add("blue-button");
 
@@ -319,6 +321,7 @@ public class BookingUiController {
             childrenLastNameVB.getChildren().addAll(childLastName, createSpacer());
             if(!tripPackage.getOutFlights().isEmpty()) {
                 Button seatOut = new Button("Seat");
+                seatOut.getStyleClass().add("seat-out-button");
                 flightOutSeatC.getChildren().addAll(seatOut, createSpacer());
                 seatOut.getStyleClass().add("blue-button");
 
@@ -328,6 +331,7 @@ public class BookingUiController {
             }
             if(!tripPackage.getInFlights().isEmpty()) {
                 Button seatIn = new Button("Seat");
+                seatIn.getStyleClass().add("seat-in-button");
                 flightInSeatC.getChildren().addAll(seatIn, createSpacer());
                 seatIn.getStyleClass().add("blue-button");
 

@@ -4,6 +4,7 @@ import flightSystem.flightplanner.data.FlDataConnection;
 import flightSystem.flightplanner.entities.Info;
 import flightSystem.flightplanner.entities.Seat;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -35,12 +36,16 @@ public class saetavalController implements Initializable {
     // Inserted by T-team to integrate the seat picker UI
     public void goBack(ActionEvent event) {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        if(information.getSeat() == null) information.getSeatButton().setText("Seat");
+        information.setSeat(null);
         window.close();
     }
 
     public void confirmSelection(ActionEvent event) {
+        if(information.getSeat() == null) return;
         information.getSeatButton().setText(information.getSeat().toString());
         information.addSelectedSeat(information.getSeat());
+        information.setSeat(null);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.close();
     }
@@ -86,27 +91,13 @@ public class saetavalController implements Initializable {
                     btn.setStyle("-fx-background-color: #0D7377");
                 }
                 btn.setOnAction(event -> {
-                    if ("-fx-background-color: Green".equals(btn.getStyle())) {
-                        btn.setStyle("-fx-background-color: #0D7377");
-                        information.setSeat(null);
-                    } else {
-                        Seat oldSeat = information.getSeat();
-                        btn.setStyle("-fx-background-color: Green");
-                        if (oldSeat != null) {
-                            String oldseatNum = information.getSeat().getSeatNumber();
-                            int oldcol = oldseatNum.charAt(oldseatNum.length() - 1);
-                            oldcol = oldcol - 65;
-                            int oldrow = Integer.parseInt(oldseatNum.substring(0, oldseatNum.length() - 1)) - 1;
-                            Node node = getNodeFromGridPane(gridPane, oldcol, oldrow);
-                            if (node != null) node.setStyle("-fx-background-color: #0D7377");
-                        }
-                        try {
-                            information.setSeat(connection.getSeat(information.getFlight().getID(), btn.getText()));
-                        } catch (Exception f) {
-                            System.err.println(f.getMessage());
-                        }
-                    }
+                    seatClicked(btn);
                 });
+                if(e.getSeatNumber().equals(information.getSeatButton().getText())) {
+                    seatClicked(btn);
+                    information.removeSelectedSeat(e);
+                    btn.setDisable(false);
+                }
 
                 GridPane.setHalignment(btn, HPos.CENTER);
                 btn.setPrefWidth(50.0);
@@ -114,6 +105,29 @@ public class saetavalController implements Initializable {
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());
+        }
+    }
+
+    private void seatClicked(Button btn) {
+        if ("-fx-background-color: Green".equals(btn.getStyle())) {
+            btn.setStyle("-fx-background-color: #0D7377");
+            information.setSeat(null);
+        } else {
+            Seat oldSeat = information.getSeat();
+            btn.setStyle("-fx-background-color: Green");
+            if (oldSeat != null) {
+                String oldseatNum = information.getSeat().getSeatNumber();
+                int oldcol = oldseatNum.charAt(oldseatNum.length() - 1);
+                oldcol = oldcol - 65;
+                int oldrow = Integer.parseInt(oldseatNum.substring(0, oldseatNum.length() - 1)) - 1;
+                Node node = getNodeFromGridPane(gridPane, oldcol, oldrow);
+                if (node != null) node.setStyle("-fx-background-color: #0D7377");
+            }
+            try {
+                information.setSeat(connection.getSeat(information.getFlight().getID(), btn.getText()));
+            } catch (Exception f) {
+                System.err.println(f.getMessage());
+            }
         }
     }
 

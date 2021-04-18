@@ -1,9 +1,7 @@
 package flightSystem.flightplanner.entities;
 
-import flightSystem.flightplanner.controllers.FlightSearchController;
 import javafx.scene.control.Button;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Info {
@@ -15,7 +13,8 @@ public class Info {
     private Passenger currentPassenger;
     // T-team additions
     private Button seatButton;
-    private ArrayList<Seat> selectedSeats = new ArrayList<>();
+    private ArrayList<Seat> selectedSeatsOut = new ArrayList<>();
+    private ArrayList<Seat> selectedSeatsIn = new ArrayList<>();
     // ----------------
 
     private Info(){
@@ -71,14 +70,30 @@ public class Info {
     }
 
     public void addSelectedSeat(Seat s) {
-        selectedSeats.add(s);
+        if(seatButton.getStyleClass().contains("seat-out-button")) {
+            selectedSeatsOut.add(s);
+        }
+        if(seatButton.getStyleClass().contains("seat-in-button")) {
+            selectedSeatsIn.add(s);
+        }
     }
 
     public void removeSelectedSeat(Seat s) {
-        selectedSeats.remove(s);
+        if(seatButton.getStyleClass().contains("seat-out-button")) {
+            selectedSeatsOut.remove(s);
+        }
+        if(seatButton.getStyleClass().contains("seat-in-button")) {
+            selectedSeatsIn.remove(s);
+        }
     }
 
     public boolean isSeatSelected(Seat s) {
-        return selectedSeats.contains(s);
+        if(seatButton.getStyleClass().contains("seat-out-button")) {
+            return selectedSeatsOut.contains(s);
+        }
+        if(seatButton.getStyleClass().contains("seat-in-button")) {
+            return selectedSeatsIn.contains(s);
+        }
+        return false;
     }
 }
