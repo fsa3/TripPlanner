@@ -1,5 +1,6 @@
 package main;
 
+import dayTripSystem.Database;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,6 +11,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        // Generate the data from the D-team
+        Database tripsDatabase = Database.getInstance();
+        tripsDatabase.generateData();
+        // ------------------------------------------
+
         Parent root = FXMLLoader.load(getClass().getResource("../ui/views/searchUI.fxml"));
         primaryStage.setTitle("BookMaster");
         primaryStage.setScene(new Scene(root, 1200, 650));

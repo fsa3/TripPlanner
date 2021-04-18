@@ -50,7 +50,7 @@ public class Database {
     public void generateData() {
 
         //Buum til TripData
-        String[] stadsetning = {"Reykjavik", "Akureyri", "Egilsstadir", "Isafjordur"};
+        String[] stadsetning = {"Reykjavík", "Akureyri", "Egilsstaðir", "Ísafjörður"};
         String[] host = {"abc@abc.com", "ballibumba@bumbuferdir.is", "visiticeland@icelandtrips.is",
                 "niceland@niceland.is", "mosi@mositrips.is"};
         Date[] dags = new Date[31];

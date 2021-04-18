@@ -209,12 +209,13 @@ public class SearchResult {
     public static void main(String[] args) throws Exception {
         ArrayList<Flight> outFlights = new ArrayList<>();
         ArrayList<Flight> inFlights = new ArrayList<>();
+        ArrayList<Trip> trips = new ArrayList<>();
 
         String depCity = "Akureyri";
         String destCity = "Reykjavík";
 
-        LocalDate startDate = LocalDate.of(2021, 4, 6);
-        LocalDate endDate = LocalDate.of(2021, 4, 8);
+        LocalDate startDate = LocalDate.of(2021, 5, 6);
+        LocalDate endDate = LocalDate.of(2021, 5, 8);
 
         FlightSearchController flightSearchController = FlightSearchController.getInstance();
         ArrayList<Airport> departureAirports = flightSearchController.getAirportByCity(depCity);
@@ -225,6 +226,15 @@ public class SearchResult {
                 outFlights.addAll(flightSearchController.searchFlightsByFilter(departureAirport, destinationAirport, startDate, startDate.plusDays(1)));
                 inFlights.addAll(flightSearchController.searchFlightsByFilter(destinationAirport, departureAirport, endDate, endDate.plusDays(1)));
             }
+        }
+
+        dayTripSystem.Database db = dayTripSystem.Database.getInstance();
+        db.generateData();
+        SearchController tripsSearchController = new SearchController();
+        SearchResult searchResult = new SearchResult(null, null, null, null, 0, 0);
+        for(LocalDate date : searchResult.getDateRange(startDate, endDate)) {
+            ObservableList<Trip> tripsOnDay = tripsSearchController.getTripsByDestinationAndDate(destCity, DataConnection.localDateToUtilDate(date));
+            trips.addAll(tripsOnDay);
         }
 
         System.out.println("departure airports");
@@ -243,12 +253,11 @@ public class SearchResult {
         for(Flight f : inFlights) {
             System.out.println(f);
         }
-
-        System.out.println("Seats");
-        FlDataConnection connection = new FlDataConnection();
-        for(Seat s : connection.getSeatsForFlight(outFlights.get(0).getID())) {
-            System.out.println(s);
+        System.out.println("Day Trips");
+        for(Trip t : trips) {
+            System.out.println(t.toString());
         }
+
     }
 
 }
