@@ -19,7 +19,6 @@ public class BookingController {
     private SearchResult searchResult;
     private int bookingId;
     private ArrayList<Passenger> passengers;
-    private ArrayList<LocalDate> dayTripDates;
 
     public BookingController(TripPackage tPackage, User user, SearchResult searchResult) {
         this.tPackage = tPackage;
@@ -32,10 +31,6 @@ public class BookingController {
     public BookingController(ArrayList<Booking> bookings, User user) {
         this.bookings = bookings;
         this.user = user;
-    }
-
-    public void setDayTripDates(ArrayList<LocalDate> dayTripDates) {
-        this.dayTripDates = dayTripDates;
     }
 
     public void bookPackage() {
@@ -66,11 +61,11 @@ public class BookingController {
             }
         }
         for(int i = 0; i < tPackage.getDayTrips().toArray().length; i++) {
-            DayTripBooking dtBooking = new DayTripBooking(tPackage.getDayTrips().get(i), dayTripDates.get(i), bookingId, user);
+            /*DayTripBooking dtBooking = new DayTripBooking(tPackage.getDayTrips().get(i), dayTripDates.get(i), bookingId, user);
             DataConnection dc = new DataConnection();
             dc.createDayTripBooking(dtBooking);
             dc.closeConnection();
-            bookings.add(dtBooking);
+            bookings.add(dtBooking);*/
         }
     }
 

@@ -11,6 +11,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -387,10 +388,15 @@ public class SearchUiController implements Initializable {
         VBox dayTrips = new VBox();
         for(Trip dt : tPackage.getDayTrips()) {
             HBox dtHBox = new HBox();
+            ImageView tripIcon = new ImageView();
+            tripIcon.setImage(new Image("@../../img/"+dt.getCategory().replaceAll(" ", "")+".png"));
+            tripIcon.setFitHeight(28);
+            tripIcon.setPreserveRatio(true);
             Label dayTripLabel = new Label(dt.getCategory() + " on "+displayDate(DataConnection.utilDateToLocalDate(dt.getDate())));
-            dayTripLabel.setMaxWidth(170); // todo skoða þetta
+            //dayTripLabel.setMaxWidth(170); // todo skoða þetta
             dayTripLabel.setWrapText(true);
-            dtHBox.getChildren().add(dayTripLabel);
+            dayTripLabel.setPadding(new Insets(0,0,0,20)); // todo gerir held ég ekki neitt
+            dtHBox.getChildren().addAll(tripIcon, dayTripLabel);
             dayTrips.getChildren().add(dtHBox);
         }
         gp.add(dayTrips, 1, 1, 2, 1);

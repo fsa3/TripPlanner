@@ -27,6 +27,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -205,13 +206,27 @@ public class BookingUiController {
         }
 
         // show day trips
+        ArrayList<String> tripDisplayNames = new ArrayList<>(); // todo taka út þegar pakkar innihalda bara eitt stk af hverri tegund dagsferðar
         for(Trip dt : tripPackage.getDayTrips()) {
+            if(tripDisplayNames.contains(dt.getCategory())) continue;
             HBox dtHBox = new HBox();
+            ImageView tripIcon = new ImageView();
+            tripIcon.setImage(new Image("@../../img/"+dt.getCategory().replaceAll(" ", "")+".png"));
+            tripIcon.setFitHeight(28);
+            tripIcon.setPreserveRatio(true);
             Label tripLabel = new Label(dt.getCategory());
-            tripLabel.setPrefWidth(200);
+            tripLabel.setPrefWidth(100);
+            tripLabel.setPrefHeight(25);
+            tripLabel.setPadding(new Insets(0,0,0,10));
+            Label tripPrice = new Label(dt.getPrice() + "$");
+            tripPrice.setPrefWidth(100);
+            tripPrice.setPrefHeight(25);
+            tripPrice.setTextAlignment(TextAlignment.RIGHT);
+            tripPrice.setAlignment(Pos.CENTER_RIGHT);
+            tripPrice.setPadding(new Insets(0, 20, 0, 0));
             DatePicker dayChooser = new DatePicker();
             //todo setja dagsetningar í dayChooser
-            //dayChooser.setValue(DataConnection.utilDateToLocalDate(dt.getDate()));
+            dayChooser.setValue(DataConnection.utilDateToLocalDate(dt.getDate()));
             ArrayList<LocalDate> availableDates = new ArrayList<>();
             for(Trip resultTrip : searchResult.getDayTrips()) {
                 if(resultTrip.getCategory().equals(dt.getCategory())) {
@@ -222,13 +237,35 @@ public class BookingUiController {
                 @Override
                 public void updateItem(LocalDate item, boolean empty) {
                     super.updateItem(item, empty);
-                    //setDisable(item.isAfter(searchResult.getEndDate()) || item.isBefore(searchResult.getStartDate()));
                     setDisable(!availableDates.contains(item));
-                }});
+                }
+            });
+            dayChooser.valueProperty().addListener(((observableValue, oldDate, newDate) -> {
+                Trip oldTrip = null;
+                Trip newTrip = null;
+                for(Trip t : searchResult.getDayTrips()) {
+                    if(!t.getCategory().equals(dt.getCategory())) continue;
+                    if(DataConnection.utilDateToLocalDate(t.getDate()).equals(oldDate)) {
+                        oldTrip = t;
+                    }
+                    if(DataConnection.utilDateToLocalDate(t.getDate()).equals(newDate)) {
+                        newTrip = t;
+                    }
+                }
+                if(oldTrip != null && newTrip != null) {
+                    tripPackage.removeDayTrip(oldTrip);
+                    tripPackage.addDayTrip(newTrip);
+                    tripPrice.setText(newTrip.getPrice() + "$");
+                }
+                else dayChooser.setValue(oldDate);
+                System.out.println(tripPackage);
+            }));
             dayTripDatesDP.add(dayChooser);
             dayChooser.setPrefHeight(10);
-            dtHBox.getChildren().addAll(tripLabel, dayChooser);
+            dtHBox.getChildren().addAll(tripIcon ,tripLabel, tripPrice, dayChooser);
             dayTripsVB.getChildren().addAll(dtHBox);
+
+            tripDisplayNames.add(dt.getCategory());
         }
 
         if(!tripPackage.getHotels().isEmpty()){
@@ -466,7 +503,6 @@ public class BookingUiController {
             return;
         }
         BookingController bookingController = new BookingController(tripPackage, user, searchResult);
-        bookingController.setDayTripDates(getDayTripDates()); //todo taka þetta út
         ArrayList<Passenger> passengers = getPassengers();
         bookingController.setPassengers(passengers);
         bookingController.bookPackage();
@@ -489,14 +525,6 @@ public class BookingUiController {
             passengers.add(p);
         }
         return passengers;
-    }
-
-    private ArrayList<LocalDate> getDayTripDates() {
-        ArrayList<LocalDate> dayTripDates = new ArrayList<>();
-        for(DatePicker d : dayTripDatesDP) {
-            dayTripDates.add(d.getValue());
-        }
-        return dayTripDates;
     }
 
     private void openUserBookings() {

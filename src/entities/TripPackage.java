@@ -156,4 +156,18 @@ public class TripPackage extends SearchResult{
         }
         price = p;
     }
+
+    @Override
+    public String toString() {
+        return "TripPackage{" +
+                "outFlights=" + outFlights +
+                ", inFlights=" + inFlights +
+                ", hotels=" + hotels +
+                ", rooms=" + rooms +
+                ", dayTrips=" + dayTrips +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", customPackage=" + customPackage +
+                '}';
+    }
 }
