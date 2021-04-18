@@ -87,18 +87,21 @@ Button {
     -fx-font-family: "SansSerif";
 }
 .date-picker-popup > * > .today {
-    -fx-background-color: #ffa84d;
+    -fx-background-color: #0D7377;
 }
 
 .date-picker-popup > * > .day-cell:hover,
 .date-picker-popup > * > .selected {
     -fx-background-color: #ff8c00;
 }
-.date-picker-popup > * > .
+.date-picker-popup .label{
+    -fx-text-fill: black;
+
+}
 .date-picker-popup > * > .day-name-cell,
 .date-picker-popup > * > .week-number-cell {
-    -fx-background-color: #343434;
-    -fx-text-fill: #0D7377;
+    -fx-background-color: pink;
+    -fx-text-fill: purple;
 }
 .back-button{
     -fx-background-color:  #7a0b0b;
