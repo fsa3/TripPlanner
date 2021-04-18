@@ -83,7 +83,7 @@ public class SearchController {
     }
 
     public PaymentInfo getPaymentInfoByUserID(String ID) {
-        PaymentInfo payInfo1 = new PaymentInfo("2107002260", "03/10", "2222 3333 4444 5555", "131");
+        PaymentInfo payInfo1 = new PaymentInfo("2107002260", "03/10", "2222 3333 4444 5555", "131", "Lukku Láki");
         if (ID.equals(payInfo1.getUserID())) {
             return payInfo1;
         } else return null;

@@ -86,11 +86,11 @@ public class Database {
         String[] lykilord = {"123", "abc", "blom", "gluggi345", "tre"};
         String[] netfang = {"rdt1hi.is", "ila7@hi.is", "egg25@hi.is", "eor5@hi.is", "rthb2@hi.is"};
         String[] simi = {"8637809", "6813866", "7724586", "8772435", "5520051"};
-        PaymentInfo[] kortaupp = {new PaymentInfo(kennitala[0], "07/24", "4162333344445555", "123"),
-                new PaymentInfo(kennitala[1], "08/22", "1111222255556666", "808"),
-                new PaymentInfo(kennitala[2], "01/25", "3113444472278998", "420"),
-                new PaymentInfo(kennitala[3], "10/30", "4030403040304030", "666"),
-                new PaymentInfo(kennitala[4], "11/09", "6666000066660000", "101")};
+        PaymentInfo[] kortaupp = {new PaymentInfo(kennitala[0], "07/24", "4162333344445555", "123", "Lukku Láki"),
+                new PaymentInfo(kennitala[1], "08/22", "1111222255556666", "808", "Pjotre"),
+                new PaymentInfo(kennitala[2], "01/25", "3113444472278998", "420", "Bodge"),
+                new PaymentInfo(kennitala[3], "10/30", "4030403040304030", "666", "Kulnan"),
+                new PaymentInfo(kennitala[4], "11/09", "6666000066660000", "101", "Si")};
         //ATH????? veit ekki hvernig a ad utfaera cart:((
         ArrayList[] kerra = {new ArrayList()};
 
@@ -213,7 +213,7 @@ public class Database {
             System.out.println(t.toString());
         }
         Account adgangur = data.getAllAccounts().get(0);
-        adgangur.setPayInfo(new PaymentInfo(adgangur.getUserID(), "08/22", "1111222255556666", "808"));
+        adgangur.setPayInfo(new PaymentInfo(adgangur.getUserID(), "08/22", "1111222255556666", "808", "Jeje"));
         Trip triptobook = data.getAllTrips().get(0);
         Booking bokun = new Booking(triptobook, adgangur, true, 10, true, 10);
         if (bokun.book()) {
