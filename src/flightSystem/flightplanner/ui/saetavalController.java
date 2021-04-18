@@ -36,7 +36,7 @@ public class saetavalController implements Initializable {
     // Inserted by T-team to integrate the seat picker UI
     public void goBack(ActionEvent event) {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        if(information.getSeat() == null) information.getSeatButton().setText("Seat");
+        information.getSeatButton().setText("Seat");
         information.setSeat(null);
         window.close();
     }

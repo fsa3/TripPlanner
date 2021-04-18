@@ -94,7 +94,7 @@ public class BookingUiController {
     private TripPackage customPackage;
 
     public void initialize() {
-        System.out.println("initialize book UI");
+        Info.getInstance().clearSeatLists();
     }
 
     public void setUser(User user) {
