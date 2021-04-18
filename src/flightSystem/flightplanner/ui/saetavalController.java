@@ -81,8 +81,7 @@ public class saetavalController implements Initializable {
                 String seatNum = e.getSeatNumber();
                 int[] colRow = getPlacementFromText(seatNum);
                 Button btn = new Button(seatNum);
-                btn.setDisable(e.isBooked());
-                btn.setDisable(information.isSeatSelected(e));
+                btn.setDisable(e.isBooked() || information.isSeatSelected(e));
                 if (e.isBooked()) {
                     btn.setStyle("-fx-background-color: Red");
                 } else if(information.isSeatSelected(e)) {

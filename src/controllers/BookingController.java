@@ -5,7 +5,12 @@ import dayTripSystem.Account;
 import dayTripSystem.PaymentInfo;
 import dayTripSystem.Trip;
 import entities.*;
+import flightSystem.flightplanner.controllers.FlightBookingController;
+import flightSystem.flightplanner.controllers.FlightSearchController;
+import flightSystem.flightplanner.entities.Flight;
+import flightSystem.flightplanner.entities.Info;
 import flightSystem.flightplanner.entities.Passenger;
+import flightSystem.flightplanner.entities.Seat;
 import hotelSystem.controllers.AccommodationBookingController;
 import hotelSystem.entities.Accommodation;
 import hotelSystem.entities.Room;
@@ -23,6 +28,8 @@ public class BookingController {
     private int bookingId;
     private PaymentInfo paymentInfo;
     private ArrayList<Passenger> passengers;
+    private ArrayList<Seat> outSeats;
+    private ArrayList<Seat> inSeats;
 
     public BookingController(TripPackage tPackage, User user, SearchResult searchResult, PaymentInfo paymentInfo) {
         this.tPackage = tPackage;
@@ -44,14 +51,40 @@ public class BookingController {
         dataConnection.closeConnection();
         bookings = new ArrayList<>();
         // todo kalla á föll frá hinum hópunum til að bóka
-        /*for(Flight f : tPackage.getOutFlights()) {
-            FlightBooking flightBooking = new FlightBooking(f);
-            bookings.add(flightBooking);
+
+        // Book flights
+        FlightBookingController flightBookingController = FlightBookingController.getInstance();
+        Info information = Info.getInstance();
+        flightSystem.flightplanner.entities.User flightUser = new flightSystem.flightplanner.entities.User("user", user.getId(), user.getFirstName(), user.getLastName(), user.getSsNum(), user.getEmail(), user.getPhoneNumber());
+        information.setUser(flightUser);
+        for(Flight f : tPackage.getOutFlights()) {
+            information.setFlight(f);
+            for(int i = 0; i < passengers.size(); i++) {
+                information.setCurrentPassenger(passengers.get(i));
+                information.setSeat(outSeats.get(i));
+                try {
+                    flightBookingController.createBooking();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
         for(Flight f : tPackage.getInFlights()) {
-            FlightBooking flightBooking = new FlightBooking(f);
-            bookings.add(flightBooking);
-        }*/
+            information.setFlight(f);
+            for(int i = 0; i < passengers.size(); i++) {
+                information.setCurrentPassenger(passengers.get(i));
+                information.setSeat(inSeats.get(i));
+                try {
+                    flightBookingController.createBooking();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+
+        // Book hotel rooms
         if(!tPackage.getHotels().isEmpty()) {
             Accommodation h = tPackage.getHotels().get(0);
             for (Room r : tPackage.getRooms()) {
@@ -65,6 +98,8 @@ public class BookingController {
                 bookings.add(hotelBooking);
             }
         }
+
+        // Book Day Trips
         for(Trip t : tPackage.getDayTrips()) {
             DayTripBooking dtBooking = new DayTripBooking(t, DataConnection.utilDateToLocalDate(t.getDate()), bookingId, user);
             Account dayTripAccount = new Account("-1", user.getFirstName(), user.getLastName(), user.getPassword(), user.getEmail(), user.getPhoneNumber(), paymentInfo, null);
@@ -84,5 +119,15 @@ public class BookingController {
 
     public void setPassengers(ArrayList<Passenger> passengers) {
         this.passengers = passengers;
+    }
+
+    public void setOutSeats(ArrayList<Seat> outSeats) {
+        this.outSeats = outSeats;
+        System.out.println("out seats: " + outSeats);
+    }
+
+    public void setInSeats(ArrayList<Seat> inSeats) {
+        this.inSeats = inSeats;
+        System.out.println("in seats: " + inSeats);
     }
 }

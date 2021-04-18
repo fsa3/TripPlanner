@@ -34,7 +34,7 @@ public class MockDataFactory implements Database{
     @Override
     public ArrayList<User> getUsers() {
         ArrayList<User> users = new ArrayList<>();
-        users.add(new User("ahs33@hi.is", "Ágúst Heiðar", "Sveinbjörnsson", "kallijons", "8975115", "5678"));
+        users.add(new User("ahs33@hi.is", "Ágúst Heiðar", "Sveinbjörnsson", "kallijons", "8975115", "5678", -1));
         return users;
     }
 }

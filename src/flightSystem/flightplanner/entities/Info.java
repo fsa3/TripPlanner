@@ -101,4 +101,12 @@ public class Info {
         selectedSeatsOut.clear();
         selectedSeatsIn.clear();
     }
+
+    public ArrayList<Seat> getSelectedSeatsOut() {
+        return selectedSeatsOut;
+    }
+
+    public ArrayList<Seat> getSelectedSeatsIn() {
+        return selectedSeatsIn;
+    }
 }
