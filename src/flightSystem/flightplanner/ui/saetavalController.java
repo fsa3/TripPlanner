@@ -40,6 +40,7 @@ public class saetavalController implements Initializable {
 
     public void confirmSelection(ActionEvent event) {
         information.getSeatButton().setText(information.getSeat().toString());
+        information.addSelectedSeat(information.getSeat());
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.close();
     }
@@ -76,8 +77,11 @@ public class saetavalController implements Initializable {
                 int[] colRow = getPlacementFromText(seatNum);
                 Button btn = new Button(seatNum);
                 btn.setDisable(e.isBooked());
+                btn.setDisable(information.isSeatSelected(e));
                 if (e.isBooked()) {
                     btn.setStyle("-fx-background-color: Red");
+                } else if(information.isSeatSelected(e)) {
+                    btn.getStyleClass().add("prev-selected-seat");
                 } else {
                     btn.setStyle("-fx-background-color: #0D7377");
                 }

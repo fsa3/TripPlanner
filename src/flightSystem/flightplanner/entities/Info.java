@@ -13,7 +13,10 @@ public class Info {
     private Flight flight;
     private Seat seat;
     private Passenger currentPassenger;
+    // T-team additions
     private Button seatButton;
+    private ArrayList<Seat> selectedSeats = new ArrayList<>();
+    // ----------------
 
     private Info(){
 
@@ -58,11 +61,24 @@ public class Info {
         this.currentPassenger = currentPassenger;
     }
 
+    // T-team additions
     public Button getSeatButton() {
         return seatButton;
     }
 
     public void setSeatButton(Button seatButton) {
         this.seatButton = seatButton;
+    }
+
+    public void addSelectedSeat(Seat s) {
+        selectedSeats.add(s);
+    }
+
+    public void removeSelectedSeat(Seat s) {
+        selectedSeats.remove(s);
+    }
+
+    public boolean isSeatSelected(Seat s) {
+        return selectedSeats.contains(s);
     }
 }

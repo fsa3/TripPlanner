@@ -3,6 +3,8 @@ package flightSystem.flightplanner.entities;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+import java.util.Objects;
+
 public class Seat {
     private SimpleStringProperty seatNumber;
     private SimpleBooleanProperty isBooked;
@@ -27,5 +29,13 @@ public class Seat {
     }
     public String toString() {
         return getSeatNumber();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Seat seat = (Seat) o;
+        return seatNumber.get().equals(seat.seatNumber.get()) && isBooked.get() == seat.isBooked.get();
     }
 }
