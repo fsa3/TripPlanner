@@ -425,6 +425,7 @@ public class BookingUiController {
     private void setUserAsFirstPassenger() {
         ((TextField)adultsFirstNameVB.getChildren().get(1)).setText(user.getFirstName());
         ((TextField)adultsLastNameVB.getChildren().get(1)).setText(user.getLastName());
+        ((TextField)adultsSSNumVB.getChildren().get(1)).setText(user.getSsNum());
     }
 
     private void updateRoomList(ComboBox<Room> roomSelector) {
@@ -599,17 +600,13 @@ public class BookingUiController {
     private ArrayList<Passenger> getPassengers() {
         ArrayList<Passenger> passengers = new ArrayList<>();
         for(int i = 0; i < tripPackage.getNumAdults(); i++) {
-            String kennitala = "";
-            if(((TextField)adultsFirstNameVB.getChildren().get(2*i+1)).getText().equals(user.getFirstName())) {
-                kennitala = user.getSsNum();
-            }
-            Passenger p = new Passenger(-1, ((TextField)adultsFirstNameVB.getChildren().get(2*i+1)).getText(), ((TextField)adultsLastNameVB.getChildren().get(2*i+1)).getText(), kennitala, user.getEmail(), "");
+            Passenger p = new Passenger(-1, ((TextField)adultsFirstNameVB.getChildren().get(2*i+1)).getText(), ((TextField)adultsLastNameVB.getChildren().get(2*i+1)).getText(), ((TextField)adultsSSNumVB.getChildren().get(2*i+1)).getText(), user.getEmail(), "");
             p.setLuggage(((CheckBox)adultsLuggageVB.getChildren().get(2*i+1)).isSelected());
             p.setInsurance(((CheckBox)adultsLuggageVB.getChildren().get(2*i+1)).isSelected());
             passengers.add(p);
         }
         for(int i = 0; i < tripPackage.getNumChildren(); i++) {
-            Passenger p = new Passenger(-1, ((TextField)childrenFirstNameVB.getChildren().get(2*i)).getText(), ((TextField)childrenLastNameVB.getChildren().get(2*i)).getText(), "", user.getEmail(), "");
+            Passenger p = new Passenger(-1, ((TextField)childrenFirstNameVB.getChildren().get(2*i)).getText(), ((TextField)childrenLastNameVB.getChildren().get(2*i)).getText(), ((TextField)childrenSSNumVB.getChildren().get(2*i)).getText(), user.getEmail(), "");
             p.setLuggage(((CheckBox)childrenLuggageVB.getChildren().get(2*i)).isSelected());
             p.setInsurance(((CheckBox)childrenInsuranceVB.getChildren().get(2*i)).isSelected());
             passengers.add(p);
