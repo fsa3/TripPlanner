@@ -212,6 +212,119 @@ public class TripPackage extends SearchResult{
         calculatePrice();
     }
 
+    public void highEnd() {
+        if(!masterSearch.getOutFlights().isEmpty()) {
+            Flight outFlight = masterSearch.getOutFlights().get(0);
+            for (Flight f : masterSearch.getOutFlights()) {
+                if (f.getDepartureTime().compareTo(outFlight.getDepartureTime()) < 0) {
+                    outFlight = f;
+                }
+            }
+            outFlights.add(outFlight);
+        }
+        if(!masterSearch.getInFlights().isEmpty()) {
+            Flight inFlight = masterSearch.getInFlights().get(0);
+            for (Flight f : masterSearch.getInFlights()) {
+                if (f.getDepartureTime().compareTo(inFlight.getDepartureTime()) < 0) {
+                    inFlight = f;
+                }
+            }
+            inFlights.add(inFlight);
+        }
+
+        if(!masterSearch.getHotels().isEmpty()) {
+            TreeMap<Accommodation, ArrayList<Room>> hotelsMostExpensiveRoomComb = new TreeMap<>();
+            for (Accommodation h : masterSearch.getHotels()) {
+                hotelsMostExpensiveRoomComb.put(h, new ArrayList<Room>());
+                ArrayList<Room> availableRooms = h.getAvailableRooms(DataConnection.localDateToDate(startDate), DataConnection.localDateToDate(endDate));
+                Room mostExpensiveRoomInHotel = availableRooms.get(0);
+                for (Room r : availableRooms) {
+                    if (r.getCap() >= numAdults + numChildren && r.getPrice() > mostExpensiveRoomInHotel.getPrice()) {
+                        mostExpensiveRoomInHotel = r;
+                    }
+                }
+                if (mostExpensiveRoomInHotel.getCap() < numChildren + numAdults) {
+                    int currentCap = 0;
+                    while (currentCap < numAdults + numChildren) {
+                        Room currentMostExpensiveRoom = null;
+                        double currentMostExpensiveRoomPrice = Double.NEGATIVE_INFINITY;
+                        for (Room r : availableRooms) {
+                            if (r.getPrice() > currentMostExpensiveRoomPrice && !hotelsMostExpensiveRoomComb.get(h).contains(r)) {
+                                currentMostExpensiveRoom = r;
+                                currentMostExpensiveRoomPrice = r.getPrice();
+                            }
+                        }
+                        if(currentMostExpensiveRoom == null) continue;
+                        ArrayList<Room> hotelCurrentRoomList = hotelsMostExpensiveRoomComb.get(h);
+                        hotelCurrentRoomList.add(currentMostExpensiveRoom);
+                        hotelsMostExpensiveRoomComb.put(h, hotelCurrentRoomList);
+                        currentCap += currentMostExpensiveRoom.getCap();
+                    }
+                } else {
+                    ArrayList<Room> hotelCurrentRoomList = hotelsMostExpensiveRoomComb.get(h);
+                    hotelCurrentRoomList.add(mostExpensiveRoomInHotel);
+                    hotelsMostExpensiveRoomComb.put(h, hotelCurrentRoomList);
+                }
+            }
+            Accommodation mostExpensiveHotel = null;
+            double highestPrice = Double.NEGATIVE_INFINITY;
+            for (Accommodation h : masterSearch.getHotels()) {
+                ArrayList<Room> rooms = hotelsMostExpensiveRoomComb.get(h);
+                int roomsTotalCap = totalCap(rooms);
+                if(roomsTotalCap > numChildren+numAdults) {
+                    Room smallestRoom = smallestRoom(rooms);
+                    if(roomsTotalCap-smallestRoom.getCap() >= numAdults+numChildren) {
+                        rooms.remove(smallestRoom);
+                    }
+                }
+
+                double roomsPrice = 0;
+                for (Room r : rooms) {
+                    roomsPrice += r.getPrice();
+                }
+                if (roomsPrice > highestPrice) {
+                    highestPrice = roomsPrice;
+                    mostExpensiveHotel = h;
+                }
+            }
+            hotels.add(mostExpensiveHotel);
+            rooms.addAll(hotelsMostExpensiveRoomComb.get(mostExpensiveHotel));
+        }
+
+        if(!masterSearch.getDayTrips().isEmpty()) {
+            ArrayList<String> tripNames = new ArrayList<>();
+            System.out.println(user);
+            if(user != null) {
+                Trip mostExpensiveFav = null;
+                int highestFavPrice = (int) Double.NEGATIVE_INFINITY;
+                for(Trip t : masterSearch.getDayTrips()) {
+                    if(t.getCategory().equals(user.getFavoriteActivity()) && t.getPrice() > highestFavPrice) {
+                        mostExpensiveFav = t;
+                        highestFavPrice = t.getPrice();
+                    }
+                }
+                tripNames.add(mostExpensiveFav.getCategory());
+                dayTrips.add(mostExpensiveFav);
+            }
+            for (int i = 0; i < 2; i++) {
+                Trip mostExpensiveTrip = null;
+                int highestPrice = (int) Double.NEGATIVE_INFINITY;
+                for (Trip t : masterSearch.getDayTrips()) {
+                    if (t.getPrice() > highestPrice && !tripNames.contains(t.getCategory())) {
+                        mostExpensiveTrip = t;
+                        highestPrice = t.getPrice();
+                    }
+                }
+                if(mostExpensiveTrip != null) {
+                    dayTrips.add(mostExpensiveTrip);
+                    tripNames.add(mostExpensiveTrip.getCategory());
+                }
+            }
+        }
+
+        calculatePrice();
+    }
+
     private Room smallestRoom(ArrayList<Room> rooms) {
         if(rooms.isEmpty()) return null;
         Room smallestRoom = rooms.get(0);
@@ -229,10 +342,6 @@ public class TripPackage extends SearchResult{
             totalCap += r.getCap();
         }
         return totalCap;
-    }
-
-    public void highEnd() {
-        // todo
     }
 
     public void testPackage() {

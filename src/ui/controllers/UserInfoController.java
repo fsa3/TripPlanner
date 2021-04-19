@@ -62,6 +62,9 @@ public class UserInfoController {
         firstNameTextField.setText(user.getFirstName());
         lastNameTextField.setText(user.getLastName());
         phoneTextField.setText(user.getPhoneNumber());
+        activityChooser.setValue(user.getFavoriteActivity());
+        ratingSlider.setValue(user.getMinHotelRating());
+        ratingLabel.setText(String.valueOf(user.getMinHotelRating()));
     }
 
     public void closeWindow() {

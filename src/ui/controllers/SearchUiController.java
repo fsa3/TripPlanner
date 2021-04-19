@@ -144,7 +144,7 @@ public class SearchUiController implements Initializable {
             // todo sækja uppsl úr inputtum og smíða search result með því
             searchResult = new SearchResult(LocalDate.of(2021, 5, 6),
                     LocalDate.of(2021, 5, 8),
-                    "Akureyri", "Egilsstaðir", 3, 2
+                    "Akureyri", "Reykjavík", 1, 1
             );
             searchResult.search();
             searchController = new SearchController(searchResult, user);
