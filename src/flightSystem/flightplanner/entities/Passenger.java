@@ -1,6 +1,7 @@
 package flightSystem.flightplanner.entities;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Passenger extends Person{
     private boolean insurance = false;
@@ -70,5 +71,13 @@ public class Passenger extends Person{
 
     public boolean isWheelchair() {
         return wheelchair;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Passenger passenger = (Passenger) o;
+        return this.getFirstName().equals(((Passenger) o).getFirstName()) && this.getLastName().equals(((Passenger) o).getLastName());
     }
 }

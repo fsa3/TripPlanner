@@ -4,6 +4,7 @@ import entities.DayTripBooking;
 import entities.HotelBooking;
 import entities.User;
 import flightSystem.flightplanner.data.FlDataConnection;
+import flightSystem.flightplanner.entities.Flight;
 import hotelSystem.entities.Accommodation;
 import hotelSystem.entities.Room;
 import hotelSystem.storage.DatabaseConnection;
@@ -168,8 +169,8 @@ public class DataConnection {
         return Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 
-    public void createBooking(User user, int bookingId, double price, int numAdults, int numChildren) {
-        String query = "INSERT INTO Booking(bookingUser, bookingId, price, numAdults, numChildren) values(?,?,?,?,?)";
+    public void createBooking(User user, int bookingId, double price, int numAdults, int numChildren, int flightOutId, int flightInId) {
+        String query = "INSERT INTO Booking(bookingUser, bookingId, price, numAdults, numChildren, flightOut, flightIn) values(?,?,?,?,?,?,?)";
         try {
             PreparedStatement createBooking = connection.prepareStatement(query);
             createBooking.setString(1, user.getEmail());
@@ -177,6 +178,8 @@ public class DataConnection {
             createBooking.setDouble(3, price);
             createBooking.setInt(4, numAdults);
             createBooking.setInt(5, numChildren);
+            createBooking.setInt(6, flightOutId);
+            createBooking.setInt(7, flightInId);
             createBooking.executeUpdate();
             createBooking.close();
         } catch (SQLException throwables) {
@@ -295,5 +298,24 @@ public class DataConnection {
             throwables.printStackTrace();
         }
         return price;
+    }
+
+    public Flight getFlightByBookingId(Integer id, String flightType) {
+        String query = "SELECT "+flightType+" FROM Booking WHERE bookingId = ?";
+        int flightId = -1;
+        Flight flight = null;
+        try {
+            PreparedStatement getFlight = connection.prepareStatement(query);
+            getFlight.setInt(1, id);
+            ResultSet rs = getFlight.executeQuery();
+            if(rs.next()) flightId = rs.getInt(1);
+            FlDataConnection flightData = FlDataConnection.getInstance();
+            flight = flightData.getFlightById(flightId);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return flight;
     }
 }

@@ -47,7 +47,11 @@ public class BookingController {
 
     public void bookPackage() {
         DataConnection dataConnection = new DataConnection();
-        dataConnection.createBooking(user, bookingId, tPackage.getPrice(), tPackage.getNumAdults(), tPackage.getNumChildren());
+        int flightOutId = -1;
+        int flightInId = -1;
+        if(!tPackage.getOutFlights().isEmpty()) flightOutId = tPackage.getOutFlights().get(0).getID();
+        if(!tPackage.getInFlights().isEmpty()) flightInId = tPackage.getInFlights().get(0).getID();
+        dataConnection.createBooking(user, bookingId, tPackage.getPrice(), tPackage.getNumAdults(), tPackage.getNumChildren(), flightOutId, flightInId);
         dataConnection.closeConnection();
         bookings = new ArrayList<>();
         // todo kalla á föll frá hinum hópunum til að bóka
@@ -104,12 +108,11 @@ public class BookingController {
             DayTripBooking dtBooking = new DayTripBooking(t, DataConnection.utilDateToLocalDate(t.getDate()), bookingId, user);
             Account dayTripAccount = new Account("-1", user.getFirstName(), user.getLastName(), user.getPassword(), user.getEmail(), user.getPhoneNumber(), paymentInfo, null);
             dayTripSystem.Booking dayTripSystemBooking = new dayTripSystem.Booking(t, dayTripAccount, true/*todo setja pickup valmöguleika?*/, 0, false, tPackage.getNumAdults()+tPackage.getNumChildren());
-            if(dayTripSystemBooking.book()) {
-                DataConnection dc = new DataConnection();
-                dc.createDayTripBooking(dtBooking);
-                dc.closeConnection();
-                bookings.add(dtBooking);
-            }
+            dayTripSystemBooking.book(); // todo beila á að tékka hvort það virkar að bóka hjá þeim
+            DataConnection dc = new DataConnection();
+            dc.createDayTripBooking(dtBooking);
+            dc.closeConnection();
+            bookings.add(dtBooking);
         }
     }
 
