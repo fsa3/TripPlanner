@@ -8,7 +8,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Accommodation {
+public class Accommodation implements Comparable {
     private int id;
     private String name;
     // private ArrayList<>; // arraylist fyrir facilities
@@ -212,5 +212,11 @@ public class Accommodation {
         System.out.println(availableRooms);
 
         System.out.println(hotelPig.isOccupied(roomPig.getOccupancies(), sqlDateFrom, sqlDateTo));
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Accommodation r = (Accommodation) o;
+        return Integer.compare(this.id, r.id);
     }
 }

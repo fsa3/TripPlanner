@@ -15,7 +15,7 @@ public class SearchController {
 
     public void createTripPackages() {
         TripPackage package1 = new TripPackage("Best Value", searchResult);
-        package1.testPackage();
+        package1.bestValue();
         TripPackage package2 = new TripPackage("High End", searchResult);
         package2.testPackage();
         TripPackage package3 = new TripPackage("Luxury", searchResult);

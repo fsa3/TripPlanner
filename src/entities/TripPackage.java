@@ -8,6 +8,7 @@ import hotelSystem.entities.Room;
 
 import javax.xml.crypto.Data;
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 public class TripPackage extends SearchResult{
     private String name;
@@ -97,12 +98,118 @@ public class TripPackage extends SearchResult{
     }
 
     public void bestValue() {
-        // todo
-        inFlights = masterSearch.inFlights;
-        outFlights = masterSearch.outFlights;
-        hotels = masterSearch.hotels;
-        dayTrips = masterSearch.dayTrips;
-        price = 45.69;
+        if(!masterSearch.getOutFlights().isEmpty()) {
+            Flight outFlight = masterSearch.getOutFlights().get(0);
+            for (Flight f : masterSearch.getOutFlights()) {
+                if (f.getDepartureTime().compareTo(outFlight.getDepartureTime()) > 0) {
+                    outFlight = f;
+                }
+            }
+            outFlights.add(outFlight);
+        }
+        if(!masterSearch.getInFlights().isEmpty()) {
+            Flight inFlight = masterSearch.getInFlights().get(0);
+            for (Flight f : masterSearch.getInFlights()) {
+                if (f.getDepartureTime().compareTo(inFlight.getDepartureTime()) > 0) {
+                    inFlight = f;
+                }
+            }
+            inFlights.add(inFlight);
+        }
+
+        if(!masterSearch.getHotels().isEmpty()) {
+            TreeMap<Accommodation, ArrayList<Room>> hotelsCheapestRoomComb = new TreeMap<>();
+            for (Accommodation h : masterSearch.getHotels()) {
+                hotelsCheapestRoomComb.put(h, new ArrayList<Room>());
+                ArrayList<Room> availableRooms = h.getAvailableRooms(DataConnection.localDateToDate(startDate), DataConnection.localDateToDate(endDate));
+                Room cheapestRoomInHotel = availableRooms.get(0);
+                for (Room r : availableRooms) {
+                    if (r.getCap() >= numAdults + numChildren && r.getPrice() < cheapestRoomInHotel.getPrice()) {
+                        cheapestRoomInHotel = r;
+                    }
+                }
+                if (cheapestRoomInHotel.getCap() < numChildren + numAdults) {
+                    int currentCap = 0;
+                    while (currentCap < numAdults + numChildren) {
+                        Room currentCheapestRoom = null;
+                        double currentCheapestRoomPrice = Double.POSITIVE_INFINITY;
+                        for (Room r : availableRooms) {
+                            if (r.getPrice() < currentCheapestRoomPrice && !hotelsCheapestRoomComb.get(h).contains(r)) {
+                                currentCheapestRoom = r;
+                                currentCheapestRoomPrice = r.getPrice();
+                            }
+                        }
+                        if(currentCheapestRoom == null) continue;
+                        ArrayList<Room> hotelCurrentRoomList = hotelsCheapestRoomComb.get(h);
+                        hotelCurrentRoomList.add(currentCheapestRoom);
+                        hotelsCheapestRoomComb.put(h, hotelCurrentRoomList);
+                        currentCap += currentCheapestRoom.getCap();
+                    }
+                } else {
+                    ArrayList<Room> hotelCurrentRoomList = hotelsCheapestRoomComb.get(h);
+                    hotelCurrentRoomList.add(cheapestRoomInHotel);
+                    hotelsCheapestRoomComb.put(h, hotelCurrentRoomList);
+                }
+            }
+            Accommodation cheapestHotel = null;
+            double lowestPrice = Double.POSITIVE_INFINITY;
+            for (Accommodation h : masterSearch.getHotels()) {
+                ArrayList<Room> rooms = hotelsCheapestRoomComb.get(h);
+                int roomsTotalCap = totalCap(rooms);
+                if(roomsTotalCap > numChildren+numAdults) {
+                    Room smallestRoom = smallestRoom(rooms);
+                    if(roomsTotalCap-smallestRoom.getCap() >= numAdults+numChildren) {
+                        rooms.remove(smallestRoom);
+                    }
+                }
+
+                double roomsPrice = 0;
+                for (Room r : rooms) {
+                    roomsPrice += r.getPrice();
+                }
+                if (roomsPrice < lowestPrice) {
+                    lowestPrice = roomsPrice;
+                    cheapestHotel = h;
+                }
+            }
+            hotels.add(cheapestHotel);
+            rooms.addAll(hotelsCheapestRoomComb.get(cheapestHotel));
+        }
+
+        if(!masterSearch.getDayTrips().isEmpty()) {
+            ArrayList<String> tripNames = new ArrayList<>();
+            for (int i = 0; i < 2; i++) {
+                Trip cheapestTrip = masterSearch.dayTrips.get(0);
+                for (Trip t : masterSearch.getDayTrips()) {
+                    if (t.getPrice() < cheapestTrip.getPrice() && !tripNames.contains(t.getCategory())) {
+                        cheapestTrip = t;
+                    }
+                }
+                dayTrips.add(cheapestTrip);
+                tripNames.add(cheapestTrip.getCategory());
+            }
+        }
+
+        calculatePrice();
+    }
+
+    private Room smallestRoom(ArrayList<Room> rooms) {
+        if(rooms.isEmpty()) return null;
+        Room smallestRoom = rooms.get(0);
+        for(Room r : rooms) {
+            if(r.getCap() < smallestRoom.getCap()) {
+                smallestRoom = r;
+            }
+        }
+        return smallestRoom;
+    }
+
+    private int totalCap(ArrayList<Room> rooms) {
+        int totalCap = 0;
+        for(Room r : rooms) {
+            totalCap += r.getCap();
+        }
+        return totalCap;
     }
 
     public void highEnd() {
@@ -143,10 +250,10 @@ public class TripPackage extends SearchResult{
     public void calculatePrice() {
         int p = 0;
         for(Flight f : outFlights) {
-            // todo sækja verð á flugi
+            p += f.getPrice();
         }
         for(Flight f : inFlights) {
-            // todo sækja verð á flugi
+            p += f.getPrice();
         }
         for(Room r : rooms) {
             p += r.getPrice();
