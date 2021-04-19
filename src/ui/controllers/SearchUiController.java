@@ -143,11 +143,11 @@ public class SearchUiController implements Initializable {
 
             // todo sækja uppsl úr inputtum og smíða search result með því
             searchResult = new SearchResult(LocalDate.of(2021, 5, 6),
-                    LocalDate.of(2021, 5, 8),
+                    LocalDate.of(2021, 5, 10),
                     "Akureyri", "Reykjavík", 1, 1
             );
             searchResult.search();
-            searchController = new SearchController(searchResult);
+            searchController = new SearchController(searchResult, user);
             searchController.createTripPackages();
             updateSearchView();
 
@@ -164,7 +164,7 @@ public class SearchUiController implements Initializable {
         });
 
         if(customPackage == null) {
-            customPackage = new TripPackage("Custom Package" ,searchResult);
+            customPackage = new TripPackage("Custom Package" ,searchResult, user);
             customPackage.emptyPackage();
         }
 

@@ -142,15 +142,15 @@
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </TextField>
-                        <ComboBox prefHeight="30.0" prefWidth="178.0" styleClass="comboboxUser">
+                        <ComboBox fx:id="activityChooser" prefHeight="30.0" prefWidth="178.0" styleClass="comboboxUser">
                            <VBox.margin>
                               <Insets bottom="18.0" />
                            </VBox.margin>
                         </ComboBox>
                         <HBox prefHeight="28.0" prefWidth="178.0">
                            <children>
-                              <Slider prefHeight="14.0" prefWidth="169.0" />
-                              <Label prefHeight="15.0" prefWidth="16.0" text="0" />
+                              <Slider fx:id="ratingSlider" blockIncrement="0.5" max="5.0" min="1.0" prefHeight="14.0" prefWidth="169.0" showTickLabels="true" value="1.0" />
+                              <Label fx:id="ratingLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="23.0" text="0" textAlignment="CENTER" />
                            </children>
                         </HBox>
                      </children>
