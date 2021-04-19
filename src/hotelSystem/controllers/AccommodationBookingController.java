@@ -3,6 +3,7 @@ package hotelSystem.controllers;
 
 import hotelSystem.entities.Booking;
 import hotelSystem.entities.Occupancy;
+import hotelSystem.entities.Room;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -28,7 +29,11 @@ public class AccommodationBookingController {
     }
 
     public void removeBooking(Booking booking) {
+        Date from = booking.getBookingDateFrom();
+        Date to = booking.getBookingDateTo();
+        Room room = booking.getRoom();
 
+        room.removeOccupancy(room.getRoomId(), from, to);
     }
 
     public void changeBooking(Booking booking) {
