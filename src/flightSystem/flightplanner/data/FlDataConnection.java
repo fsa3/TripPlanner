@@ -538,7 +538,7 @@ public class FlDataConnection {
     public void updatePassenger(Passenger passenger) throws Exception{
         getConnection();
         String insertStatement = "UPDATE Person "
-                + "SET insurance = ?, luggage = ?, healthIssues = ?, wantsFood = ?, extraLuggage = ?, allergies = ?, wheelchair = ?"
+                + "SET insurance = ?, luggage = ?, healthIssues = ?, wantsFood = ?, extraLuggage = ?, allergies = ?, wheelchair = ?, firstName = ?, lastName = ?, email = ?, phoneNumber = ?"
                 + "WHERE kennitala = ?";
         PreparedStatement pstmt = conn.prepareStatement(insertStatement);
         int insurance = passenger.isInsurance() ? 1 : 0;
@@ -552,7 +552,11 @@ public class FlDataConnection {
         pstmt.setString(5, passenger.getExtraLuggage());
         pstmt.setString(6, passenger.getAllergies());
         pstmt.setString(7, wheelchair);
-        pstmt.setString(8, passenger.getKennitala());
+        pstmt.setString(8, passenger.getFirstName());
+        pstmt.setString(9, passenger.getLastName());
+        pstmt.setString(10, passenger.getEmail());
+        pstmt.setString(11, passenger.getPhoneNumber());
+        pstmt.setString(12, passenger.getKennitala());
         pstmt.executeUpdate();
         pstmt.close();
         closeConnection();

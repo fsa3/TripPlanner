@@ -2,6 +2,9 @@ package ui.controllers;
 
 import controllers.UserController;
 import entities.User;
+import flightSystem.flightplanner.controllers.FlightUserController;
+import flightSystem.flightplanner.data.FlDataConnection;
+import flightSystem.flightplanner.entities.Passenger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -83,7 +86,21 @@ public class UserInfoController {
         changeSuccessful.setText("Changes saved successfully!");
         user = uc.getUser("email",emailInput.getText());
 
-        //todo
+        if(owningSearchController != null) owningSearchController.setUser(user);
+        if(owningBookingController != null) owningBookingController.setUser(user);
+
+        // updates user in flight database
+        FlDataConnection flightData = FlDataConnection.getInstance();
+        try {
+            Passenger p = flightData.getPassenger(user.getId());
+            p.setEmail(user.getEmail());
+            p.setFirstName(user.getFirstName());
+            p.setLastName(user.getLastName());
+            p.setPhoneNumber(user.getPhoneNumber());
+            flightData.updatePassenger(p);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
