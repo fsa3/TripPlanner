@@ -327,6 +327,7 @@ public class FlDataConnection {
         retVal.setWheelchair(rs.getString("wheelchair").equals("yes"));
         retVal.setHealthIssues(rs.getString("healthIssues"));
         retVal.setInsurance((rs.getInt("insurance")==1));
+        retVal.setLuggage((rs.getInt("luggage")==1));
         pstmt.close();
         rs.close();
         closeConnection();
