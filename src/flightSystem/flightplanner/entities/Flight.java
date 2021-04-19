@@ -2,6 +2,7 @@ package flightSystem.flightplanner.entities;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Flight {
     private int ID;
@@ -86,5 +87,13 @@ public class Flight {
                 ", arrivalTime=" + arrivalTime +
                 ", price = " + price +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Flight flight = (Flight) o;
+        return ID == flight.ID;
     }
 }

@@ -426,6 +426,26 @@ public class FlDataConnection {
         closeConnection();
     }
 
+    public int getBookingId(Booking booking) throws SQLException {
+        getConnection();
+        PreparedStatement pstmt = conn.prepareStatement("SELECT id FROM Bookings WHERE passenger = ? AND customer = ? AND flight = ? AND seatNo = ? AND price = ? AND billingAddress = ? AND paymentMade = ?");
+        pstmt.setInt(1, booking.getPassenger().getID());
+        pstmt.setInt(2, booking.getCustomer().getID());
+        pstmt.setInt(3, booking.getFlight().getID());
+        pstmt.setString(4, booking.getSeat().getSeatNumber());
+        pstmt.setInt(5, booking.getPrice());
+        pstmt.setString(6, booking.getBillingAddress());
+        int paymentMade = booking.isPaymentMade() ? 1 : 0;
+        pstmt.setInt(7, paymentMade);
+        int bookingId = -1;
+        ResultSet rs = pstmt.executeQuery();
+        if(rs.next()) bookingId = rs.getInt(1);
+        rs.close();
+        pstmt.close();
+        closeConnection();
+        return bookingId;
+    }
+
     //toTest
     public void updateBookingFlight(int id, Flight newFlight) throws Exception{
         getConnection();

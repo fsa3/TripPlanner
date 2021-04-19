@@ -228,3 +228,7 @@ Button {
 .prev-selected-seat:disabled {
     background: dark blue;
 }
+
+.booking-small {
+    -fx-font-size: 11px;
+}

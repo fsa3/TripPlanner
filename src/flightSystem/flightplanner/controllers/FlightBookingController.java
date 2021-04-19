@@ -21,7 +21,7 @@ public class FlightBookingController {
     /**
      * Creates booking based on information saved.
      */
-    public void createBooking() throws Exception{
+    public int createBooking() throws Exception{
         Passenger passenger = information.getCurrentPassenger();
         User customer = information.getUser();
         Flight flight = information.getFlight();
@@ -43,6 +43,7 @@ public class FlightBookingController {
         }
         // Búa til bókun
         connection.createBooking(booking);
+        return connection.getBookingId(booking);
     }
 
     public void cancelBooking(Booking booking) throws Exception{

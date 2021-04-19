@@ -2,6 +2,7 @@ package ui.controllers;
 
 import data.DataConnection;
 import entities.DayTripBooking;
+import entities.FlightBooking;
 import entities.HotelBooking;
 import entities.User;
 import flightSystem.flightplanner.data.FlDataConnection;
@@ -73,38 +74,41 @@ public class UserBookingsController {
             // flights and passengers
             HBox fp = new HBox();
             VBox flightsVB = new VBox();
-            flightsVB.setPrefWidth(300);
+            flightsVB.setPrefWidth(280);
             Label flightsHeader = new Label("Flights");
             flightsHeader.getStyleClass().add("title2");
             flightsVB.getChildren().add(flightsHeader);
 
-            Flight outFlight = dc.getFlightByBookingId(id, "flightOut");
-            Flight inFlight = dc.getFlightByBookingId(id, "flightIn");
+            ArrayList<Integer> flightBookingsIds = dc.getFlightBookinIds(id);
+            ArrayList<Flight> flights = new ArrayList<>();
+            for(Booking b : flightBookings) {
+                if(flightBookingsIds.contains(b.getID())) {
+                    if(!flights.contains(b.getFlight())) flights.add(b.getFlight());
+                }
+            }
 
-            Label outFlightLabel1 = new Label(displayFlight(outFlight));
-            Label outFlightLabel2 = new Label(displayDateTime(outFlight));
-
-            Label inFlightLabel1 = new Label(displayFlight(inFlight));
-            Label inFlightLabel2 = new Label(displayDateTime(inFlight));
-
-            flightsVB.getChildren().addAll(outFlightLabel1, outFlightLabel2, createSpacer(), inFlightLabel1, inFlightLabel2);
+            for(Flight f : flights) {
+                Label flightLabel1 = new Label(displayFlight(f));
+                Label flightLabel2 = new Label(displayDateTime(f));
+                flightLabel1.getStyleClass().add("booking-small");
+                flightLabel2.getStyleClass().add("booking-small");
+                flightsVB.getChildren().addAll(flightLabel1, flightLabel2, createSpacer());
+            }
 
             VBox passengersVB = new VBox();
-            passengersVB.setPrefWidth(300);
+            passengersVB.setPrefWidth(320);
             Label passengersHeader = new Label("Passengers");
             passengersHeader.getStyleClass().add("title2");
             passengersVB.getChildren().add(passengersHeader);
 
 
             ArrayList<Passenger> passengersToDisplay = new ArrayList<>();
-            TreeMap<String, ArrayList<Seat>> passengerSeats = new TreeMap<>();
+            TreeMap<String, Seat> passengerSeats = new TreeMap<>();
             for(Booking b : flightBookings) {
-                if(b.getFlight().getID() == outFlight.getID() || b.getFlight().getID() == inFlight.getID()) {
+                if(flightBookingsIds.contains(b.getID())) {
                     Passenger p = b.getPassenger();
-                    passengerSeats.computeIfAbsent(p.getFirstName(), k -> new ArrayList<Seat>());
-                    ArrayList<Seat> currentSeats = passengerSeats.get(p.getFirstName());
-                    currentSeats.add(b.getSeat());
-                    passengerSeats.put(p.getFirstName(), currentSeats);
+                    String passengerKey = p.getFirstName()+b.getFlight().getID();
+                    passengerSeats.put(passengerKey, b.getSeat());
                     if(!passengersToDisplay.contains(p)) passengersToDisplay.add(p);
                 }
             }
@@ -117,10 +121,13 @@ public class UserBookingsController {
                 VBox passengerInsurance = new VBox();
 
                 Label passengerName = new Label(p.getFirstName() + " " + p.getLastName());
+                passengerName.setWrapText(true);
                 passengerName.setPrefWidth(100);
+                passengerName.setMaxWidth(100);
+                passengerName.getStyleClass().add("booking-small");
                 passengerNames.getChildren().add(passengerName);
-                Label seat1 = new Label(passengerSeats.get(p.getFirstName()).get(0).getSeatNumber());
-                Label seat2 = new Label(passengerSeats.get(p.getFirstName()).get(1).getSeatNumber());
+                Label seat1 = new Label(passengerSeats.get(p.getFirstName()+flights.get(0).getID()).getSeatNumber());
+                Label seat2 = new Label(passengerSeats.get(p.getFirstName()+flights.get(1).getID()).getSeatNumber());
                 seat1.setStyle("-fx-font-size: 10px");
                 seat2.setStyle("-fx-font-size: 10px");
                 passengerSeat1.getChildren().add(seat1);

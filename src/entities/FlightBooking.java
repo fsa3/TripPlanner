@@ -13,6 +13,8 @@ public class FlightBooking extends Booking {
     private Airport departureLocation;
     private Airport destination;
     private String seat;
+    int tipBookingId;
+    int flightBookingId;
 
     public FlightBooking(Flight flight) {
         this.flight = flight;
@@ -21,6 +23,11 @@ public class FlightBooking extends Booking {
         arrivalTime = flight.getArrivalTime();
         departureLocation = flight.getDeparture();
         destination = flight.getArrival();
+    }
+
+    public FlightBooking(int tripBookingId, int flightBookingId) {
+        this.tipBookingId = tripBookingId;
+        this.flightBookingId = flightBookingId;
     }
 
     public void cancelBooking() {
@@ -75,4 +82,19 @@ public class FlightBooking extends Booking {
         this.seat = seat;
     }
 
+    public int getTipBookingId() {
+        return tipBookingId;
+    }
+
+    public void setTipBookingId(int tipBookingId) {
+        this.tipBookingId = tipBookingId;
+    }
+
+    public int getFlightBookingId() {
+        return flightBookingId;
+    }
+
+    public void setFlightBookingId(int flightBookingId) {
+        this.flightBookingId = flightBookingId;
+    }
 }

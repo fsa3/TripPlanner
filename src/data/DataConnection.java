@@ -1,6 +1,7 @@
 package data;
 
 import entities.DayTripBooking;
+import entities.FlightBooking;
 import entities.HotelBooking;
 import entities.User;
 import flightSystem.flightplanner.data.FlDataConnection;
@@ -169,8 +170,8 @@ public class DataConnection {
         return Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 
-    public void createBooking(User user, int bookingId, double price, int numAdults, int numChildren, int flightOutId, int flightInId) {
-        String query = "INSERT INTO Booking(bookingUser, bookingId, price, numAdults, numChildren, flightOut, flightIn) values(?,?,?,?,?,?,?)";
+    public void createBooking(User user, int bookingId, double price, int numAdults, int numChildren) {
+        String query = "INSERT INTO Booking(bookingUser, bookingId, price, numAdults, numChildren) values(?,?,?,?,?)";
         try {
             PreparedStatement createBooking = connection.prepareStatement(query);
             createBooking.setString(1, user.getEmail());
@@ -178,8 +179,6 @@ public class DataConnection {
             createBooking.setDouble(3, price);
             createBooking.setInt(4, numAdults);
             createBooking.setInt(5, numChildren);
-            createBooking.setInt(6, flightOutId);
-            createBooking.setInt(7, flightInId);
             createBooking.executeUpdate();
             createBooking.close();
         } catch (SQLException throwables) {
@@ -317,5 +316,34 @@ public class DataConnection {
             e.printStackTrace();
         }
         return flight;
+    }
+
+    public void createFlightBooking(FlightBooking flightBooking) {
+        String query = "INSERT INTO FlightBookings(bookingId, flightBookingId) VALUES(?,?)";
+        try {
+            PreparedStatement createFlightBooking = connection.prepareStatement(query);
+            createFlightBooking.setInt(1, flightBooking.getTipBookingId());
+            createFlightBooking.setInt(2, flightBooking.getFlightBookingId());
+            createFlightBooking.executeUpdate();
+            createFlightBooking.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public ArrayList<Integer> getFlightBookinIds(Integer id) {
+        String query = "SELECT flightBookingId FROM FlightBookings WHERE bookingId = ?";
+        ArrayList<Integer> ids = new ArrayList<>();
+        try {
+            PreparedStatement getFlightBookingIds = connection.prepareStatement(query);
+            getFlightBookingIds.setInt(1, id);
+            ResultSet rs = getFlightBookingIds.executeQuery();
+            while(rs.next()) ids.add(rs.getInt(1));
+            rs.close();
+            getFlightBookingIds.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return ids;
     }
 }

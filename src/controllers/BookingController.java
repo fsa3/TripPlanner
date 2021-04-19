@@ -51,8 +51,7 @@ public class BookingController {
         int flightInId = -1;
         if(!tPackage.getOutFlights().isEmpty()) flightOutId = tPackage.getOutFlights().get(0).getID();
         if(!tPackage.getInFlights().isEmpty()) flightInId = tPackage.getInFlights().get(0).getID();
-        dataConnection.createBooking(user, bookingId, tPackage.getPrice(), tPackage.getNumAdults(), tPackage.getNumChildren(), flightOutId, flightInId);
-        dataConnection.closeConnection();
+        dataConnection.createBooking(user, bookingId, tPackage.getPrice(), tPackage.getNumAdults(), tPackage.getNumChildren());
         bookings = new ArrayList<>();
         // todo kalla á föll frá hinum hópunum til að bóka
 
@@ -67,7 +66,9 @@ public class BookingController {
                 information.setCurrentPassenger(passengers.get(i));
                 information.setSeat(outSeats.get(i));
                 try {
-                    flightBookingController.createBooking();
+                    int flightBookingId = flightBookingController.createBooking();
+                    FlightBooking flightBooking = new FlightBooking(bookingId, flightBookingId);
+                    dataConnection.createFlightBooking(flightBooking);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -79,7 +80,9 @@ public class BookingController {
                 information.setCurrentPassenger(passengers.get(i));
                 information.setSeat(inSeats.get(i));
                 try {
-                    flightBookingController.createBooking();
+                    int flightBookingId = flightBookingController.createBooking();
+                    FlightBooking flightBooking = new FlightBooking(bookingId, flightBookingId);
+                    dataConnection.createFlightBooking(flightBooking);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -96,9 +99,7 @@ public class BookingController {
                 hotelSystem.entities.Booking hotelSystemBooking = new hotelSystem.entities.Booking(h, r, DataConnection.localDateToDate(tPackage.getStartDate()), DataConnection.localDateToDate(tPackage.getEndDate()));
                 AccommodationBookingController acBookingController = new AccommodationBookingController();
                 acBookingController.addBooking(hotelSystemBooking);
-                DataConnection dc = new DataConnection();
-                dc.createHotelBooking(hotelBooking);
-                dc.closeConnection();
+                dataConnection.createHotelBooking(hotelBooking);
                 bookings.add(hotelBooking);
             }
         }
@@ -109,11 +110,10 @@ public class BookingController {
             Account dayTripAccount = new Account("-1", user.getFirstName(), user.getLastName(), user.getPassword(), user.getEmail(), user.getPhoneNumber(), paymentInfo, null);
             dayTripSystem.Booking dayTripSystemBooking = new dayTripSystem.Booking(t, dayTripAccount, true/*todo setja pickup valmöguleika?*/, 0, false, tPackage.getNumAdults()+tPackage.getNumChildren());
             dayTripSystemBooking.book(); // todo beila á að tékka hvort það virkar að bóka hjá þeim
-            DataConnection dc = new DataConnection();
-            dc.createDayTripBooking(dtBooking);
-            dc.closeConnection();
+            dataConnection.createDayTripBooking(dtBooking);
             bookings.add(dtBooking);
         }
+        dataConnection.closeConnection();
     }
 
     public void getPackageFromBookings() {
