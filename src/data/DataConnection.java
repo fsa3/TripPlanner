@@ -55,9 +55,11 @@ public class DataConnection {
         String phoneNum = rs.getString(5);
         String ssNum = rs.getString(6);
         int id = rs.getInt(7);
+        String activity = rs.getString(8);
+        int rating = rs.getInt(9);
         getUser.close();
         System.out.println("user id "+id);
-        return new User(userEmail, firstName, lastName, userPw, phoneNum, ssNum, id);
+        return new User(userEmail, firstName, lastName, userPw, phoneNum, ssNum, id, activity, rating);
     }
 
     private void databaseError() {
@@ -118,7 +120,12 @@ public class DataConnection {
         try {
             String query = "UPDATE Users SET "+attribute+" = ? WHERE email = ?";
             PreparedStatement updateUserStm = connection.prepareStatement(query);
-            updateUserStm.setString(1, value);
+            if(attribute.equals("minHotelRating")) {
+                updateUserStm.setInt(1, Integer.parseInt(value));
+            }
+            else {
+                updateUserStm.setString(1, value);
+            }
             updateUserStm.setString(2, email);
             updateUserStm.executeUpdate();
             updateUserStm.close();

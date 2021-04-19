@@ -8,6 +8,8 @@ public class User {
     private String password;
     private String phoneNumber;
     private String ssNum;
+    private String favoriteActivity;
+    private int minHotelRating = 0;
 
     public User(String email, String firstName, String lastName, String password, String phoneNumber, String ssNum, int id) {
         this.email = email;
@@ -17,6 +19,18 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.ssNum = ssNum;
         this.ID = id;
+    }
+
+    public User(String email, String firstName, String lastName, String password, String phoneNumber, String ssNum, int id, String favoriteActivity, int minHotelRating) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.ssNum = ssNum;
+        this.ID = id;
+        this.favoriteActivity = favoriteActivity;
+        this.minHotelRating = minHotelRating;
     }
 
     public String getEmail() {
@@ -65,6 +79,22 @@ public class User {
 
     public void setSsNum(String ssNum) {
         this.ssNum = ssNum;
+    }
+
+    public String getFavoriteActivity() {
+        return favoriteActivity;
+    }
+
+    public void setFavoriteActivity(String favoriteActivity) {
+        this.favoriteActivity = favoriteActivity;
+    }
+
+    public int getMinHotelRating() {
+        return minHotelRating;
+    }
+
+    public void setMinHotelRating(int minHotelRating) {
+        this.minHotelRating = minHotelRating;
     }
 
     @Override

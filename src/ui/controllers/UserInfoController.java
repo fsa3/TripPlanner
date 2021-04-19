@@ -5,11 +5,12 @@ import entities.User;
 import flightSystem.flightplanner.controllers.FlightUserController;
 import flightSystem.flightplanner.data.FlDataConnection;
 import flightSystem.flightplanner.entities.Passenger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -24,13 +25,23 @@ public class UserInfoController {
     @FXML private TextField firstNameTextField;
     @FXML private TextField lastNameTextField;
     @FXML private TextField phoneTextField;
+    @FXML private ComboBox<String> activityChooser;
+    @FXML private Slider ratingSlider;
+    @FXML private Label ratingLabel;
 
     private User user;
     private SearchUiController owningSearchController;
     private BookingUiController owningBookingController;
 
     public void initialize() {
-
+        String[] flokkar = {"Hiking", "Sailing", "Skiing", "Biking", "City Tour"};
+        activityChooser.setItems(FXCollections.observableArrayList(flokkar));
+        ratingSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                ratingLabel.setText(String.valueOf(Math.round((double) t1)));
+            }
+        });
     }
 
     public void setUser(User user) {
@@ -83,6 +94,8 @@ public class UserInfoController {
         uc.updateUser("firstName",firstNameTextField.getText());
         uc.updateUser("lastName",lastNameTextField.getText());
         uc.updateUser("phoneNumber",phoneTextField.getText());
+        if(activityChooser.getValue() != null) uc.updateUser("favoriteActivity", activityChooser.getValue());
+        uc.updateUser("minHotelRating", ratingLabel.getText());
         changeSuccessful.setText("Changes saved successfully!");
         user = uc.getUser("email",emailInput.getText());
 
