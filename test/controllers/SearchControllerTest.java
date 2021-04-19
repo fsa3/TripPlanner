@@ -31,7 +31,7 @@ class SearchControllerTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        searchController = new SearchController(sResult);
+        searchController = null;
         searchController.createTripPackages();
         tPackages = searchController.getPackages();
     }

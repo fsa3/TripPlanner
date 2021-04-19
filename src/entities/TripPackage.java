@@ -15,11 +15,13 @@ public class TripPackage extends SearchResult{
     private double price;
     private SearchResult masterSearch;
     private boolean customPackage = true;
+    private User user;
 
-    public TripPackage(String name, SearchResult search) {
+    public TripPackage(String name, SearchResult search, User user) {
         super(search.getStartDate(), search.getEndDate(), search.getDepCity(), search.getDestCity(), search.getNumAdults(), search.getNumChildren());
         this.name = name;
         masterSearch = search;
+        this.user = user;
         outFlights = new ArrayList<>();
         inFlights = new ArrayList<>();
         hotels = new ArrayList<>();
@@ -178,15 +180,32 @@ public class TripPackage extends SearchResult{
 
         if(!masterSearch.getDayTrips().isEmpty()) {
             ArrayList<String> tripNames = new ArrayList<>();
-            for (int i = 0; i < 2; i++) {
-                Trip cheapestTrip = masterSearch.dayTrips.get(0);
-                for (Trip t : masterSearch.getDayTrips()) {
-                    if (t.getPrice() < cheapestTrip.getPrice() && !tripNames.contains(t.getCategory())) {
-                        cheapestTrip = t;
+            System.out.println(user);
+            if(user != null) {
+                Trip cheapestFav = null;
+                int lowestFavPrice = (int) Double.POSITIVE_INFINITY;
+                for(Trip t : masterSearch.getDayTrips()) {
+                    if(t.getCategory().equals(user.getFavoriteActivity()) && t.getPrice() < lowestFavPrice) {
+                        cheapestFav = t;
+                        lowestFavPrice = t.getPrice();
                     }
                 }
-                dayTrips.add(cheapestTrip);
-                tripNames.add(cheapestTrip.getCategory());
+                tripNames.add(cheapestFav.getCategory());
+                dayTrips.add(cheapestFav);
+            }
+            for (int i = 0; i < 2; i++) {
+                Trip cheapestTrip = null;
+                int lowestPrice = (int) Double.POSITIVE_INFINITY;
+                for (Trip t : masterSearch.getDayTrips()) {
+                    if (t.getPrice() < lowestPrice && !tripNames.contains(t.getCategory())) {
+                        cheapestTrip = t;
+                        lowestPrice = t.getPrice();
+                    }
+                }
+                if(cheapestTrip != null) {
+                    dayTrips.add(cheapestTrip);
+                    tripNames.add(cheapestTrip.getCategory());
+                }
             }
         }
 

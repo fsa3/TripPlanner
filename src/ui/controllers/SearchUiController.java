@@ -147,7 +147,7 @@ public class SearchUiController implements Initializable {
                     "Akureyri", "Egilsstaðir", 3, 2
             );
             searchResult.search();
-            searchController = new SearchController(searchResult);
+            searchController = new SearchController(searchResult, user);
             searchController.createTripPackages();
             updateSearchView();
 
@@ -164,7 +164,7 @@ public class SearchUiController implements Initializable {
         });
 
         if(customPackage == null) {
-            customPackage = new TripPackage("Custom Package" ,searchResult);
+            customPackage = new TripPackage("Custom Package" ,searchResult, user);
             customPackage.emptyPackage();
         }
 
