@@ -47,10 +47,6 @@ public class BookingController {
 
     public void bookPackage() {
         DataConnection dataConnection = new DataConnection();
-        int flightOutId = -1;
-        int flightInId = -1;
-        if(!tPackage.getOutFlights().isEmpty()) flightOutId = tPackage.getOutFlights().get(0).getID();
-        if(!tPackage.getInFlights().isEmpty()) flightInId = tPackage.getInFlights().get(0).getID();
         dataConnection.createBooking(user, bookingId, tPackage.getPrice(), tPackage.getNumAdults(), tPackage.getNumChildren());
         bookings = new ArrayList<>();
         // todo kalla á föll frá hinum hópunum til að bóka

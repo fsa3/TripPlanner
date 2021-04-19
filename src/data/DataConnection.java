@@ -383,4 +383,32 @@ public class DataConnection {
             throwables.printStackTrace();
         }
     }
+
+    public void deleteDayTripBooking(DayTripBooking dtB) {
+        String query = "DELETE FROM DayTripBooking WHERE bookingId = ?";
+        try {
+            PreparedStatement deleteDayTripBooking = connection.prepareStatement(query);
+            deleteDayTripBooking.setInt(1, dtB.getBookingId());
+            deleteDayTripBooking.executeUpdate();
+            deleteDayTripBooking.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public int getNumPeople(Integer id) {
+        String query = "SELECT numAdults+numChildren FROM Booking WHERE bookingId = ?";
+        int numPeople = 0;
+        try {
+            PreparedStatement getNumPeople = connection.prepareStatement(query);
+            getNumPeople.setInt(1, id);
+            ResultSet rs = getNumPeople.executeQuery();
+            while(rs.next()) numPeople += rs.getInt(1);
+            rs.close();
+            getNumPeople.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return numPeople;
+    }
 }

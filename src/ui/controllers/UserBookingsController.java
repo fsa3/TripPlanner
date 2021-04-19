@@ -1,6 +1,8 @@
 package ui.controllers;
 
 import data.DataConnection;
+import dayTripSystem.Account;
+import dayTripSystem.BookingController;
 import entities.DayTripBooking;
 import entities.FlightBooking;
 import entities.HotelBooking;
@@ -99,7 +101,7 @@ public class UserBookingsController {
             }
 
             VBox passengersVB = new VBox();
-            passengersVB.setPrefWidth(320);
+            passengersVB.setPrefWidth(400);
             Label passengersHeader = new Label("Passengers");
             passengersHeader.getStyleClass().add("title2");
             passengersVB.getChildren().add(passengersHeader);
@@ -125,14 +127,16 @@ public class UserBookingsController {
 
                 Label passengerName = new Label(p.getFirstName() + " " + p.getLastName());
                 passengerName.setWrapText(true);
-                passengerName.setPrefWidth(100);
-                passengerName.setMaxWidth(100);
+                passengerName.setPrefWidth(150);
+                passengerName.setMaxWidth(150);
                 passengerName.getStyleClass().add("booking-small");
                 passengerNames.getChildren().add(passengerName);
                 Label seat1 = new Label(passengerSeats.get(p.getFirstName()+flights.get(0).getID()).getSeatNumber());
                 Label seat2 = new Label(passengerSeats.get(p.getFirstName()+flights.get(1).getID()).getSeatNumber());
-                seat1.setStyle("-fx-font-size: 10px");
-                seat2.setStyle("-fx-font-size: 10px");
+                seat1.setPrefWidth(30);
+                seat2.setPrefWidth(30);
+                seat1.getStyleClass().add("booking-small");
+                seat2.getStyleClass().add("booking-small");
                 passengerSeat1.getChildren().add(seat1);
                 passengerSeat2.getChildren().add(seat2);
                 String luggage = "no luggage";
@@ -141,6 +145,8 @@ public class UserBookingsController {
                 if(p.isInsurance()) insurance = "insurance";
                 Label luggageLabel = new Label(luggage);
                 Label insuranceLabel = new Label(insurance);
+                luggageLabel.setPrefWidth(70);
+                insuranceLabel.setPrefWidth(70);
                 luggageLabel.setStyle("-fx-font-size: 10px");
                 insuranceLabel.setStyle("-fx-font-size: 10px");
                 passengerLuggage.getChildren().add(luggageLabel);
@@ -195,6 +201,7 @@ public class UserBookingsController {
             bookedPackagesView.getChildren().add(bookingVB);
 
             editBooking.setOnAction((evt) -> {
+                // cancel flights
                 FlightBookingController flightBookingController = FlightBookingController.getInstance();
                 DataConnection dataConnection = new DataConnection();
                 for(Booking b : flightBookings) {
@@ -208,6 +215,7 @@ public class UserBookingsController {
                     }
                 }
 
+                // cancel hotels
                 dataConnection.deleteHotelBookingsByBookingId(id);
                 AccommodationBookingController hotelBookingController = new AccommodationBookingController();
                 for(HotelBooking hb : hotelBookings) {
@@ -215,6 +223,19 @@ public class UserBookingsController {
                         hotelBookingController.removeBooking(new hotelSystem.entities.Booking(hb.getHotel(), hb.getRoom(), DataConnection.localDateToDate(hb.getCheckInDate()), DataConnection.localDateToDate(hb.getCheckOutDate())));
                     }
                 }
+
+                // cancel day trips
+                int numPeople = dataConnection.getNumPeople(id);
+                Account dayTripAccount = new Account("-1", user.getFirstName(), user.getLastName(), user.getPassword(), user.getEmail(), user.getPhoneNumber(), null, null);
+                BookingController dayTripBookingController = new BookingController();
+                for(DayTripBooking dtB : dayTripBookings) {
+                    if (dtB.getBookingId() == id) {
+                        dataConnection.deleteDayTripBooking(dtB);
+                        dayTripSystem.Booking dayTripSystemBooking = new dayTripSystem.Booking(dtB.getDayTrip(), dayTripAccount, false, 0, true, numPeople);
+                        dayTripBookingController.cancelBooking(dayTripSystemBooking);
+                    }
+                }
+
                 dataConnection.deleteBooking(id);
                 dataConnection.closeConnection();
                 try {
