@@ -11,6 +11,7 @@ import flightSystem.flightplanner.entities.Booking;
 import flightSystem.flightplanner.entities.Flight;
 import flightSystem.flightplanner.entities.Passenger;
 import flightSystem.flightplanner.entities.Seat;
+import hotelSystem.controllers.AccommodationBookingController;
 import hotelSystem.entities.Accommodation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -206,7 +207,14 @@ public class UserBookingsController {
                         }
                     }
                 }
-                // todo cancela hoteli og daytrip líka
+
+                dataConnection.deleteHotelBookingsByBookingId(id);
+                AccommodationBookingController hotelBookingController = new AccommodationBookingController();
+                for(HotelBooking hb : hotelBookings) {
+                    if (hb.getBookingId() == id) {
+                        hotelBookingController.removeBooking(new hotelSystem.entities.Booking(hb.getHotel(), hb.getRoom(), DataConnection.localDateToDate(hb.getCheckInDate()), DataConnection.localDateToDate(hb.getCheckOutDate())));
+                    }
+                }
                 dataConnection.deleteBooking(id);
                 dataConnection.closeConnection();
                 try {

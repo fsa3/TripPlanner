@@ -336,6 +336,21 @@ public class DatabaseConnection implements Database {
         closeConnection();
     }
 
+    public void deleteOccupancy(int roomId, Date from, Date to) throws Exception {
+        getConnection();
+        String q = "DELETE FROM Occupancy "
+                + "WHERE roomId = ?"
+                + "AND dateFrom = ?"
+                + "AND dateTo = ?";
+        PreparedStatement pstmt = conn.prepareStatement(q);
+        pstmt.setInt(1, roomId);
+        pstmt.setDate(2, from);
+        pstmt.setDate(3, to);
+        pstmt.executeUpdate();
+        pstmt.close();
+        closeConnection();
+    }
+
     public ArrayList<Occupancy> getAllOccupanciesByRoomId(int roomId) throws Exception {
         getConnection();
         String q = "SELECT * FROM Occupancy WHERE roomId = ?";

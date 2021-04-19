@@ -81,6 +81,16 @@ public class Room {
         occupancies.add(occupancy);
     }
 
+    public void removeOccupancy(int roomId, Date from, Date to) {
+        DatabaseConnection connection = new DatabaseConnection();
+        try {
+            connection.deleteOccupancy(roomId, from, to);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        getOccupancies();
+    }
+
     public ArrayList<Occupancy> getOccupancies() {
         DatabaseConnection connection = new DatabaseConnection();
         ArrayList<Occupancy> dbList = new ArrayList<>();

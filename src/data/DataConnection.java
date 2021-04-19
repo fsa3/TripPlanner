@@ -371,4 +371,16 @@ public class DataConnection {
             throwables.printStackTrace();
         }
     }
+
+    public void deleteHotelBookingsByBookingId(Integer id) {
+        String query = "DELETE FROM HotelBookings WHERE bookingId = ?";
+        try {
+            PreparedStatement deleteHotelBookings = connection.prepareStatement(query);
+            deleteHotelBookings.setInt(1, id);
+            deleteHotelBookings.executeUpdate();
+            deleteHotelBookings.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 }
