@@ -5,6 +5,7 @@ import entities.DayTripBooking;
 import entities.FlightBooking;
 import entities.HotelBooking;
 import entities.User;
+import flightSystem.flightplanner.controllers.FlightBookingController;
 import flightSystem.flightplanner.data.FlDataConnection;
 import flightSystem.flightplanner.entities.Booking;
 import flightSystem.flightplanner.entities.Flight;
@@ -20,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import javax.xml.crypto.Data;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.TreeMap;
@@ -190,9 +192,32 @@ public class UserBookingsController {
 
             bookingVB.getStyleClass().add("packageContainer");
             bookedPackagesView.getChildren().add(bookingVB);
+
+            editBooking.setOnAction((evt) -> {
+                FlightBookingController flightBookingController = FlightBookingController.getInstance();
+                DataConnection dataConnection = new DataConnection();
+                for(Booking b : flightBookings) {
+                    if(flightBookingsIds.contains(b.getID())) {
+                        try {
+                            flightBookingController.cancelBooking(b);
+                            dataConnection.cancelFlightBooking(new FlightBooking(id, b.getID()));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                // todo cancela hoteli og daytrip líka
+                dataConnection.deleteBooking(id);
+                dataConnection.closeConnection();
+                try {
+                    bookedPackagesView.getChildren().clear();
+                    displayBookings();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
         }
         dc.closeConnection();
-
     }
 
     private String displayFlight(Flight f) {

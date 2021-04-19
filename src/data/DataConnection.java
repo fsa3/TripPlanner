@@ -346,4 +346,29 @@ public class DataConnection {
         }
         return ids;
     }
+
+    public void cancelFlightBooking(FlightBooking flightBooking) {
+        String query = "DELETE FROM FlightBookings WHERE bookingId = ? AND flightBookingId = ?";
+        try {
+            PreparedStatement deleteFlightBooking = connection.prepareStatement(query);
+            deleteFlightBooking.setInt(1, flightBooking.getTipBookingId());
+            deleteFlightBooking.setInt(2, flightBooking.getFlightBookingId());
+            deleteFlightBooking.executeUpdate();
+            deleteFlightBooking.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void deleteBooking(Integer id) {
+        String query = "DELETE FROM Booking WHERE bookingId = ?";
+        try {
+            PreparedStatement deleteBooking = connection.prepareStatement(query);
+            deleteBooking.setInt(1, id);
+            deleteBooking.executeUpdate();
+            deleteBooking.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 }
