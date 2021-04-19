@@ -100,8 +100,8 @@ Button {
 }
 .date-picker-popup > * > .day-name-cell,
 .date-picker-popup > * > .week-number-cell {
-    -fx-background-color: pink;
-    -fx-text-fill: purple;
+    -fx-background-color: #0D7377FF;
+    -fx-text-fill: #ffffff;
 }
 .back-button{
     -fx-background-color:  #7a0b0b;
