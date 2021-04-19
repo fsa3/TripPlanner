@@ -6,8 +6,8 @@ import flightSystem.flightplanner.entities.Flight;
 import hotelSystem.entities.Accommodation;
 import hotelSystem.entities.Room;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.TreeMap;
 
 public class TripPackage extends SearchResult{
@@ -119,6 +119,43 @@ public class TripPackage extends SearchResult{
             inFlights.add(inFlight);
         }
 
+        getCheapestHotelRooms();
+
+        if(!masterSearch.getDayTrips().isEmpty()) {
+            ArrayList<String> tripNames = new ArrayList<>();
+            System.out.println(user);
+            if(user != null) {
+                Trip cheapestFav = null;
+                int lowestFavPrice = (int) Double.POSITIVE_INFINITY;
+                for(Trip t : masterSearch.getDayTrips()) {
+                    if(t.getCategory().equals(user.getFavoriteActivity()) && t.getPrice() < lowestFavPrice) {
+                        cheapestFav = t;
+                        lowestFavPrice = t.getPrice();
+                    }
+                }
+                tripNames.add(cheapestFav.getCategory());
+                dayTrips.add(cheapestFav);
+            }
+            for (int i = 0; i < 2; i++) {
+                Trip cheapestTrip = null;
+                int lowestPrice = (int) Double.POSITIVE_INFINITY;
+                for (Trip t : masterSearch.getDayTrips()) {
+                    if (t.getPrice() < lowestPrice && !tripNames.contains(t.getCategory())) {
+                        cheapestTrip = t;
+                        lowestPrice = t.getPrice();
+                    }
+                }
+                if(cheapestTrip != null) {
+                    dayTrips.add(cheapestTrip);
+                    tripNames.add(cheapestTrip.getCategory());
+                }
+            }
+        }
+
+        calculatePrice();
+    }
+
+    private void getCheapestHotelRooms() {
         if(!masterSearch.getHotels().isEmpty()) {
             TreeMap<Accommodation, ArrayList<Room>> hotelsCheapestRoomComb = new TreeMap<>();
             for (Accommodation h : masterSearch.getHotels()) {
@@ -177,39 +214,6 @@ public class TripPackage extends SearchResult{
             hotels.add(cheapestHotel);
             rooms.addAll(hotelsCheapestRoomComb.get(cheapestHotel));
         }
-
-        if(!masterSearch.getDayTrips().isEmpty()) {
-            ArrayList<String> tripNames = new ArrayList<>();
-            System.out.println(user);
-            if(user != null) {
-                Trip cheapestFav = null;
-                int lowestFavPrice = (int) Double.POSITIVE_INFINITY;
-                for(Trip t : masterSearch.getDayTrips()) {
-                    if(t.getCategory().equals(user.getFavoriteActivity()) && t.getPrice() < lowestFavPrice) {
-                        cheapestFav = t;
-                        lowestFavPrice = t.getPrice();
-                    }
-                }
-                tripNames.add(cheapestFav.getCategory());
-                dayTrips.add(cheapestFav);
-            }
-            for (int i = 0; i < 2; i++) {
-                Trip cheapestTrip = null;
-                int lowestPrice = (int) Double.POSITIVE_INFINITY;
-                for (Trip t : masterSearch.getDayTrips()) {
-                    if (t.getPrice() < lowestPrice && !tripNames.contains(t.getCategory())) {
-                        cheapestTrip = t;
-                        lowestPrice = t.getPrice();
-                    }
-                }
-                if(cheapestTrip != null) {
-                    dayTrips.add(cheapestTrip);
-                    tripNames.add(cheapestTrip.getCategory());
-                }
-            }
-        }
-
-        calculatePrice();
     }
 
     public void highEnd() {
@@ -232,6 +236,43 @@ public class TripPackage extends SearchResult{
             inFlights.add(inFlight);
         }
 
+        getMostExpensiveRooms();
+
+        if(!masterSearch.getDayTrips().isEmpty()) {
+            ArrayList<String> tripNames = new ArrayList<>();
+            System.out.println(user);
+            if(user != null) {
+                Trip mostExpensiveFav = null;
+                int highestFavPrice = (int) Double.NEGATIVE_INFINITY;
+                for(Trip t : masterSearch.getDayTrips()) {
+                    if(t.getCategory().equals(user.getFavoriteActivity()) && t.getPrice() > highestFavPrice) {
+                        mostExpensiveFav = t;
+                        highestFavPrice = t.getPrice();
+                    }
+                }
+                tripNames.add(mostExpensiveFav.getCategory());
+                dayTrips.add(mostExpensiveFav);
+            }
+            for (int i = 0; i < 2; i++) {
+                Trip mostExpensiveTrip = null;
+                int highestPrice = (int) Double.NEGATIVE_INFINITY;
+                for (Trip t : masterSearch.getDayTrips()) {
+                    if (t.getPrice() > highestPrice && !tripNames.contains(t.getCategory())) {
+                        mostExpensiveTrip = t;
+                        highestPrice = t.getPrice();
+                    }
+                }
+                if(mostExpensiveTrip != null) {
+                    dayTrips.add(mostExpensiveTrip);
+                    tripNames.add(mostExpensiveTrip.getCategory());
+                }
+            }
+        }
+
+        calculatePrice();
+    }
+
+    private void getMostExpensiveRooms() {
         if(!masterSearch.getHotels().isEmpty()) {
             TreeMap<Accommodation, ArrayList<Room>> hotelsMostExpensiveRoomComb = new TreeMap<>();
             for (Accommodation h : masterSearch.getHotels()) {
@@ -290,37 +331,64 @@ public class TripPackage extends SearchResult{
             hotels.add(mostExpensiveHotel);
             rooms.addAll(hotelsMostExpensiveRoomComb.get(mostExpensiveHotel));
         }
+    }
 
-        if(!masterSearch.getDayTrips().isEmpty()) {
-            ArrayList<String> tripNames = new ArrayList<>();
-            System.out.println(user);
-            if(user != null) {
-                Trip mostExpensiveFav = null;
-                int highestFavPrice = (int) Double.NEGATIVE_INFINITY;
-                for(Trip t : masterSearch.getDayTrips()) {
-                    if(t.getCategory().equals(user.getFavoriteActivity()) && t.getPrice() > highestFavPrice) {
-                        mostExpensiveFav = t;
-                        highestFavPrice = t.getPrice();
-                    }
+    public void allIn() {
+        if(!masterSearch.getOutFlights().isEmpty()) {
+            Flight outFlight = masterSearch.getOutFlights().get(0);
+            for (Flight f : masterSearch.getOutFlights()) {
+                if (f.getDepartureTime().compareTo(outFlight.getDepartureTime()) < 0) {
+                    outFlight = f;
                 }
-                tripNames.add(mostExpensiveFav.getCategory());
-                dayTrips.add(mostExpensiveFav);
             }
-            for (int i = 0; i < 2; i++) {
-                Trip mostExpensiveTrip = null;
-                int highestPrice = (int) Double.NEGATIVE_INFINITY;
-                for (Trip t : masterSearch.getDayTrips()) {
-                    if (t.getPrice() > highestPrice && !tripNames.contains(t.getCategory())) {
-                        mostExpensiveTrip = t;
-                        highestPrice = t.getPrice();
-                    }
+            outFlights.add(outFlight);
+        }
+        if(!masterSearch.getInFlights().isEmpty()) {
+            Flight inFlight = masterSearch.getInFlights().get(0);
+            for (Flight f : masterSearch.getInFlights()) {
+                if (f.getDepartureTime().compareTo(inFlight.getDepartureTime()) > 0) {
+                    inFlight = f;
                 }
-                if(mostExpensiveTrip != null) {
-                    dayTrips.add(mostExpensiveTrip);
-                    tripNames.add(mostExpensiveTrip.getCategory());
-                }
+            }
+            inFlights.add(inFlight);
+        }
+
+        getCheapestHotelRooms();
+
+        ArrayList<String> tripNames = new ArrayList<>();
+        ArrayList<Trip> allTrips = new ArrayList<>(masterSearch.getDayTrips());
+        Collections.shuffle(allTrips);
+        for(Trip t : allTrips) {
+            if(tripNames.size() < 5 && !tripNames.contains(t.getCategory())) {
+                dayTrips.add(t);
+                tripNames.add(t.getCategory());
             }
         }
+
+        calculatePrice();
+    }
+
+    public void relaxation() {
+        if(!masterSearch.getOutFlights().isEmpty()) {
+            Flight outFlight = masterSearch.getOutFlights().get(0);
+            for (Flight f : masterSearch.getOutFlights()) {
+                if (f.getDepartureTime().compareTo(outFlight.getDepartureTime()) > 0) {
+                    outFlight = f;
+                }
+            }
+            outFlights.add(outFlight);
+        }
+        if(!masterSearch.getInFlights().isEmpty()) {
+            Flight inFlight = masterSearch.getInFlights().get(0);
+            for (Flight f : masterSearch.getInFlights()) {
+                if (f.getDepartureTime().compareTo(inFlight.getDepartureTime()) < 0) {
+                    inFlight = f;
+                }
+            }
+            inFlights.add(inFlight);
+        }
+
+        getMostExpensiveRooms();
 
         calculatePrice();
     }
