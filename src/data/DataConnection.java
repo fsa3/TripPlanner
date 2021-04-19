@@ -1,5 +1,7 @@
 package data;
 
+import dayTripSystem.Database;
+import dayTripSystem.Trip;
 import entities.DayTripBooking;
 import entities.FlightBooking;
 import entities.HotelBooking;
@@ -223,7 +225,13 @@ public class DataConnection {
                 LocalDate date = dateToLocalDate(rs.getDate(3));
                 int id = rs.getInt(4);
                 User bookingUser = getUserBy("email", rs.getString(5));
-                DayTripBooking dtB = new DayTripBooking(name, city, date, id, bookingUser);
+                Trip trip = null;
+                for(Trip t : Database.getInstance().getAllTrips()) {
+                    if(t.getCategory().equals(name) && t.getDate().equals(localDateToUtilDate(date))) {
+                        trip = t;
+                    }
+                }
+                DayTripBooking dtB = new DayTripBooking(trip, date, id, user);
                 dayTripBookings.add(dtB);
             }
             rs.close();

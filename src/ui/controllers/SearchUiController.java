@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -144,7 +145,7 @@ public class SearchUiController implements Initializable {
             // todo sækja uppsl úr inputtum og smíða search result með því
             searchResult = new SearchResult(LocalDate.of(2021, 5, 6),
                     LocalDate.of(2021, 5, 10),
-                    "Akureyri", "Reykjavík", 1, 1
+                    "Akureyri", "Reykjavík", 2, 2
             );
             searchResult.search();
             searchController = new SearchController(searchResult, user);
@@ -407,7 +408,19 @@ public class SearchUiController implements Initializable {
         hotelImg.setFitHeight(40);
         hotelImg.setPreserveRatio(true);
         hotel.getChildren().add(hotelImg);
-        hotel.getChildren().add(new Label(tPackage.getHotels().get(0).toString()));
+        Accommodation accommodation = tPackage.getHotels().get(0);
+        Label hotelName = new Label(accommodation.toString() + " - " + accommodation.getRating() + " stars");
+        hotel.getChildren().add(hotelName);
+        Label rooms;
+        if(tPackage.getRooms().size() > 1) {
+            rooms = new Label(tPackage.getRooms().size() + " rooms");
+        }
+        else {
+            rooms = new Label(tPackage.getRooms().get(0).toString());
+        }
+        Label nights = new Label(Period.between(tPackage.getStartDate(), tPackage.getEndDate()).getDays() + " nights");
+        hotel.getChildren().add(rooms);
+        hotel.getChildren().add(nights);
         hotel.setAlignment(Pos.CENTER_LEFT);
         hotel.setPrefWidth(450);
         gp.add(hotel, 0, 2, 2, 1);
@@ -419,6 +432,7 @@ public class SearchUiController implements Initializable {
         Button seemoreButton = new Button("See more");
         seemoreButton.getStyleClass().add("blue-button");
         buttons.getChildren().add(seemoreButton);
+        seemoreButton.setVisible(false);
         Pane spacer = new Pane();
         HBox.setHgrow(spacer, Priority.ALWAYS);
         spacer.setMinSize(20, 1);

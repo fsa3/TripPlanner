@@ -276,6 +276,7 @@ public class BookingUiController {
                     tripPrice.setText(newTrip.getPrice() + "$");
                 }
                 else dayChooser.setValue(oldDate);
+                updatePackagePrice();
             }));
             dayTripDatesDP.add(dayChooser);
             dayChooser.setPrefHeight(10);
@@ -420,6 +421,11 @@ public class BookingUiController {
         flightInSeatC.setSpacing(5);
         childrenLuggageVB.setSpacing(5);
         childrenInsuranceVB.setSpacing(5);
+    }
+
+    private void updatePackagePrice() {
+        tripPackage.calculatePrice();
+        packagePrice.setText(tripPackage.getPrice() + "$");
     }
 
     private void setUserAsFirstPassenger() {
