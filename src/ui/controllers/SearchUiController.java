@@ -402,28 +402,30 @@ public class SearchUiController implements Initializable {
         }
         gp.add(dayTrips, 1, 1, 2, 1);
 
-        HBox hotel = new HBox();
-        ImageView hotelImg = new ImageView();
-        hotelImg.setImage(new Image("@../../img/hotel.png"));
-        hotelImg.setFitHeight(40);
-        hotelImg.setPreserveRatio(true);
-        hotel.getChildren().add(hotelImg);
-        Accommodation accommodation = tPackage.getHotels().get(0);
-        Label hotelName = new Label(accommodation.toString() + " - " + accommodation.getRating() + " stars");
-        hotel.getChildren().add(hotelName);
-        Label rooms;
-        if(tPackage.getRooms().size() > 1) {
-            rooms = new Label(tPackage.getRooms().size() + " rooms");
+        if(!tPackage.getHotels().isEmpty()) {
+            HBox hotel = new HBox();
+            ImageView hotelImg = new ImageView();
+            hotelImg.setImage(new Image("@../../img/hotel.png"));
+            hotelImg.setFitHeight(40);
+            hotelImg.setPreserveRatio(true);
+            hotel.getChildren().add(hotelImg);
+            Accommodation accommodation = tPackage.getHotels().get(0);
+            Label hotelName = new Label(accommodation.toString() + " - " + accommodation.getRating() + " stars");
+            hotel.getChildren().add(hotelName);
+            Label rooms;
+            if(tPackage.getRooms().size() > 1) {
+                rooms = new Label(tPackage.getRooms().size() + " rooms");
+            }
+            else {
+                rooms = new Label(tPackage.getRooms().get(0).toString());
+            }
+            Label nights = new Label(Period.between(tPackage.getStartDate(), tPackage.getEndDate()).getDays() + " nights");
+            hotel.getChildren().add(rooms);
+            hotel.getChildren().add(nights);
+            hotel.setAlignment(Pos.CENTER_LEFT);
+            hotel.setPrefWidth(450);
+            gp.add(hotel, 0, 2, 2, 1);
         }
-        else {
-            rooms = new Label(tPackage.getRooms().get(0).toString());
-        }
-        Label nights = new Label(Period.between(tPackage.getStartDate(), tPackage.getEndDate()).getDays() + " nights");
-        hotel.getChildren().add(rooms);
-        hotel.getChildren().add(nights);
-        hotel.setAlignment(Pos.CENTER_LEFT);
-        hotel.setPrefWidth(450);
-        gp.add(hotel, 0, 2, 2, 1);
 
         HBox buttons = new HBox();
         buttons.setPrefHeight(40);
