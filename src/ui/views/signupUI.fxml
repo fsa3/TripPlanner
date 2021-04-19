@@ -40,14 +40,14 @@
             </AnchorPane>
             <AnchorPane layoutX="206.0" layoutY="-37.0" prefHeight="248.0" prefWidth="323.0">
                <children>
-                  <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0">
+                  <VBox alignment="TOP_RIGHT" prefHeight="243.0" prefWidth="100.0">
                      <children>
                         <Label text="Email:" textFill="WHITE">
                            <font>
                               <Font size="14.0" />
                            </font>
                            <VBox.margin>
-                              <Insets bottom="20.0" top="10.0" />
+                              <Insets bottom="23.5" top="14.0" />
                            </VBox.margin>
                         </Label>
                         <Label text="Password:" textFill="#f5f5f5">
@@ -55,7 +55,7 @@
                               <Font size="14.0" />
                            </font>
                            <VBox.margin>
-                              <Insets bottom="20.0" />
+                              <Insets bottom="23.5" />
                            </VBox.margin>
                         </Label>
                         <Label text="First Name:" textFill="#f5f5f5">
@@ -63,7 +63,7 @@
                               <Font size="14.0" />
                            </font>
                            <VBox.margin>
-                              <Insets bottom="20.0" />
+                              <Insets bottom="23.5" />
                            </VBox.margin>
                         </Label>
                         <Label text="Last Name:" textFill="#f5f5f5">
@@ -71,7 +71,7 @@
                               <Font size="14.0" />
                            </font>
                            <VBox.margin>
-                              <Insets bottom="20.0" />
+                              <Insets bottom="23.5" />
                            </VBox.margin>
                         </Label>
                         <Label text="Phone Number:" textFill="#f5f5f5">
@@ -79,7 +79,7 @@
                               <Font size="14.0" />
                            </font>
                            <VBox.margin>
-                              <Insets bottom="20.0" />
+                              <Insets bottom="23.5" />
                            </VBox.margin>
                         </Label>
                         <Label text="SS Number:" textFill="#f5f5f5">
