@@ -101,7 +101,7 @@
                                           </VBox>
                                           <VBox fx:id="adultsLastNameVB" prefHeight="200.0" prefWidth="150.0">
                                              <HBox.margin>
-                                                <Insets right="20.0" />
+                                                <Insets right="5.0" />
                                              </HBox.margin>
                                              <children>
                                                 <Label opacity="0.0" styleClass="passengerHeader" text="Adults" textFill="#393939" underline="true">
@@ -110,6 +110,18 @@
                                                    </padding>
                                                 </Label>
                                              </children></VBox>
+                                          <VBox fx:id="adultsSSNumVB" prefHeight="200.0" prefWidth="150.0">
+                                             <children>
+                                                <Label opacity="0.0" styleClass="passengerHeader" text="Adults" textFill="#393939" underline="true">
+                                                   <padding>
+                                                      <Insets bottom="5.0" />
+                                                   </padding>
+                                                </Label>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </VBox>
                                           <VBox fx:id="flightOutSeat" prefHeight="200.0" prefWidth="70.0">
                                              <children>
                                                 <Label fx:id="fNumOut">
@@ -162,6 +174,11 @@
                                              </HBox.margin>
                                           </VBox>
                                           <VBox fx:id="childrenLastNameVB" prefHeight="47.0" prefWidth="150.0">
+                                             <HBox.margin>
+                                                <Insets right="5.0" />
+                                             </HBox.margin>
+                                          </VBox>
+                                          <VBox fx:id="childrenSSNumVB" prefHeight="47.0" prefWidth="150.0">
                                              <HBox.margin>
                                                 <Insets right="20.0" />
                                              </HBox.margin>

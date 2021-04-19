@@ -68,6 +68,10 @@ public class BookingUiController {
     @FXML
     private VBox childrenLastNameVB;
     @FXML
+    private VBox adultsSSNumVB;
+    @FXML
+    private VBox childrenSSNumVB;
+    @FXML
     private Label fNumOut;
     @FXML
     private Label fNumIn;
@@ -319,8 +323,12 @@ public class BookingUiController {
             TextField adultLastName = new TextField();
             adultLastName.setPromptText("Last name " + (i+1));
             adultLastName.getStyleClass().add("personName");
+            TextField adultSSNum = new TextField();
+            adultSSNum.setPromptText("Social Security number " + (i+1));
+            adultSSNum.getStyleClass().add("personName");
             adultsFirstNameVB.getChildren().addAll(adultFirstName, createSpacer());
             adultsLastNameVB.getChildren().addAll(adultLastName, createSpacer());
+            adultsSSNumVB.getChildren().addAll(adultSSNum, createSpacer());
             if(!tripPackage.getOutFlights().isEmpty()) {
                 Button seatOut = new Button("Seat");
                 seatOut.getStyleClass().add("seat-out-button");
@@ -355,6 +363,7 @@ public class BookingUiController {
 
         adultsFirstNameVB.setSpacing(5);
         adultsLastNameVB.setSpacing(5);
+        adultsSSNumVB.setSpacing(5);
         flightOutSeat.setSpacing(5);
         flightInSeat.setSpacing(5);
         adultsLuggageVB.setSpacing(5);
@@ -367,8 +376,12 @@ public class BookingUiController {
             TextField childLastName = new TextField();
             childLastName.setPromptText("Last name of child " + (i+1));
             childLastName.getStyleClass().add("personName");
+            TextField childSSNum = new TextField();
+            childSSNum.setPromptText("Child Social Security number " + (i+1));
+            childSSNum.getStyleClass().add("personName");
             childrenFirstNameVB.getChildren().addAll(childFirstName, createSpacer());
             childrenLastNameVB.getChildren().addAll(childLastName, createSpacer());
+            childrenSSNumVB.getChildren().addAll(childSSNum, createSpacer());
             if(!tripPackage.getOutFlights().isEmpty()) {
                 Button seatOut = new Button("Seat");
                 seatOut.getStyleClass().add("seat-out-button");
@@ -402,6 +415,7 @@ public class BookingUiController {
         }
         childrenFirstNameVB.setSpacing(5);
         childrenLastNameVB.setSpacing(5);
+        childrenSSNumVB.setSpacing(5);
         flightOutSeatC.setSpacing(5);
         flightInSeatC.setSpacing(5);
         childrenLuggageVB.setSpacing(5);
