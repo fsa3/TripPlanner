@@ -25,6 +25,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import javax.xml.crypto.Data;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.TreeMap;
@@ -67,7 +68,7 @@ public class UserBookingsController {
             VBox bookingVB = new VBox();
 
             HBox bookingHeader = new HBox();
-            Label bookingTitle = new Label("My booking, id " + id);
+            Label bookingTitle = new Label("Booking " + id + " for " + dc.getNumPeople(id) + " people");
             bookingTitle.getStyleClass().add("title1-bookings");
             Button editBooking = new Button("Cancel booking");
             Pane spacer = new Pane();
@@ -82,6 +83,7 @@ public class UserBookingsController {
             flightsVB.setPrefWidth(280);
             Label flightsHeader = new Label("Flights");
             flightsHeader.getStyleClass().add("title2");
+            flightsHeader.setVisible(false);
             flightsVB.getChildren().add(flightsHeader);
 
             ArrayList<Integer> flightBookingsIds = dc.getFlightBookinIds(id);
@@ -92,6 +94,7 @@ public class UserBookingsController {
                 }
             }
 
+            if(!flights.isEmpty()) flightsHeader.setVisible(true);
             for(Flight f : flights) {
                 Label flightLabel1 = new Label(displayFlight(f));
                 Label flightLabel2 = new Label(displayDateTime(f));
@@ -104,6 +107,7 @@ public class UserBookingsController {
             passengersVB.setPrefWidth(400);
             Label passengersHeader = new Label("Passengers");
             passengersHeader.getStyleClass().add("title2");
+            passengersHeader.setVisible(false);
             passengersVB.getChildren().add(passengersHeader);
 
 
@@ -117,6 +121,7 @@ public class UserBookingsController {
                     if(!passengersToDisplay.contains(p)) passengersToDisplay.add(p);
                 }
             }
+            if(!passengersToDisplay.isEmpty()) passengersHeader.setVisible(true);
             for(Passenger p : passengersToDisplay) {
                 HBox pHB = new HBox();
                 VBox passengerNames = new VBox();
@@ -127,8 +132,9 @@ public class UserBookingsController {
 
                 Label passengerName = new Label(p.getFirstName() + " " + p.getLastName());
                 passengerName.setWrapText(true);
-                passengerName.setPrefWidth(150);
-                passengerName.setMaxWidth(150);
+                passengerName.setPrefWidth(160);
+                passengerName.setMaxWidth(160);
+                passengerName.setPrefHeight(Label.USE_COMPUTED_SIZE);
                 passengerName.getStyleClass().add("booking-small");
                 passengerNames.getChildren().add(passengerName);
                 Label seat1 = new Label(passengerSeats.get(p.getFirstName()+flights.get(0).getID()).getSeatNumber());
@@ -163,15 +169,20 @@ public class UserBookingsController {
             // hotel
             Label hotelHeader = new Label("Hotel");
             hotelHeader.getStyleClass().add("title2");
+            hotelHeader.setVisible(false);
             bookingVB.getChildren().add(hotelHeader);
             for(HotelBooking hb : hotelBookings) {
                 if(hb.getBookingId() == id) {
+                    hotelHeader.setVisible(true);
                     HBox hotelHB = new HBox();
                     Label h1 = new Label("Hotel:");
+                    h1.setStyle("-fx-font-weight: bold");
                     Label h2 = new Label(hb.getHotelName());
                     Label h3 = new Label("City:");
+                    h3.setStyle("-fx-font-weight: bold");
                     Label h4 = new Label(hb.getCity());
                     Label h5 = new Label("Room:");
+                    h5.setStyle("-fx-font-weight: bold");
                     Label h6 = new Label(hb.getRoom().toString());
                     Label h7 = new Label(hb.getNumberOfNights() + " nights");
                     hotelHB.getChildren().addAll(h1,h2,h3,h4,h5,h6,h7);
@@ -181,13 +192,18 @@ public class UserBookingsController {
 
             Label dtHeader = new Label("Day Trips");
             dtHeader.getStyleClass().add("title2");
+            dtHeader.setVisible(false);
             bookingVB.getChildren().add(dtHeader);
             for(DayTripBooking dtB : dayTripBookings) {
                 if(dtB.getBookingId() == id) {
+                    dtHeader.setVisible(true);
                     HBox dtHb = new HBox();
                     Label d1 = new Label(dtB.getDayTripName());
+                    d1.setPrefWidth(100);
                     Label d2 = new Label(dtB.getCity());
-                    Label d3 = new Label(dtB.getDate().toString());
+                    d2.setPrefWidth(80);
+                    Label d3 = new Label("on " + displayDate(dtB.getDate()));
+                    d3.setPrefWidth(80);
                     dtHb.getChildren().addAll(d1,d2,d3);
                     bookingVB.getChildren().add(dtHb);
                 }
@@ -247,6 +263,10 @@ public class UserBookingsController {
             });
         }
         dc.closeConnection();
+    }
+
+    private String displayDate(LocalDate d) {
+        return d.getDayOfMonth()+"."+d.getMonthValue()+"."+d.getYear();
     }
 
     private String displayFlight(Flight f) {

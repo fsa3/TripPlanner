@@ -225,13 +225,17 @@ public class DataConnection {
                 LocalDate date = dateToLocalDate(rs.getDate(3));
                 int id = rs.getInt(4);
                 User bookingUser = getUserBy("email", rs.getString(5));
-                Trip trip = null;
+                Trip trip = new Trip("-1", city, localDateToUtilDate(date), "", 10, 1, false, name, null, false, 0);
                 for(Trip t : Database.getInstance().getAllTrips()) {
                     if(t.getCategory().equals(name) && t.getDate().equals(localDateToUtilDate(date))) {
                         trip = t;
                     }
                 }
                 DayTripBooking dtB = new DayTripBooking(trip, date, id, user);
+                if(!dtB.getCity().equals(city)) {
+                    dtB.setCity(city);
+                    trip.setDestination(city);
+                }
                 dayTripBookings.add(dtB);
             }
             rs.close();
