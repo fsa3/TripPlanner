@@ -137,14 +137,18 @@ public class UserBookingsController {
                 passengerName.setPrefHeight(Label.USE_COMPUTED_SIZE);
                 passengerName.getStyleClass().add("booking-small");
                 passengerNames.getChildren().add(passengerName);
-                Label seat1 = new Label(passengerSeats.get(p.getFirstName()+flights.get(0).getID()).getSeatNumber());
-                Label seat2 = new Label(passengerSeats.get(p.getFirstName()+flights.get(1).getID()).getSeatNumber());
-                seat1.setPrefWidth(40);
-                seat2.setPrefWidth(40);
-                seat1.getStyleClass().add("booking-small");
-                seat2.getStyleClass().add("booking-small");
-                passengerSeat1.getChildren().add(seat1);
-                passengerSeat2.getChildren().add(seat2);
+                if(!flights.isEmpty()) {
+                    Label seat1 = new Label(passengerSeats.get(p.getFirstName()+flights.get(0).getID()).getSeatNumber());
+                    seat1.setPrefWidth(40);
+                    seat1.getStyleClass().add("booking-small");
+                    passengerSeat1.getChildren().add(seat1);
+                }
+                if(flights.size() > 1) {
+                    Label seat2 = new Label(passengerSeats.get(p.getFirstName()+flights.get(1).getID()).getSeatNumber());
+                    seat2.setPrefWidth(40);
+                    seat2.getStyleClass().add("booking-small");
+                    passengerSeat2.getChildren().add(seat2);
+                }
                 String luggage = "no luggage";
                 String insurance = "no insurance";
                 if(p.isLuggage()) luggage = "luggage";
@@ -203,7 +207,7 @@ public class UserBookingsController {
                     Label d2 = new Label(dtB.getCity());
                     d2.setPrefWidth(80);
                     Label d3 = new Label("on " + displayDate(dtB.getDate()));
-                    d3.setPrefWidth(80);
+                    d3.setPrefWidth(150);
                     dtHb.getChildren().addAll(d1,d2,d3);
                     bookingVB.getChildren().add(dtHb);
                 }
