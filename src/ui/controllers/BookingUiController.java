@@ -13,8 +13,6 @@ import flightSystem.flightplanner.entities.Passenger;
 import flightSystem.flightplanner.entities.Seat;
 import hotelSystem.entities.Accommodation;
 import hotelSystem.entities.Room;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,7 +33,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.net.PasswordAuthentication;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -103,6 +100,18 @@ public class BookingUiController {
     private TextField cvv;
     @FXML
     private Label paymentError;
+    @FXML
+    private VBox adultsVB;
+    @FXML
+    private VBox childrenVB;
+    @FXML
+    private Label childrenArea;
+    @FXML
+    private Label passengerHeader;
+    @FXML
+    private Label luggageLabel;
+    @FXML
+    private Label insuranceLabel;
 
     private ArrayList<DatePicker> dayTripDatesDP = new ArrayList<>();
 
@@ -113,6 +122,12 @@ public class BookingUiController {
 
     public void initialize() {
         Info.getInstance().clearSeatLists();
+        adultsVB.setVisible(false);
+        childrenArea.setVisible(false);
+        childrenVB.setVisible(false);
+        passengerHeader.setVisible(false);
+        luggageLabel.setVisible(false);
+        insuranceLabel.setVisible(false);
     }
 
     public void setUser(User user) {
@@ -228,6 +243,12 @@ public class BookingUiController {
             flightPrice.setStyle("-fx-font-weight: bold");
             flightPrice.setPadding(new Insets(10, 0, 0, 0));
             flightsVB.getChildren().add(flightPrice);
+            passengerHeader.setVisible(true);
+            adultsVB.setVisible(true);
+            childrenVB.setVisible(true);
+            childrenArea.setVisible(true);
+            luggageLabel.setVisible(true);
+            insuranceLabel.setVisible(true);
         }
 
         // show day trips
@@ -295,6 +316,9 @@ public class BookingUiController {
         if(!tripPackage.getDayTrips().isEmpty()) {
             Label tripsPrice = new Label("Prices are per person");
             tripsPrice.setPadding(new Insets(10, 0, 0, 0));
+            tripsPrice.setPrefWidth(400);
+            tripsPrice.setAlignment(Pos.CENTER);
+            tripsPrice.setTextAlignment(TextAlignment.CENTER);
             dayTripsVB.getChildren().add(tripsPrice);
         }
 
