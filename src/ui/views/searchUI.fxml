@@ -67,7 +67,7 @@
                            </font>
                         </Button>
                         <Label fx:id="villuBod" layoutX="494.0" layoutY="132.0" text="Please enter information into all fields!" textFill="#f20808" />
-                        <ImageView fitHeight="39.0" fitWidth="38.0" layoutX="954.0" layoutY="70.0" preserveRatio="true">
+                        <ImageView fx:id="loadingGif" fitHeight="39.0" fitWidth="38.0" layoutX="954.0" layoutY="70.0" preserveRatio="true">
                            <image>
                               <Image url="@../../img/YouTube_loading_symbol_3_(transparent).gif" />
                            </image>
