@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -55,8 +56,6 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="originInput" layoutX="38.0" layoutY="70.0" prefHeight="36.0" prefWidth="171.0" promptText="Origin" />
-                        <TextField fx:id="destinationInput" layoutX="223.0" layoutY="70.0" prefHeight="36.0" prefWidth="171.0" promptText="Destination" />
                         <DatePicker fx:id="departureInput" layoutX="406.0" layoutY="71.0" prefHeight="35.0" prefWidth="120.0" promptText="Depart" />
                         <DatePicker fx:id="returnInput" layoutX="535.0" layoutY="71.0" prefHeight="35.0" prefWidth="120.0" promptText="Return" />
                         <TextField fx:id="adultsInput" layoutX="671.0" layoutY="71.0" prefHeight="35.0" prefWidth="61.0" promptText="Adults" />
@@ -67,6 +66,8 @@
                            </font>
                         </Button>
                         <Label fx:id="villuBod" layoutX="437.0" layoutY="132.0" text="Please enter information into all fields!" textFill="#f20808" visible="false" />
+                        <ComboBox fx:id="originInput" layoutX="41.0" layoutY="71.0" prefHeight="36.0" prefWidth="171.0" promptText="Origin" />
+                        <ComboBox fx:id="destinationInput" layoutX="224.0" layoutY="71.0" prefHeight="36.0" prefWidth="171.0" promptText="Destination" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
