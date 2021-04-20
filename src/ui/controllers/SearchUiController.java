@@ -136,13 +136,19 @@ public class SearchUiController implements Initializable {
 
     public void searchButtonClicked() throws Exception {
         try {
-            String from = originInput.getText();
-            String to = destinationInput.getText();
-            LocalDate startDate = departureInput.getValue();
-            LocalDate endDate = returnInput.getValue();
-            if(from.isEmpty() || to.isEmpty() || startDate == null || endDate == null || adultsInput.getText().isEmpty() || childrenInput.getText().isEmpty()) {
-                villuBod.setVisible(true);
-                return;
+            if(searchResult == null) {
+                String from = originInput.getText();
+                String to = destinationInput.getText();
+                LocalDate startDate = departureInput.getValue();
+                LocalDate endDate = returnInput.getValue();
+                if (from.isEmpty() || to.isEmpty() || startDate == null || endDate == null || adultsInput.getText().isEmpty() || childrenInput.getText().isEmpty()) {
+                    villuBod.setVisible(true);
+                    return;
+                }
+                int numAdults = Integer.parseInt(adultsInput.getText());
+                int numChildren = Integer.parseInt(childrenInput.getText());
+                searchResult = new SearchResult(startDate, endDate, from, to, numAdults, numChildren);
+                searchResult.search();
             }
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/searchresultsUI.fxml"));
             AnchorPane resultRoot = loader.load();
@@ -152,10 +158,6 @@ public class SearchUiController implements Initializable {
             }
             sceneRoot.getChildren().setAll(resultRoot);
 
-            int numAdults = Integer.parseInt(adultsInput.getText());
-            int numChildren = Integer.parseInt(childrenInput.getText());
-            searchResult = new SearchResult(startDate, endDate, from, to, numAdults, numChildren);
-            searchResult.search();
             searchController = new SearchController(searchResult, user);
             searchController.createTripPackages();
             updateSearchView();

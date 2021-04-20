@@ -27,12 +27,6 @@ public class TripPackage extends SearchResult{
         hotels = new ArrayList<>();
         dayTrips = new ArrayList<>();
         rooms = new ArrayList<>();
-        /*
-        outFlights.addAll(masterSearch.getOutFlights());
-        inFlights.addAll(masterSearch.getInFlights());
-        hotels.addAll(masterSearch.getHotels());
-        dayTrips.addAll(masterSearch.getDayTrips());
-         */
     }
 
     public void addInFlight(Flight f) {
@@ -124,7 +118,7 @@ public class TripPackage extends SearchResult{
         if(!masterSearch.getDayTrips().isEmpty()) {
             ArrayList<String> tripNames = new ArrayList<>();
             System.out.println(user);
-            if(user != null) {
+            if(user != null && user.getFavoriteActivity() != null) {
                 Trip cheapestFav = null;
                 int lowestFavPrice = (int) Double.POSITIVE_INFINITY;
                 for(Trip t : masterSearch.getDayTrips()) {
@@ -151,7 +145,7 @@ public class TripPackage extends SearchResult{
                 }
             }
         }
-
+        customPackage = false;
         calculatePrice();
     }
 
@@ -247,7 +241,7 @@ public class TripPackage extends SearchResult{
         if(!masterSearch.getDayTrips().isEmpty()) {
             ArrayList<String> tripNames = new ArrayList<>();
             System.out.println(user);
-            if(user != null) {
+            if(user != null && user.getFavoriteActivity() != null) {
                 Trip mostExpensiveFav = null;
                 int highestFavPrice = (int) Double.NEGATIVE_INFINITY;
                 for(Trip t : masterSearch.getDayTrips()) {
@@ -274,7 +268,7 @@ public class TripPackage extends SearchResult{
                 }
             }
         }
-
+        customPackage = false;
         calculatePrice();
     }
 
@@ -376,7 +370,7 @@ public class TripPackage extends SearchResult{
                 tripNames.add(t.getCategory());
             }
         }
-
+        customPackage = false;
         calculatePrice();
     }
 
@@ -402,6 +396,7 @@ public class TripPackage extends SearchResult{
 
         getMostExpensiveRooms();
 
+        customPackage = false;
         calculatePrice();
     }
 
