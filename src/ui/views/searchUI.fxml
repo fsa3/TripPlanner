@@ -14,6 +14,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <AnchorPane fx:id="sceneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1200.0" stylesheets="@../styles/global.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.SearchUiController">
    <children>
       <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0">
@@ -66,8 +68,26 @@
                            </font>
                         </Button>
                         <Label fx:id="villuBod" layoutX="437.0" layoutY="132.0" text="Please enter information into all fields!" textFill="#f20808" visible="false" />
-                        <ComboBox fx:id="originInput" layoutX="41.0" layoutY="71.0" prefHeight="36.0" prefWidth="171.0" promptText="Origin" />
-                        <ComboBox fx:id="destinationInput" layoutX="224.0" layoutY="71.0" prefHeight="36.0" prefWidth="171.0" promptText="Destination" />
+                        <ComboBox fx:id="originInput" layoutX="41.0" layoutY="71.0" prefHeight="36.0" prefWidth="171.0" promptText="Origin" >
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="Reykjavík" />
+                                 <String fx:value="Akureyri" />
+                                 <String fx:value="Ísafjörður" />
+                                 <String fx:value="Egilsstaðir" />
+                              </FXCollections>
+                           </items>
+                        </ComboBox>
+                        <ComboBox fx:id="destinationInput" layoutX="224.0" layoutY="71.0" prefHeight="36.0" prefWidth="171.0" promptText="Destination" >
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="Reykjavík" />
+                                 <String fx:value="Akureyri" />
+                                 <String fx:value="Ísafjörður" />
+                                 <String fx:value="Egilsstaðir" />
+                              </FXCollections>
+                           </items>
+                        </ComboBox>
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

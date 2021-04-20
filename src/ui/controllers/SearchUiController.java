@@ -46,9 +46,9 @@ public class SearchUiController implements Initializable {
     @FXML
     private Label loginLabel;
     @FXML
-    private TextField originInput;
+    private ComboBox<String> originInput;
     @FXML
-    private TextField destinationInput;
+    private ComboBox<String> destinationInput;
     @FXML
     private DatePicker departureInput;
     @FXML
@@ -82,7 +82,6 @@ public class SearchUiController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("initialize");
         if(user != null) {
             loginLabel.setText(user.getFirstName());
         }
@@ -137,8 +136,8 @@ public class SearchUiController implements Initializable {
     public void searchButtonClicked() throws Exception {
         try {
             if(searchResult == null) {
-                String from = originInput.getText();
-                String to = destinationInput.getText();
+                String from = originInput.getValue();
+                String to = destinationInput.getValue();
                 LocalDate startDate = departureInput.getValue();
                 LocalDate endDate = returnInput.getValue();
                 if (from.isEmpty() || to.isEmpty() || startDate == null || endDate == null || adultsInput.getText().isEmpty() || childrenInput.getText().isEmpty()) {
@@ -213,14 +212,14 @@ public class SearchUiController implements Initializable {
                 searchController.setUser(user);
             }
             sceneRoot.getChildren().setAll(searchRoot);
-            originInput = (TextField) searchRoot.lookup("#originInput");
-            destinationInput = (TextField) searchRoot.lookup("#destinationInput");
+            originInput = (ComboBox<String>) searchRoot.lookup("#originInput");
+            destinationInput = (ComboBox<String>) searchRoot.lookup("#destinationInput");
             departureInput = (DatePicker) searchRoot.lookup("#departureInput");
             returnInput = (DatePicker) searchRoot.lookup("#returnInput");
             adultsInput = (TextField) searchRoot.lookup("#adultsInput");
             childrenInput = (TextField) searchRoot.lookup("#childrenInput");
-            originInput.setText(searchResult.getDepCity());
-            destinationInput.setText(searchResult.getDestCity());
+            originInput.setValue(searchResult.getDepCity());
+            destinationInput.setValue(searchResult.getDestCity());
             departureInput.setValue(searchResult.getStartDate());
             returnInput.setValue(searchResult.getEndDate());
             adultsInput.setText(String.valueOf(searchResult.getNumAdults()));
