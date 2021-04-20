@@ -613,8 +613,8 @@ public class BookingUiController {
             }
         }
         Info information = Info.getInstance();
-        if(information.getSelectedSeatsOut().size() < tripPackage.getNumAdults() + tripPackage.getNumChildren()) return true;
-        return information.getSelectedSeatsIn().size() < tripPackage.getNumAdults() + tripPackage.getNumChildren();
+        if(!tripPackage.getOutFlights().isEmpty() && information.getSelectedSeatsOut().size() < tripPackage.getNumAdults() + tripPackage.getNumChildren()) return true;
+        return !tripPackage.getInFlights().isEmpty() && information.getSelectedSeatsIn().size() < tripPackage.getNumAdults() + tripPackage.getNumChildren();
     }
 
     private ArrayList<Seat> getInSeats() {
