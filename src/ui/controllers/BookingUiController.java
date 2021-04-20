@@ -186,7 +186,7 @@ public class BookingUiController {
     public void updateView() {
         if(user != null) loginLabel.setText(user.getFirstName());
         packageTitle.setText("Book " + tripPackage.getName());
-        packagePrice.setText(String.valueOf(tripPackage.getPrice())+"$");
+        packagePrice.setText(tripPackage.getPrice() +"$");
         if(!tripPackage.getOutFlights().isEmpty()) {
             //out flight
             ImageView fImg = new ImageView();
@@ -222,6 +222,12 @@ public class BookingUiController {
             flightsVB.getChildren().add(flightHBox2);
             flightsVB.setPrefWidth(350);
             fNumIn.setText(tripPackage.getInFlights().get(0).getFlightNo());
+        }
+        if(!tripPackage.getOutFlights().isEmpty() || !tripPackage.getInFlights().isEmpty()) {
+            Label flightPrice = new Label("Flights total price: " + tripPackage.getFlightsPrice() + "$");
+            flightPrice.setStyle("-fx-font-weight: bold");
+            flightPrice.setPadding(new Insets(10, 0, 0, 0));
+            flightsVB.getChildren().add(flightPrice);
         }
 
         // show day trips
@@ -285,6 +291,11 @@ public class BookingUiController {
             dayTripsVB.getChildren().addAll(dtHBox);
 
             tripDisplayNames.add(dt.getCategory());
+        }
+        if(!tripPackage.getDayTrips().isEmpty()) {
+            Label tripsPrice = new Label("Prices are per person");
+            tripsPrice.setPadding(new Insets(10, 0, 0, 0));
+            dayTripsVB.getChildren().add(tripsPrice);
         }
 
         if(!tripPackage.getHotels().isEmpty()){
@@ -447,7 +458,7 @@ public class BookingUiController {
             HBox roomEntry = new HBox();
             Label roomTitle = new Label(r.getRoomType().name());
             Label capacity = new Label(r.getCap() + " people");
-            Label price = new Label(r.getPrice() + "$");
+            Label price = new Label(r.getPrice() + "$ per night");
             Hyperlink removeRoom = new Hyperlink("Remove room");
             removeRoom.getStyleClass().add("rrHyperlink");
             roomTitle.setMinHeight(20);

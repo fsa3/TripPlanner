@@ -6,6 +6,7 @@ import flightSystem.flightplanner.entities.Flight;
 import hotelSystem.entities.Accommodation;
 import hotelSystem.entities.Room;
 
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.TreeMap;
@@ -466,16 +467,16 @@ public class TripPackage extends SearchResult{
     public void calculatePrice() {
         int p = 0;
         for(Flight f : outFlights) {
-            p += f.getPrice();
+            p += f.getPrice()*(numAdults+numAdults);
         }
         for(Flight f : inFlights) {
-            p += f.getPrice();
+            p += f.getPrice()*(numAdults+numChildren);
         }
         for(Room r : rooms) {
-            p += r.getPrice();
+            p += r.getPrice()*(Period.between(startDate, endDate).getDays());
         }
         for(Trip t : dayTrips) {
-            p += t.getPrice();
+            p += t.getPrice()*(numAdults+numChildren);
         }
         price = p;
     }
@@ -492,5 +493,16 @@ public class TripPackage extends SearchResult{
                 ", price=" + price +
                 ", customPackage=" + customPackage +
                 '}';
+    }
+
+    public int getFlightsPrice() {
+        int p = 0;
+        for(Flight f : outFlights) {
+            p += f.getPrice()*(numAdults+numAdults);
+        }
+        for(Flight f : inFlights) {
+            p += f.getPrice()*(numAdults+numChildren);
+        }
+        return p;
     }
 }
