@@ -48,7 +48,7 @@
                         <Image url="@../../img/141_20201013185512_Consumer%20Survey%20Finds%2070%20Percent%20of%20Travelers%20Plan%20to%20Holiday%20in%202021.jpg" />
                      </image>
                   </ImageView>
-                  <AnchorPane layoutX="46.0" layoutY="190.0" opacity="0.9" prefHeight="170.0" prefWidth="1108.0" style="-fx-background-color: #1E1E20;">
+                  <AnchorPane fx:id="loadingGif" layoutX="46.0" layoutY="190.0" opacity="0.9" prefHeight="170.0" prefWidth="1108.0" style="-fx-background-color: #1E1E20;">
                      <children>
                         <Label layoutX="14.0" layoutY="14.0" text="Search trips" textFill="WHITE">
                            <font>
@@ -66,6 +66,12 @@
                               <Font size="14.0" />
                            </font>
                         </Button>
+                        <Label fx:id="villuBod" layoutX="494.0" layoutY="132.0" text="Please enter information into all fields!" textFill="#f20808" />
+                        <ImageView fitHeight="39.0" fitWidth="38.0" layoutX="954.0" layoutY="70.0" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/YouTube_loading_symbol_3_(transparent).gif" />
+                           </image>
+                        </ImageView>
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
