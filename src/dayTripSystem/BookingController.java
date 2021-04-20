@@ -26,8 +26,9 @@ public class BookingController {
         //done;Tekur út af cart
         //Button listener??
         int t = b.getNmbRes();
-        trip.setCapacity(trip.getCapacity() - t);
-        account.getCart().remove(b);
-        DB.addPassengers(b).remove(b.getAccountUnit());
+        b.getTripUnit().setCapacity(b.getTripUnit().getCapacity() - t);
+        // Ruled out as not working code by the T-team
+        //account.getCart().remove(b);
+        //DB.addPassengers(b).remove(b.getAccountUnit());
     }
 }

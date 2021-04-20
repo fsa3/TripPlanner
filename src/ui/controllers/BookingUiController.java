@@ -127,6 +127,7 @@ public class BookingUiController {
 
     public void setTripPackage(TripPackage tPackage) {
         tripPackage = tPackage;
+        updatePackagePrice();
     }
 
     public void setSearchResult(SearchResult result) {
@@ -276,6 +277,7 @@ public class BookingUiController {
                     tripPrice.setText(newTrip.getPrice() + "$");
                 }
                 else dayChooser.setValue(oldDate);
+                updatePackagePrice();
             }));
             dayTripDatesDP.add(dayChooser);
             dayChooser.setPrefHeight(10);
@@ -313,6 +315,7 @@ public class BookingUiController {
                 tripPackage.addRoom(r);
                 updateRoomList(roomType);
                 updateAvailableRooms(roomType);
+                updatePackagePrice();
             });
         }
 
@@ -422,6 +425,11 @@ public class BookingUiController {
         childrenInsuranceVB.setSpacing(5);
     }
 
+    private void updatePackagePrice() {
+        tripPackage.calculatePrice();
+        packagePrice.setText(tripPackage.getPrice() + "$");
+    }
+
     private void setUserAsFirstPassenger() {
         ((TextField)adultsFirstNameVB.getChildren().get(1)).setText(user.getFirstName());
         ((TextField)adultsLastNameVB.getChildren().get(1)).setText(user.getLastName());
@@ -456,6 +464,7 @@ public class BookingUiController {
                 tripPackage.removeRoom(r);
                 updateAvailableRooms(roomSelector);
                 updateRoomList(roomSelector);
+                updatePackagePrice();
             });
         }
     }
