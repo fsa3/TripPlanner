@@ -287,6 +287,10 @@ public class SearchUiController implements Initializable {
         }
         // display all day trips
         ArrayList<String> dtNames = new ArrayList<>();
+        ArrayList<String> dtNamesInCustomPackage = new ArrayList<>();
+        for(Trip t : customPackage.getDayTrips()) {
+            if(!dtNamesInCustomPackage.contains(t.getCategory())) dtNamesInCustomPackage.add(t.getCategory());
+        }
         for(Trip dt : searchResult.getDayTrips()) {
             if(dtNames.contains(dt.getCategory())) continue;
             dtNames.add(dt.getCategory());
@@ -304,9 +308,15 @@ public class SearchUiController implements Initializable {
                    displayCustomPackage();
                }
             });
-            if(customPackage.getDayTrips().contains(dt)) {
-               customPackage.removeDayTrip(dt);
-               dayTripCheck.setSelected(true);
+            if(dtNamesInCustomPackage.contains(dt.getCategory())) {
+                Trip tripToRemove = null;
+                for(Trip t : customPackage.getDayTrips()) {
+                    if(t.getCategory().equals(dt.getCategory())) {
+                        tripToRemove = t;
+                    }
+                }
+                if(tripToRemove != null) customPackage.removeDayTrip(tripToRemove);
+                dayTripCheck.setSelected(true);
             }
         }
     }
@@ -439,7 +449,6 @@ public class SearchUiController implements Initializable {
         HBox buttons = new HBox();
         buttons.setPrefHeight(40);
         buttons.setAlignment(Pos.BOTTOM_CENTER);
-        //buttons.getChildren().add(new Button("See more"));
         Button seemoreButton = new Button("See more");
         seemoreButton.getStyleClass().add("blue-button");
         buttons.getChildren().add(seemoreButton);
