@@ -40,10 +40,6 @@ public class HotelBooking extends Booking{
         this.room = room;
     }
 
-    public void cancelBooking() {
-        // todo
-    }
-
     public Accommodation getHotel() {
         return hotel;
     }

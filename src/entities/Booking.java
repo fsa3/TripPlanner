@@ -11,8 +11,6 @@ public abstract class Booking {
     protected String passengerName;
     protected boolean isChild;
 
-    public abstract void cancelBooking();
-
     public int getBookingId() {
         return bookingId;
     }

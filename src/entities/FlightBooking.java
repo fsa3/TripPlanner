@@ -30,10 +30,6 @@ public class FlightBooking extends Booking {
         this.flightBookingId = flightBookingId;
     }
 
-    public void cancelBooking() {
-        // todo
-    }
-
     public Flight getFlight() {
         return flight;
     }

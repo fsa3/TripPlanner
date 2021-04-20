@@ -252,7 +252,7 @@ public class BookingUiController {
         }
 
         // show day trips
-        ArrayList<String> tripDisplayNames = new ArrayList<>(); // todo taka út þegar pakkar innihalda bara eitt stk af hverri tegund dagsferðar
+        ArrayList<String> tripDisplayNames = new ArrayList<>();
         for(Trip dt : tripPackage.getDayTrips()) {
             if(tripDisplayNames.contains(dt.getCategory())) continue;
             HBox dtHBox = new HBox();
@@ -271,7 +271,6 @@ public class BookingUiController {
             tripPrice.setAlignment(Pos.CENTER_RIGHT);
             tripPrice.setPadding(new Insets(0, 20, 0, 0));
             DatePicker dayChooser = new DatePicker();
-            //todo setja dagsetningar í dayChooser
             dayChooser.setValue(DataConnection.utilDateToLocalDate(dt.getDate()));
             ArrayList<LocalDate> availableDates = new ArrayList<>();
             for(Trip resultTrip : searchResult.getDayTrips()) {
@@ -585,7 +584,7 @@ public class BookingUiController {
         PaymentInfo paymentInfo = new PaymentInfo("-1", expiryMonth.getText()+"/"+expiryYear.getText().substring(2), cardNum.getText(), cvv.getText(), paymentName.getText());
         if(!paymentInfo.validate()) {
             paymentError.setText("Invalid payment information");
-            //return; todo taka út comment
+            return;
         }
         BookingController bookingController = new BookingController(tripPackage, user, searchResult, paymentInfo);
         if(!tripPackage.getOutFlights().isEmpty() || !tripPackage.getInFlights().isEmpty()) {

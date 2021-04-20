@@ -36,28 +36,10 @@ public class UserController {
         return returnUser;
     }
 
-    private void searchUser(String email) {
-        // todo
-        DataFactory dataFactory = new DataFactory();
-        ArrayList<User> allUsers = dataFactory.getUsers();
-        for(User u : allUsers) {
-            if(email.equals(u.getEmail())) {
-                user = u;
-            }
-        }
-    }
-
     public boolean checkPassword(String pw) {
         return pw.equals(user.getPassword());
     }
 
-    public void logoutUser() {
-        // todo
-    }
-
-    public void deleteUser(User user) {
-        // todo
-    }
 
     public void updateUser(String attributeToUpdate, String data) {
         DataConnection dc = new DataConnection();

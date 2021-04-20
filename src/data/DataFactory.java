@@ -43,13 +43,13 @@ public class DataFactory implements Database {
     @Override
     public ArrayList<Trip> getDayTrips(String city) {
         ArrayList<Trip> dayTrips = new ArrayList<>();
-        dayTrips.add(new Trip("-1", city, DataConnection.localDateToDate(LocalDate.of(2021,3,26)), "", 30, 0, false, "Kúrstund at Fannar's Room", null,  false, 0/*todo setja verð*/));
-        dayTrips.add(new Trip("-1", city, DataConnection.localDateToDate(LocalDate.of(2021,3,26)), "", 30, 0, false, "Apple picking", null,  false, 0/*todo setja verð*/));
-        dayTrips.add(new Trip("-1", city, DataConnection.localDateToDate(LocalDate.of(2021,3,26)), "", 30, 0, false, "Apple picking", null,  false, 0/*todo setja verð*/));
-        dayTrips.add(new Trip("-1", city, DataConnection.localDateToDate(LocalDate.of(2021,3,26)), "", 30, 0, false, "Valorant gaming", null,  false, 0/*todo setja verð*/));
-        dayTrips.add(new Trip("-1", city, DataConnection.localDateToDate(LocalDate.of(2021,3,26)), "", 30, 0, false, "Poop Marathon", null,  false, 0/*todo setja verð*/));
-        dayTrips.add(new Trip("-1", city, DataConnection.localDateToDate(LocalDate.of(2021,3,26)), "", 30, 0, false, "Wait in traffic", null,  false, 0/*todo setja verð*/));
-        dayTrips.add(new Trip("-1", city, DataConnection.localDateToDate(LocalDate.of(2021,3,26)), "", 30, 0, false, "Eat bisquits", null,  false, 0/*todo setja verð*/));
+        dayTrips.add(new Trip("-1", city, DataConnection.localDateToDate(LocalDate.of(2021,3,26)), "", 30, 0, false, "Kúrstund at Fannar's Room", null,  false, 0));
+        dayTrips.add(new Trip("-1", city, DataConnection.localDateToDate(LocalDate.of(2021,3,26)), "", 30, 0, false, "Apple picking", null,  false, 0));
+        dayTrips.add(new Trip("-1", city, DataConnection.localDateToDate(LocalDate.of(2021,3,26)), "", 30, 0, false, "Apple picking", null,  false, 0));
+        dayTrips.add(new Trip("-1", city, DataConnection.localDateToDate(LocalDate.of(2021,3,26)), "", 30, 0, false, "Valorant gaming", null,  false, 0));
+        dayTrips.add(new Trip("-1", city, DataConnection.localDateToDate(LocalDate.of(2021,3,26)), "", 30, 0, false, "Poop Marathon", null,  false, 0));
+        dayTrips.add(new Trip("-1", city, DataConnection.localDateToDate(LocalDate.of(2021,3,26)), "", 30, 0, false, "Wait in traffic", null,  false, 0));
+        dayTrips.add(new Trip("-1", city, DataConnection.localDateToDate(LocalDate.of(2021,3,26)), "", 30, 0, false, "Eat bisquits", null,  false, 0));
         return dayTrips;
     }
 

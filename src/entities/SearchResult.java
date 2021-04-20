@@ -176,7 +176,7 @@ public class SearchResult {
         for(Trip t : dayTrips) {
             if(t.getCapacity() < numAdults+numChildren) dayTripsToRemove.add(t);
         }
-        dayTrips.removeAll(dayTripsToRemove); // todo ekki hugmynd hvort þetta virkar??
+        dayTrips.removeAll(dayTripsToRemove);
     }
 
     private ArrayList<LocalDate> getDateRange(LocalDate start, LocalDate end) {

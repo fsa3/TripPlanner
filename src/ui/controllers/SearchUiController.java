@@ -247,7 +247,7 @@ public class SearchUiController implements Initializable {
                     }
                 }
             });
-            if(customPackage.getOutFlights().contains(f)) flightRadio.setSelected(true); //todo virkar ekki
+            if(customPackage.getOutFlights().contains(f)) flightRadio.setSelected(true);
         }
         // display all in flights
         ToggleGroup inFlightsToggleGroup = new ToggleGroup();
@@ -265,7 +265,7 @@ public class SearchUiController implements Initializable {
                     }
                 }
             });
-            if(customPackage.getInFlights().contains(f)) flightRadio.setSelected(true); //todo virkar ekki
+            if(customPackage.getInFlights().contains(f)) flightRadio.setSelected(true);
         }
         // display all hotels
         ToggleGroup hotelsToggleGroup = new ToggleGroup();
@@ -413,9 +413,8 @@ public class SearchUiController implements Initializable {
             tripIcon.setFitHeight(28);
             tripIcon.setPreserveRatio(true);
             Label dayTripLabel = new Label(dt.getCategory() + " on "+displayDate(DataConnection.utilDateToLocalDate(dt.getDate())));
-            //dayTripLabel.setMaxWidth(170); // todo skoða þetta
             dayTripLabel.setWrapText(true);
-            dayTripLabel.setPadding(new Insets(0,0,0,20)); // todo gerir held ég ekki neitt
+            dayTripLabel.setPadding(new Insets(0,0,0,20));
             dtHBox.getChildren().addAll(tripIcon, dayTripLabel);
             dayTrips.getChildren().add(dtHBox);
         }

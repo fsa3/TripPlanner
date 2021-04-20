@@ -26,12 +26,7 @@ public class DayTripBooking extends Booking {
         this.date = date;
         bookingId = id;
         bookingUser = user;
-        // todo fylla í dayTrip attribute
-        dayTrip = new Trip("-1", city, DataConnection.localDateToDate(date), "", 30, 0, false, name, null,  false, 0/*todo setja verð*/);
-    }
-
-    public void cancelBooking() {
-        // todo
+        dayTrip = new Trip("-1", city, DataConnection.localDateToDate(date), "", 30, 0, false, name, null,  false, 0);
     }
 
     public Trip getDayTrip() {
