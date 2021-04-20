@@ -126,28 +126,7 @@ public class SearchResult {
         this.dayTrips = dayTrips;
     }
 
-    public ObservableList<Flight> getFlightsObservable() {
-        ObservableList<Flight> oFlights = FXCollections.observableArrayList();
-        oFlights.addAll(inFlights);
-        oFlights.addAll(outFlights);
-        return oFlights;
-    }
-
-    public ObservableList<Accommodation> getHotelsObservable() {
-        ObservableList<Accommodation> oHotels = FXCollections.observableArrayList();
-        oHotels.addAll(hotels);
-        return oHotels;
-    }
-    public ObservableList<Trip> getDayTripsObservable() {
-        ObservableList<Trip> oDayTrips = FXCollections.observableArrayList();
-        oDayTrips.addAll(dayTrips);
-        return oDayTrips;
-    }
-
     public void search() throws Exception {
-        // todo
-        Database dataFactory = new DataFactory();
-
         // Find flights
         outFlights = new ArrayList<>();
         inFlights = new ArrayList<>();
@@ -164,28 +143,28 @@ public class SearchResult {
         }
 
         // Find hotels
-        DatabaseConnection hotelData = new DatabaseConnection();
-        AccommodationSearchController acSearchController = new AccommodationSearchController(hotelData);
-        hotels = acSearchController.search(destCity, 0, "");
+        hotels = new ArrayList<>();
         rooms = new ArrayList<Room>();
-        ArrayList<Accommodation> unavailableHotels = new ArrayList<>();
-        for(Accommodation h : hotels) {
-            ArrayList<Room> availableRooms = h.getAvailableRooms(DataConnection.localDateToDate(startDate), DataConnection.localDateToDate(endDate));
-            int availableCapacity = 0;
-            for(Room room : availableRooms) {
-                availableCapacity += room.getCap();
+        if(!startDate.equals(endDate)) {
+            DatabaseConnection hotelData = new DatabaseConnection();
+            AccommodationSearchController acSearchController = new AccommodationSearchController(hotelData);
+            hotels = acSearchController.search(destCity, 0, "");
+            ArrayList<Accommodation> unavailableHotels = new ArrayList<>();
+            for (Accommodation h : hotels) {
+                ArrayList<Room> availableRooms = h.getAvailableRooms(DataConnection.localDateToDate(startDate), DataConnection.localDateToDate(endDate));
+                int availableCapacity = 0;
+                for (Room room : availableRooms) {
+                    availableCapacity += room.getCap();
+                }
+                if (availableRooms.isEmpty() || availableCapacity < numAdults + numChildren) {
+                    unavailableHotels.add(h);
+                } else {
+                    rooms.addAll(availableRooms);
+                }
             }
-            if(availableRooms.isEmpty() || availableCapacity < numAdults+numChildren) {
-                unavailableHotels.add(h);
-            }
-            else {
-                rooms.addAll(availableRooms);
-            }
+            hotels.removeAll(unavailableHotels);
         }
-        hotels.removeAll(unavailableHotels);
 
-        System.out.println(startDate);
-        System.out.println(endDate);
         // Find day trips
         dayTrips = new ArrayList<>();
         for(LocalDate date : getDateRange(startDate, endDate)) {

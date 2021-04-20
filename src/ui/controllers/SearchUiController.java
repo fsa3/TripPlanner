@@ -421,8 +421,8 @@ public class SearchUiController implements Initializable {
         }
         gp.add(dayTrips, 1, 1, 2, 1);
 
+        HBox hotel = new HBox();
         if(!tPackage.getHotels().isEmpty()) {
-            HBox hotel = new HBox();
             ImageView hotelImg = new ImageView();
             hotelImg.setImage(new Image("@../../img/hotel.png"));
             hotelImg.setFitHeight(40);
@@ -442,9 +442,9 @@ public class SearchUiController implements Initializable {
             hotel.getChildren().add(rooms);
             hotel.getChildren().add(nights);
             hotel.setAlignment(Pos.CENTER_LEFT);
-            hotel.setPrefWidth(450);
-            gp.add(hotel, 0, 2, 2, 1);
         }
+        hotel.setPrefWidth(450);
+        gp.add(hotel, 0, 2, 2, 1);
 
         HBox buttons = new HBox();
         buttons.setPrefHeight(40);

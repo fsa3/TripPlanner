@@ -94,23 +94,26 @@ public class TripPackage extends SearchResult{
     }
 
     public void bestValue() {
-        if(!masterSearch.getOutFlights().isEmpty()) {
-            Flight outFlight = masterSearch.getOutFlights().get(0);
-            for (Flight f : masterSearch.getOutFlights()) {
-                if (f.getDepartureTime().compareTo(outFlight.getDepartureTime()) > 0) {
-                    outFlight = f;
+        if(startDate.equals(endDate)) findNonOverlappingFlights();
+        else {
+            if (!masterSearch.getOutFlights().isEmpty()) {
+                Flight outFlight = masterSearch.getOutFlights().get(0);
+                for (Flight f : masterSearch.getOutFlights()) {
+                    if (f.getDepartureTime().compareTo(outFlight.getDepartureTime()) > 0) {
+                        outFlight = f;
+                    }
                 }
+                outFlights.add(outFlight);
             }
-            outFlights.add(outFlight);
-        }
-        if(!masterSearch.getInFlights().isEmpty()) {
-            Flight inFlight = masterSearch.getInFlights().get(0);
-            for (Flight f : masterSearch.getInFlights()) {
-                if (f.getDepartureTime().compareTo(inFlight.getDepartureTime()) > 0) {
-                    inFlight = f;
+            if (!masterSearch.getInFlights().isEmpty()) {
+                Flight inFlight = masterSearch.getInFlights().get(0);
+                for (Flight f : masterSearch.getInFlights()) {
+                    if (f.getDepartureTime().compareTo(inFlight.getDepartureTime()) > 0) {
+                        inFlight = f;
+                    }
                 }
+                inFlights.add(inFlight);
             }
-            inFlights.add(inFlight);
         }
 
         getCheapestHotelRooms();
@@ -147,6 +150,27 @@ public class TripPackage extends SearchResult{
         }
         customPackage = false;
         calculatePrice();
+    }
+
+    private void findNonOverlappingFlights() {
+        if(!masterSearch.getOutFlights().isEmpty()) {
+            Flight outFlight = masterSearch.getOutFlights().get(0);
+            for (Flight f : masterSearch.getOutFlights()) {
+                if (f.getDepartureTime().compareTo(outFlight.getDepartureTime()) < 0) {
+                    outFlight = f;
+                }
+            }
+            outFlights.add(outFlight);
+        }
+        if(!masterSearch.getInFlights().isEmpty()) {
+            Flight inFlight = masterSearch.getInFlights().get(0);
+            for (Flight f : masterSearch.getInFlights()) {
+                if (f.getDepartureTime().compareTo(inFlight.getDepartureTime()) > 0) {
+                    inFlight = f;
+                }
+            }
+            inFlights.add(inFlight);
+        }
     }
 
     private void getCheapestHotelRooms() {
@@ -217,23 +241,26 @@ public class TripPackage extends SearchResult{
     }
 
     public void highEnd() {
-        if(!masterSearch.getOutFlights().isEmpty()) {
-            Flight outFlight = masterSearch.getOutFlights().get(0);
-            for (Flight f : masterSearch.getOutFlights()) {
-                if (f.getDepartureTime().compareTo(outFlight.getDepartureTime()) < 0) {
-                    outFlight = f;
+        if(startDate.equals(endDate)) findNonOverlappingFlights();
+        else {
+            if (!masterSearch.getOutFlights().isEmpty()) {
+                Flight outFlight = masterSearch.getOutFlights().get(0);
+                for (Flight f : masterSearch.getOutFlights()) {
+                    if (f.getDepartureTime().compareTo(outFlight.getDepartureTime()) < 0) {
+                        outFlight = f;
+                    }
                 }
+                outFlights.add(outFlight);
             }
-            outFlights.add(outFlight);
-        }
-        if(!masterSearch.getInFlights().isEmpty()) {
-            Flight inFlight = masterSearch.getInFlights().get(0);
-            for (Flight f : masterSearch.getInFlights()) {
-                if (f.getDepartureTime().compareTo(inFlight.getDepartureTime()) < 0) {
-                    inFlight = f;
+            if (!masterSearch.getInFlights().isEmpty()) {
+                Flight inFlight = masterSearch.getInFlights().get(0);
+                for (Flight f : masterSearch.getInFlights()) {
+                    if (f.getDepartureTime().compareTo(inFlight.getDepartureTime()) < 0) {
+                        inFlight = f;
+                    }
                 }
+                inFlights.add(inFlight);
             }
-            inFlights.add(inFlight);
         }
 
         getMostExpensiveRooms();
@@ -340,24 +367,7 @@ public class TripPackage extends SearchResult{
     }
 
     public void allIn() {
-        if(!masterSearch.getOutFlights().isEmpty()) {
-            Flight outFlight = masterSearch.getOutFlights().get(0);
-            for (Flight f : masterSearch.getOutFlights()) {
-                if (f.getDepartureTime().compareTo(outFlight.getDepartureTime()) < 0) {
-                    outFlight = f;
-                }
-            }
-            outFlights.add(outFlight);
-        }
-        if(!masterSearch.getInFlights().isEmpty()) {
-            Flight inFlight = masterSearch.getInFlights().get(0);
-            for (Flight f : masterSearch.getInFlights()) {
-                if (f.getDepartureTime().compareTo(inFlight.getDepartureTime()) > 0) {
-                    inFlight = f;
-                }
-            }
-            inFlights.add(inFlight);
-        }
+        findNonOverlappingFlights();
 
         getCheapestHotelRooms();
 
@@ -375,23 +385,26 @@ public class TripPackage extends SearchResult{
     }
 
     public void relaxation() {
-        if(!masterSearch.getOutFlights().isEmpty()) {
-            Flight outFlight = masterSearch.getOutFlights().get(0);
-            for (Flight f : masterSearch.getOutFlights()) {
-                if (f.getDepartureTime().compareTo(outFlight.getDepartureTime()) > 0) {
-                    outFlight = f;
+        if(startDate.equals(endDate)) findNonOverlappingFlights();
+        else {
+            if (!masterSearch.getOutFlights().isEmpty()) {
+                Flight outFlight = masterSearch.getOutFlights().get(0);
+                for (Flight f : masterSearch.getOutFlights()) {
+                    if (f.getDepartureTime().compareTo(outFlight.getDepartureTime()) > 0) {
+                        outFlight = f;
+                    }
                 }
+                outFlights.add(outFlight);
             }
-            outFlights.add(outFlight);
-        }
-        if(!masterSearch.getInFlights().isEmpty()) {
-            Flight inFlight = masterSearch.getInFlights().get(0);
-            for (Flight f : masterSearch.getInFlights()) {
-                if (f.getDepartureTime().compareTo(inFlight.getDepartureTime()) < 0) {
-                    inFlight = f;
+            if (!masterSearch.getInFlights().isEmpty()) {
+                Flight inFlight = masterSearch.getInFlights().get(0);
+                for (Flight f : masterSearch.getInFlights()) {
+                    if (f.getDepartureTime().compareTo(inFlight.getDepartureTime()) < 0) {
+                        inFlight = f;
+                    }
                 }
+                inFlights.add(inFlight);
             }
-            inFlights.add(inFlight);
         }
 
         getMostExpensiveRooms();
