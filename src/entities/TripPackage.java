@@ -131,8 +131,10 @@ public class TripPackage extends SearchResult{
                         lowestFavPrice = t.getPrice();
                     }
                 }
-                tripNames.add(cheapestFav.getCategory());
-                dayTrips.add(cheapestFav);
+                if(cheapestFav != null) {
+                    tripNames.add(cheapestFav.getCategory());
+                    dayTrips.add(cheapestFav);
+                }
             }
             for (int i = 0; i < 2; i++) {
                 Trip cheapestTrip = null;
@@ -278,8 +280,10 @@ public class TripPackage extends SearchResult{
                         highestFavPrice = t.getPrice();
                     }
                 }
-                tripNames.add(mostExpensiveFav.getCategory());
-                dayTrips.add(mostExpensiveFav);
+                if(mostExpensiveFav != null) {
+                    tripNames.add(mostExpensiveFav.getCategory());
+                    dayTrips.add(mostExpensiveFav);
+                }
             }
             for (int i = 0; i < 2; i++) {
                 Trip mostExpensiveTrip = null;
