@@ -69,6 +69,8 @@ public class SearchUiController implements Initializable {
     private Button backToSearch;
     @FXML
     private Button bookCustomPackage;
+    @FXML
+    private Label villuBod;
 
     private Stage searchStage;
 
@@ -134,6 +136,14 @@ public class SearchUiController implements Initializable {
 
     public void searchButtonClicked() throws Exception {
         try {
+            String from = originInput.getText();
+            String to = destinationInput.getText();
+            LocalDate startDate = departureInput.getValue();
+            LocalDate endDate = returnInput.getValue();
+            if(from.isEmpty() || to.isEmpty() || startDate == null || endDate == null || adultsInput.getText().isEmpty() || childrenInput.getText().isEmpty()) {
+                villuBod.setVisible(true);
+                return;
+            }
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/searchresultsUI.fxml"));
             AnchorPane resultRoot = loader.load();
             SearchUiController resultController = loader.getController();
@@ -142,16 +152,13 @@ public class SearchUiController implements Initializable {
             }
             sceneRoot.getChildren().setAll(resultRoot);
 
-            // todo sækja uppsl úr inputtum og smíða search result með því
-            searchResult = new SearchResult(LocalDate.of(2021, 5, 6),
-                    LocalDate.of(2021, 5, 10),
-                    "Akureyri", "Reykjavík", 2, 2
-            );
+            int numAdults = Integer.parseInt(adultsInput.getText());
+            int numChildren = Integer.parseInt(childrenInput.getText());
+            searchResult = new SearchResult(startDate, endDate, from, to, numAdults, numChildren);
             searchResult.search();
             searchController = new SearchController(searchResult, user);
             searchController.createTripPackages();
             updateSearchView();
-
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -133,8 +133,8 @@ public class UserBookingsController {
                 passengerNames.getChildren().add(passengerName);
                 Label seat1 = new Label(passengerSeats.get(p.getFirstName()+flights.get(0).getID()).getSeatNumber());
                 Label seat2 = new Label(passengerSeats.get(p.getFirstName()+flights.get(1).getID()).getSeatNumber());
-                seat1.setPrefWidth(30);
-                seat2.setPrefWidth(30);
+                seat1.setPrefWidth(40);
+                seat2.setPrefWidth(40);
                 seat1.getStyleClass().add("booking-small");
                 seat2.getStyleClass().add("booking-small");
                 passengerSeat1.getChildren().add(seat1);

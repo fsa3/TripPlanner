@@ -159,6 +159,9 @@ public class TripPackage extends SearchResult{
         if(!masterSearch.getHotels().isEmpty()) {
             TreeMap<Accommodation, ArrayList<Room>> hotelsCheapestRoomComb = new TreeMap<>();
             for (Accommodation h : masterSearch.getHotels()) {
+                if(user != null) {
+                    if(h.getRating() < user.getMinHotelRating()) continue;
+                }
                 hotelsCheapestRoomComb.put(h, new ArrayList<Room>());
                 ArrayList<Room> availableRooms = h.getAvailableRooms(DataConnection.localDateToDate(startDate), DataConnection.localDateToDate(endDate));
                 Room cheapestRoomInHotel = availableRooms.get(0);
@@ -193,6 +196,9 @@ public class TripPackage extends SearchResult{
             Accommodation cheapestHotel = null;
             double lowestPrice = Double.POSITIVE_INFINITY;
             for (Accommodation h : masterSearch.getHotels()) {
+                if(user != null) {
+                    if(h.getRating() < user.getMinHotelRating()) continue;
+                }
                 ArrayList<Room> rooms = hotelsCheapestRoomComb.get(h);
                 int roomsTotalCap = totalCap(rooms);
                 if(roomsTotalCap > numChildren+numAdults) {
@@ -276,6 +282,9 @@ public class TripPackage extends SearchResult{
         if(!masterSearch.getHotels().isEmpty()) {
             TreeMap<Accommodation, ArrayList<Room>> hotelsMostExpensiveRoomComb = new TreeMap<>();
             for (Accommodation h : masterSearch.getHotels()) {
+                if(user != null) {
+                    if(h.getRating() < user.getMinHotelRating()) continue;
+                }
                 hotelsMostExpensiveRoomComb.put(h, new ArrayList<Room>());
                 ArrayList<Room> availableRooms = h.getAvailableRooms(DataConnection.localDateToDate(startDate), DataConnection.localDateToDate(endDate));
                 Room mostExpensiveRoomInHotel = availableRooms.get(0);
@@ -310,6 +319,9 @@ public class TripPackage extends SearchResult{
             Accommodation mostExpensiveHotel = null;
             double highestPrice = Double.NEGATIVE_INFINITY;
             for (Accommodation h : masterSearch.getHotels()) {
+                if(user != null) {
+                    if(h.getRating() < user.getMinHotelRating()) continue;
+                }
                 ArrayList<Room> rooms = hotelsMostExpensiveRoomComb.get(h);
                 int roomsTotalCap = totalCap(rooms);
                 if(roomsTotalCap > numChildren+numAdults) {

@@ -400,7 +400,7 @@ public class DataConnection {
     }
 
     public void deleteDayTripBooking(DayTripBooking dtB) {
-        String query = "DELETE FROM DayTripBooking WHERE bookingId = ?";
+        String query = "DELETE FROM DayTripBookings WHERE bookingId = ?";
         try {
             PreparedStatement deleteDayTripBooking = connection.prepareStatement(query);
             deleteDayTripBooking.setInt(1, dtB.getBookingId());
