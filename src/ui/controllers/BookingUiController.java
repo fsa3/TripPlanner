@@ -574,23 +574,47 @@ public class BookingUiController {
             openLogin();
             return;
         }
+        if((!tripPackage.getOutFlights().isEmpty() || !tripPackage.getInFlights().isEmpty()) && missingInformation()) {
+            paymentError.setText("Please fill out all information");
+            return;
+        }
+        if(expiryYear.getText().length() < 4) {
+            paymentError.setText("Invalid payment information");
+            return;
+        }
         PaymentInfo paymentInfo = new PaymentInfo("-1", expiryMonth.getText()+"/"+expiryYear.getText().substring(2), cardNum.getText(), cvv.getText(), paymentName.getText());
         if(!paymentInfo.validate()) {
-            paymentError.setText("Payment error"); // todo setja réttan texta hér
+            paymentError.setText("Invalid payment information");
             //return; todo taka út comment
         }
         BookingController bookingController = new BookingController(tripPackage, user, searchResult, paymentInfo);
         if(!tripPackage.getOutFlights().isEmpty() || !tripPackage.getInFlights().isEmpty()) {
             ArrayList<Passenger> passengers = getPassengers();
-            ArrayList<Seat> outSeats = getOutSeats();
-            ArrayList<Seat> inSeats = getInSeats();
             bookingController.setPassengers(passengers);
-            bookingController.setOutSeats(outSeats);
-            bookingController.setInSeats(inSeats);
+            if(!tripPackage.getOutFlights().isEmpty()) {
+                ArrayList<Seat> outSeats = getOutSeats();
+                bookingController.setOutSeats(outSeats);
+            }
+            if(!tripPackage.getInFlights().isEmpty()) {
+                ArrayList<Seat> inSeats = getInSeats();
+                bookingController.setInSeats(inSeats);
+            }
         }
         bookingController.bookPackage();
         goBackToSearch();
         openUserBookings();
+    }
+
+    private boolean missingInformation() {
+        ArrayList<Passenger> passengers = getPassengers();
+        for(Passenger p : passengers) {
+            if(p.getFirstName().isBlank() || p.getLastName().isBlank() || p.getKennitala().isBlank()) {
+                return true;
+            }
+        }
+        Info information = Info.getInstance();
+        if(information.getSelectedSeatsOut().size() < tripPackage.getNumAdults() + tripPackage.getNumChildren()) return true;
+        return information.getSelectedSeatsIn().size() < tripPackage.getNumAdults() + tripPackage.getNumChildren();
     }
 
     private ArrayList<Seat> getInSeats() {
