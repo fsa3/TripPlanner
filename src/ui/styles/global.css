@@ -232,3 +232,10 @@ Button {
 .booking-small {
     -fx-font-size: 11px;
 }
+.origin-destination {
+    -fx-background-color:  #393939;
+    -fx-prompt-text-fill: #726f6f;
+}
+.combo-box . {
+    -fx-prompt-text-fill: #726f6f ;
+}
