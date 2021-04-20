@@ -238,8 +238,10 @@ public class TripPackage extends SearchResult{
                     cheapestHotel = h;
                 }
             }
-            hotels.add(cheapestHotel);
-            rooms.addAll(hotelsCheapestRoomComb.get(cheapestHotel));
+            if(cheapestHotel != null) {
+                hotels.add(cheapestHotel);
+                rooms.addAll(hotelsCheapestRoomComb.get(cheapestHotel));
+            }
         }
     }
 
@@ -366,8 +368,10 @@ public class TripPackage extends SearchResult{
                     mostExpensiveHotel = h;
                 }
             }
-            hotels.add(mostExpensiveHotel);
-            rooms.addAll(hotelsMostExpensiveRoomComb.get(mostExpensiveHotel));
+            if(mostExpensiveHotel != null) {
+                hotels.add(mostExpensiveHotel);
+                rooms.addAll(hotelsMostExpensiveRoomComb.get(mostExpensiveHotel));
+            }
         }
     }
 
