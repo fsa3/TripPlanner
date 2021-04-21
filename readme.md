@@ -7,8 +7,11 @@
 
 ## Group members in team T
 * Ágúst Heiðar Sveinbjörnsson - [ahs33@hi.is](mailto:ahs33@hi.is)
+    * Github: [`agustheidar`](https://github.com/agustheidar)
 * Björn Borgar Magnússon - [bbm5@hi.is](mailto:bbm5@hi.is)
+    * Github: [`BearPays`](https://github.com/BearPays)
 * Fannar Steinn Aðalsteinsson - [fsa3@hi.is](mailto:fsa3@hi.is)
+    * Github: [`fsa3`](https://github.com/fsa3)
 
 This repository contains the source code for the integrated Trip Planner called Bookmaster created by cluster 6 in
 Þróun Hugbúnaðar 2021.
@@ -19,7 +22,7 @@ This repository contains the source code for the integrated Trip Planner called 
 * The [`src/hotelSystem`](src/hotelSystem) package contains the code for the hotel system implemented by the H team
     * [Link to original source code](https://github.com/tfj2/ThrounH)
     
-* The [`src/hotelSystem`](src/hotelSystem) package contains the code for the day trip system implemented by the D team
+* The [`src/dayTripSystem`](src/dayTripSystem) package contains the code for the day trip system implemented by the D team
     * [Link to original source code](https://github.com/ragnadua/HBV401G)
     
 All other code is written by the T team.
